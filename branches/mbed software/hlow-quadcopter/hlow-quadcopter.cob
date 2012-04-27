@@ -7,6 +7,7 @@
   <Components>
     <Component id="c37a9351-96ed-11df-80ae-001d7d723e56" name="C Library"/>
     <Component id="c37f2731-96ed-11df-80ae-001d7d723e56" name="Retarget printf"/>
+    <Component id="df1235a1-a1fb-11df-adce-005056c00008" name="COX"/>
     <Component id="bf7c3c91-96ed-11df-80ae-001d7d723e56" name="CMSIS core"/>
     <Component id="c34fd9d1-96ed-11df-80ae-001d7d723e56" name="CooCox OS"/>
     <Component id="c2351b01-96ed-11df-80ae-001d7d723e56" name="CMSIS_boot"/>

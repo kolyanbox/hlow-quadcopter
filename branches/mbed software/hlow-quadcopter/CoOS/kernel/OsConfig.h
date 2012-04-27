@@ -32,7 +32,7 @@ Defines the lowest priority that be assigned.
 /*!< 
 Max number of tasks that can be running.		     
 */			
-#define CFG_MAX_USER_TASKS      (5)
+#define CFG_MAX_USER_TASKS      (7)
 
 /*!< 
 Idle task stack size(word).		                         
@@ -68,7 +68,7 @@ If disable(0),CoOS use Binary-Scheduling Algorithm.
 /*!< 
 Enable(1) or disable(0) Round-Robin Task switching. 
 */
-#define CFG_ROBIN_EN            (1)         
+#define CFG_ROBIN_EN            (0)
 
 /*!< 
 Default slice of task.   	                          

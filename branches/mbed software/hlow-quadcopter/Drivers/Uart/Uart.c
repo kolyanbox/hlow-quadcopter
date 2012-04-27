@@ -1,4 +1,5 @@
-#include <Drivers/Uart/Uart.h>
+#include <Drivers/Uart/UART.h>
+
 
 void UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 {
@@ -133,73 +134,45 @@ void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer)
 	UART_Send(UARTx, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
 }
 
-void DEBUG_Init(uint32_t uiBaudrate)
-{
-	UARTInit(LPC_UART0, uiBaudrate);
-}
-void DEBUG_Send(const char * sendBuffer)
-{
-	UART_Send(LPC_UART0, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
-}
-
-
-
 /* Interrupt Handler */
 void UART0_IRQHandler (void)
 {
+	const char* c = "$$$";
+	UARTSend(LPC_UART3 , c);
 	unsigned char ucCharacter;
+
 	ucCharacter = UART_ReceiveByte(LPC_UART0);
-	if (ucCharacter == '1')
-	{
-		const char* c = "$$$";
-		UARTSend(LPC_UART3 , c);
-	}
-	if (ucCharacter == '2')
-	{
-		const char* c = "$$$";
-		UARTSend(LPC_UART3 , c);
-	}
-	if (ucCharacter == '3')
-	{
-		const char* c = "$$$";
-		UARTSend(LPC_UART3 , c);
-	}
-	if (ucCharacter == '4')
-	{
-		const char* c = "$$$";
-		UARTSend(LPC_UART3 , c);
-	}
-
-
-
-
-
-	//UART_SendByte(LPC_UART0,ucCharacter);
-	//UART_SendByte(LPC_UART0,'q');
+	UART_SendByte(LPC_UART0,ucCharacter);
+	UART_SendByte(LPC_UART0,'q');
 	UART_SendByte(LPC_UART3,ucCharacter);
 }
 
 /* Interrupt Handler */
 void UART1_IRQHandler (void)
 {
+	//LED_set(2, 0);
 	UART_SendByte(LPC_UART0,UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART1));
 }
 
 /* Interrupt Handler */
 void UART2_IRQHandler (void)
 {
-	DEBUG_Send("hoi");
+	WriteDebugInfo("hoi");
 	unsigned char ucCharacter;
 	ucCharacter = UART_ReceiveByte(LPC_UART2);
 	UART_SendByte(LPC_UART0,ucCharacter);
 	UART_SendByte(LPC_UART0,'g');
+	//LED_set(2, 0);
 	UART_SendByte(LPC_UART0,UART_ReceiveByte(LPC_UART2));
 }
 
 /* Interrupt Handler */
 void UART3_IRQHandler (void)
 {
-	//DEBUG_Send("hoi");
+	WriteDebugInfo("hoi");
 	//LED_set(2, TRUE);
 	UART_SendByte(LPC_UART0,UART_ReceiveByte(LPC_UART3));
 }
+
+
+

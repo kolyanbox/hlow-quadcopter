@@ -1,41 +1,25 @@
 #include <Interfaces/Actuators/Actuators.h>
 
-Bool InitializeActuators(void)
+Bool ActuatorsInitialization(void)
 {
-	DEBUG_Init(115200);
-	//InitializePWM();
-
+	/*Initialize Uart for debug perposes*/
+	UARTInit(LPC_UART0, 115200);
+	/*Initialize leds*/
+	GPIO_init(1, led1, 1);
+	GPIO_init(1, led2, 1);
+	GPIO_init(1, led3, 1);
+	GPIO_init(1, led4, 1);
 	return TRUE;
 }
+
 Bool WriteDebugInfo(const char * sendBuffer)
 {
-	DEBUG_Send(sendBuffer);
+	UART_Send(LPC_UART0, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
 	return TRUE;
 }
 
-Bool InitializePWM()
+Bool setLed(enum LED led ,Bool enable)
 {
-	return TRUE;//PWMInit(pwm1,pwm2,pwm3, pwm4, 0.018);
-}
-
-Bool setSpeedFront(int Percent)
-{return TRUE;
-	/*float fSpeed = 0.0;
-
-	If input variables aren't correct
-	if (Percent < 0 || Percent > 100)
-	{
-		return FALSE;
-	}
-
-	if (Percent == 0)
-	{
-		Percent++;
-	}
-
-	fSpeed = SPEED_PROCENT * (Percent-1)+SPEED_LOW;
-
-	SetPWM(pwm1,fSpeed);
-
-	return TRUE;*/
+	GPIO_set(1,led,enable);
+	return TRUE;
 }
