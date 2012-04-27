@@ -1,28 +1,23 @@
-#ifndef ACTUATORS_H
-#define ACTUATORS_H
+#ifndef ACTUATORS_H_
+#define ACTUATORS_H_
 
-#include <Drivers/Uart/Uart.h>
-#include <Drivers/PWM/PWM.h>
+/*common includes*/
 #include <lpc_types.h>
-#include <lpc_types.h>
-#include <lpc_pwm.h>
+/*Uart*/
+#include <Drivers/Uart/UART.h>
+/*GPIO*/
+#include <Drivers/GPIO/GPIO.h>
 
-/*#define SPEED_NEUTRAL	0.05
-#define SPEED_LOW		0.05
-#define SPEED_HIGH		0.08
-#define SPEED_DIFF		(SPEED_HIGH-SPEED_LOW)
-#define SPEED_PROCENT	(SPEED_DIFF/100)
-
-enum PWMPORTS {
-	pwm1 = COX_PIN(2, 2), //p24
-	pwm2 = COX_PIN(2, 3), //p23
-	pwm3 = COX_PIN(2, 4), //p22
-	pwm4 = COX_PIN(2, 5)  //p21
+enum LED {
+	led1 =  (1 << 18),
+	led2 = (1 << 20),
+	led3 = (1 << 21),
+	led4 = (1 << 23)
 };
-*/
-Bool InitializeActuators(void);
-//Bool InitializePWM();
+
+/*Public actuator initialization*/
+Bool ActuatorsInitialization(void);
 Bool WriteDebugInfo(const char * sendBuffer);
-//Bool setSpeedFront(int Percent);
+Bool setLed(enum LED led ,Bool enable);
 
 #endif

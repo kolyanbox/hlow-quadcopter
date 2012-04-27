@@ -1,3 +1,6 @@
+#include <Interfaces/Actuators/Actuators.h>
+#include <Control/Startup.h>
+
 /**
  *******************************************************************************
  * @file       hook.c
@@ -54,7 +57,13 @@ void CoStkOverflowHook(OS_TID taskID)
     /* Process stack overflow  here */
     for(; ;) 
     {
-      
+    	WriteDebugInfo("StackOverFlow!!!!\n");
+    	while (StopQuadCopterImmediate())
+		{
+    		WriteDebugInfo("Quadcopter didnt't stop!\n\r");
+		}
+
+    	WriteDebugInfo("Emergency stop!!!!\n");
     }
 }
 
