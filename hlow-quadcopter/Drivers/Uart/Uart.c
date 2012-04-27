@@ -1,4 +1,4 @@
-#include <Hardware/Uart/Uart.h>
+#include <Drivers/Uart/Uart.h>
 
 void UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 {
