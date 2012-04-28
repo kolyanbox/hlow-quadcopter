@@ -27,5 +27,9 @@
   <ExcludedFiles>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\UltrasonicSensor.c"/>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\UltrasonicSensor.h"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\I2Cold.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\I2Cold.h"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\System\Sensorsold.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\System\Sensorsold.h"/>
   </ExcludedFiles>
 </Project>

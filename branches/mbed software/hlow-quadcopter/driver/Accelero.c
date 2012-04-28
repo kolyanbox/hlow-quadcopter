@@ -25,7 +25,7 @@ int Accelero_init()
 {
 	NVIC_EnableIRQ(I2C2_IRQn);
 
-	DEBUG_Send("Start i2c\n\r");
+	WriteDebugInfo("Start i2c\n\r");
 	Accelero_TxBuffer[0] = 0x40;
 	Accelero_TxBuffer[1] = 0x00;
 
@@ -42,11 +42,11 @@ int Accelero_init()
 	{
 		while(!MessageReceived);
 		MessageReceived = 0;
-		DEBUG_Send("Good #1!\n\r");
+		WriteDebugInfo("Good #1!\n\r");
 	}
 	else
 	{
-		DEBUG_Send("Fail #1!\n\r");
+		WriteDebugInfo("Fail #1!\n\r");
 		return 1;
 	}
 	return 1;
@@ -56,7 +56,7 @@ void Accelero_get(unsigned char* rxBuffer)
 {
 	Status st;
 
-	DEBUG_Send("get");
+	WriteDebugInfo("get");
 
 	Accelero_TxBuffer[0] = 0x00;
 	/* Start I2C slave device first */
@@ -73,7 +73,7 @@ void Accelero_get(unsigned char* rxBuffer)
 		{
 			while(!MessageReceived);
 			MessageReceived = 0;
-			DEBUG_Send("Good #2\n\r");
+			WriteDebugInfo("Good #2\n\r");
 
 
 			/* Start I2C slave device first */
@@ -83,7 +83,7 @@ void Accelero_get(unsigned char* rxBuffer)
 			transferMCfg.rx_data = rxBuffer;
 			transferMCfg.rx_length = 6;//sizeof(I2C_RxBuffer);
 			transferMCfg.retransmissions_max = 3;
-			DEBUG_Send("Start Receiving \n\r");
+			WriteDebugInfo("Start Receiving \n\r");
 
 			char test[5];
 			Memset(test, '\0', sizeof(test));
@@ -96,7 +96,7 @@ void Accelero_get(unsigned char* rxBuffer)
 			{
 				while(!MessageReceived);
 				MessageReceived = 0;
-				DEBUG_Send(test);
+				WriteDebugInfo(test);
 				int i =0;
 				for(i = 2; i < 6; i++)
 				{
@@ -147,12 +147,12 @@ void Accelero_get(unsigned char* rxBuffer)
 			}
 			else
 			{
-				DEBUG_Send("Fail #3!\n\r");
+				WriteDebugInfo("Fail #3!\n\r");
 			}
 		}
 		else
 		{
-			DEBUG_Send("Fail #2!\n\r");
+			WriteDebugInfo("Fail #2!\n\r");
 		}
 	}
 }

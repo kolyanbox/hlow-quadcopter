@@ -1,4 +1,4 @@
-#include <driver/I2c.h>
+#include <Drivers/I2C/I2C.h>
 
 /*Global definitions for I2C*/
 /** Used I2C device as slave definition */

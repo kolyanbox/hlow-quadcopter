@@ -3,7 +3,7 @@
 
 #include "lpc17xx_i2c.h"
 #include <Interfaces/Actuators/Actuators.h>
-#include <driver/I2C.h>
+#include <Drivers/I2C/I2C.h>
 
 int Accelero_init();
 void Accelero_get(unsigned char* rxBuffer);
