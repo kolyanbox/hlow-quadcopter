@@ -33,6 +33,8 @@
       <fileset dir=".">
         <include name="**/*.c"/>
         <include name="**/*.s"/>
+        <exclude name="driver\UltrasonicSensor.c"/>
+        <exclude name="driver\UltrasonicSensor.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			

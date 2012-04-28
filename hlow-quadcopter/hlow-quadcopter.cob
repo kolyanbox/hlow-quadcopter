@@ -24,5 +24,8 @@
     <Component id="c2c4b0d1-96ed-11df-80ae-001d7d723e56" name="UART"/>
     <Component id="fb7e5940-4e1b-11e0-9dff-001fd0c63d33" name="EXTI"/>
   </Components>
-  <ExcludedFiles/>
+  <ExcludedFiles>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\UltrasonicSensor.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\UltrasonicSensor.h"/>
+  </ExcludedFiles>
 </Project>
