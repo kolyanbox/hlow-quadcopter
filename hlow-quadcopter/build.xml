@@ -35,6 +35,10 @@
         <include name="**/*.s"/>
         <exclude name="driver\UltrasonicSensor.c"/>
         <exclude name="driver\UltrasonicSensor.h"/>
+        <exclude name="driver\I2Cold.c"/>
+        <exclude name="driver\I2Cold.h"/>
+        <exclude name="System\Sensorsold.c"/>
+        <exclude name="System\Sensorsold.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			

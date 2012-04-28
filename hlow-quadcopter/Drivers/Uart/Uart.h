@@ -8,6 +8,7 @@
 #include <driver/util.h>
 #include <driver/Motor.h>
 #include <cmsis/core_cm3.h>
+#include <Interfaces/Actuators/Actuators.h>
 
 extern uint8_t bStarted;
 

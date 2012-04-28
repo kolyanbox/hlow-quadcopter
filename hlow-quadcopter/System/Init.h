@@ -10,7 +10,7 @@
 #include <Interfaces/Actuators/Actuators.h>
 
 /*I2C driver*/
-#include <driver/I2C.h>
+#include <Drivers/I2C/I2C.h>
 
 /*Ultrasonic driver*/
 //#include <driver/UltrasonicSensor.h>
