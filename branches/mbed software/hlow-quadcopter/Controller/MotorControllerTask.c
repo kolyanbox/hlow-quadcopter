@@ -19,7 +19,7 @@ void ControllerTaskOne (void* pdata)
 		if (CoTimeDelay(0,0,0,200) == E_OK)
 		{
 			//Get value from X ax of accelero
-			getValue(accelero, 1, &value);
+			//getValue(accelero, 1, &value);
 			pid.processInput = value/prescaler;
 
 			//Get output
@@ -101,7 +101,7 @@ void ControllerTaskThree (void* pdata)
 		if (CoTimeDelay(0,0,0,200) == E_OK)
 		{
 			//Get value from X ax of accelero
-			getValue(accelero, 1, &value);
+			//getValue(accelero, 1, &value);
 			pid.processInput = value/prescaler;
 			//Get output
 			float output = getOutputPID(&pid);

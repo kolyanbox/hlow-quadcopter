@@ -1,8 +1,9 @@
 /*---------------------------- Include ---------------------------------------*/
-#include <System/Sensors.h>
+#include <Interfaces/Sensors/Sensors.h>
 #include <System/Init.h>
 #include <driver/util.h>
 #include <Interfaces/Actuators/Actuators.h>
+#include <Interfaces/Sensors/Sensors.h>
 
 #include <driver/gyroscope.h>
 
@@ -44,14 +45,14 @@ void AcceleroTask (void* pdata)
 	for (;;)
 	{
 	  //Z
-	  getValue(accelero, 0, &value);
+	  //getValue(accelero, 0, &value);
 	  Itoa(value, print, 10);
 	  //DEBUG_Send("Z: ");
 	 //DEBUG_Send(print);
 	  //DEBUG_Send("\n");
 
 	  //X
-	  getValue(accelero, 1, &value);
+	  //getValue(accelero, 1, &value);
 	  Itoa(value, print, 10);
 	  //DEBUG_Send("X: ");
 	  //DEBUG_Send(print);
@@ -65,12 +66,15 @@ void AcceleroTask (void* pdata)
 
 void DistanceTask (void* pdata)
 {
+	sensorInitialization();
   for (;;)
   {
 	  float distance = 0;
-	  getValue(distanceToGround,0, &distance);
-	  char c[6];
-	  Ftoa(distance,c,'5','f');
+	  int distanceToGround = getCurrentHeightInCm();
+	  //getValue(distanceToGround,0, &distance);
+	  char c[30];
+	  Itoa(distanceToGround,c,10);
+	  //Ftoa(distance,c,'5','f');
 	  WriteDebugInfo("Distance: ");
 	  WriteDebugInfo(c);
 	  WriteDebugInfo("\n");
@@ -98,6 +102,7 @@ int main (void)
 	/*Set UART0 as debugging UART*/
 	ActuatorsInitialization();
 
+
 	/*First calls*/
 	WriteDebugInfo("Welcome\n");
 	WriteDebugInfo("Begin startup sequence\n");
@@ -124,7 +129,7 @@ int main (void)
 		CoCreateTask (ControllerTaskThree,0,0,&ControllerTaskThree_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
 		CoCreateTask (ControllerTaskFour,0,0,&ControllerTaskFour_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
 		CoCreateTask (AcceleroTask,0,4,&AcceleroSensor_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
-		//CoCreateTask (DistanceTask,0,4,&Distance_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
+		CoCreateTask (DistanceTask,0,4,&Distance_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
 		CoCreateTask (ControllerTaskOne,0,0,&Controller_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
 		WriteDebugInfo("Launch all tasks\n");
 		CoStartOS ();			    /* Start multitasking*/

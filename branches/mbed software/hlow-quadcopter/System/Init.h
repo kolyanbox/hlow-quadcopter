@@ -13,7 +13,7 @@
 #include <driver/I2C.h>
 
 /*Ultrasonic driver*/
-#include <driver/UltrasonicSensor.h>
+//#include <driver/UltrasonicSensor.h>
 
 /*Barometric driver*/
 #include <driver/BaroMetric.h>
@@ -21,5 +21,5 @@
 /*Initialize peripherals*/
 int init_Peripherals(void);
 
-#include <System/Sensors.h>
+//#include <System/Sensors.h>
 #endif

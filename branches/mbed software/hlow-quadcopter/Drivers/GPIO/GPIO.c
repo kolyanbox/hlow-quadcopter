@@ -2,7 +2,7 @@
 
 void GPIO_init(uint32_t pin, uint8_t port, uint8_t direction)
 {
-	GPIO_SetDir(1, pin, 1);
+	GPIO_SetDir(port, pin, direction);
 }
 
 void GPIO_set(uint8_t port, uint32_t pin, Bool enable)

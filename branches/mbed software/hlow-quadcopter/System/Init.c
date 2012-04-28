@@ -10,16 +10,16 @@ int init_Peripherals(void)
 	//UART1Init(LPC_UART1, 9600);
 	/*LED initialization (The 4 LEDs at the MBED)*/
 	/*Ultrasonic initialization*/
-	initUltrasonicSensor();
+	//initUltrasonicSensor();
 	//LED_init();
 	/*Initialize I2C*/
 	I2C_Initialize();
 
 	/*Initialize ADC*/
-	if (SensorInit() == FALSE)
-	{
-		return 1;
-	}
+	///if (SensorInit() == FALSE)
+	//{
+	//	return 1;
+	//}
 	/*Barometric sensor initialization*/
 	//BaroMetricInit();
 
