@@ -150,7 +150,6 @@ void UART0_IRQHandler (void)
 /* Interrupt Handler */
 void UART1_IRQHandler (void)
 {
-	//LED_set(2, 0);
 	UART_SendByte(LPC_UART0,UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART1));
 }
 
@@ -169,8 +168,6 @@ void UART2_IRQHandler (void)
 /* Interrupt Handler */
 void UART3_IRQHandler (void)
 {
-	WriteDebugInfo("hoi");
-	//LED_set(2, TRUE);
 	UART_SendByte(LPC_UART0,UART_ReceiveByte(LPC_UART3));
 }
 
