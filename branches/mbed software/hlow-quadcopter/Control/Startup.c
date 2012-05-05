@@ -13,10 +13,10 @@ int StartUpQuadCopter(void)
 		return PeripheralError;
 	}
 	/*Initialize motors*/
-	if (!MotorInit())
-	{
-		return 10;
-	}
+	//if (!MotorInit())
+	//{
+	//	return 10;
+	//}
 	return 0;
 }
 
@@ -26,10 +26,11 @@ int StartUpQuadCopter(void)
  * */
 Bool StopQuadCopterImmediate(void)
 {
+	//TODO: uncomment code and implement right one
 	/*if stopping motors isn't successful*/
-	if (!SetMotor(motor1,0) || !SetMotor(motor2,0) || !SetMotor(motor3,0) || !SetMotor(motor4,0))
-	{
-		return FALSE;
-	}
+	//if (!SetMotor(motor1,0) || !SetMotor(motor2,0) || !SetMotor(motor3,0) || !SetMotor(motor4,0))
+	//{
+	//	return FALSE;
+	//}
 	return TRUE;
 }

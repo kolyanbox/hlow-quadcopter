@@ -39,6 +39,8 @@
         <exclude name="driver\I2Cold.h"/>
         <exclude name="System\Sensorsold.c"/>
         <exclude name="System\Sensorsold.h"/>
+        <exclude name="driver\Motor.c"/>
+        <exclude name="driver\Motor.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			

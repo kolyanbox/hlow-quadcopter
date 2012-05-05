@@ -3,7 +3,6 @@
 
 #include <lpc_types.h>
 #include <System/Init.h>
-#include <driver/Motor.h>
 
 enum ERRORMESSAGES{
 	motorstartfail = 1

@@ -41,25 +41,29 @@ void AcceleroTask (void* pdata)
 {
 	char print[50];
 	uint16_t value = 0;
-	gyroscope_init();
+	//gyroscope_init();
 	for (;;)
 	{
-	  //Z
-	  //getValue(accelero, 0, &value);
-	  Itoa(value, print, 10);
-	  //DEBUG_Send("Z: ");
-	 //DEBUG_Send(print);
-	  //DEBUG_Send("\n");
+		value = getCurrentAngle(X);
+		Itoa(value, print, 10);
+		WriteDebugInfo("X: ");
+		WriteDebugInfo(print);
+		WriteDebugInfo("\n");
 
-	  //X
-	  //getValue(accelero, 1, &value);
-	  Itoa(value, print, 10);
-	  //DEBUG_Send("X: ");
-	  //DEBUG_Send(print);
-	  //DEBUG_Send("\n");
+		value = getCurrentAngle(Y);
+		Itoa(value, print, 10);
+		WriteDebugInfo("Y: ");
+		WriteDebugInfo(print);
+		WriteDebugInfo("\n");
+
+		value = getCurrentAngle(Z);
+		Itoa(value, print, 10);
+		WriteDebugInfo("Y: ");
+		WriteDebugInfo(print);
+		WriteDebugInfo("\n");
 
 	  //DEBUG_Send("gyro");
-	  gyroscope_get();
+	  //gyroscope_get();
 	  CoTickDelay(300);
 	}
 }
@@ -101,7 +105,7 @@ int main (void)
 	SystemInit();
 	/*Set UART0 as debugging UART*/
 	ActuatorsInitialization();
-
+	sensorInitialization();
 
 	/*First calls*/
 	WriteDebugInfo("Welcome\n");
@@ -115,13 +119,6 @@ int main (void)
 	int quadcopterStartupError = StartUpQuadCopter();
 	if (quadcopterStartupError == 0)
 	{
-		WriteDebugInfo("Starting motors at one percent\n");
-		/*Set motors almost off*/
-		SetMotor(motor1,1);
-		SetMotor(motor2,1);
-		SetMotor(motor3,1);
-		SetMotor(motor4,1);
-
 		/*Create all tasks tasks*/
 		WriteDebugInfo("Create tasks\n");
 		CoCreateTask (HeartBeat,0,64,&HeartBeat_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
