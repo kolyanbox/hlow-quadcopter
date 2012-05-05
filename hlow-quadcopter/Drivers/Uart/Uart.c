@@ -137,8 +137,6 @@ void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer)
 /* Interrupt Handler */
 void UART0_IRQHandler (void)
 {
-	const char* c = "$$$";
-	UARTSend(LPC_UART3 , c);
 	unsigned char ucCharacter;
 
 	ucCharacter = UART_ReceiveByte(LPC_UART0);

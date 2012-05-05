@@ -41,7 +41,12 @@ void ControllerTaskOne (void* pdata)
 				output = 30;
 			}
 
-			SetMotor(motor1, output);
+			setSpeedBack(30);
+			setSpeedFront(30);
+			setSpeedLeft(30);
+			setSpeedRight(30);
+
+			//SetMotor(motor1, output);
 
 			//Ftoa(output,print,5,10);
 			//DEBUG_Send("MotorOne: ");
@@ -125,7 +130,7 @@ void ControllerTaskThree (void* pdata)
 				output = 30;
 			}
 
-			SetMotor(motor3, (int)output);
+			//SetMotor(motor3, (int)output);
 
 			//char print[6];
 			//pid.processInput = 0;
