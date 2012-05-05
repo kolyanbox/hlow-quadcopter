@@ -1,7 +1,7 @@
 /*---------------------------- Include ---------------------------------------*/
 #include <Interfaces/Sensors/Sensors.h>
 #include <System/Init.h>
-#include <driver/util.h>
+#include <General/util.h>
 #include <Interfaces/Actuators/Actuators.h>
 #include <Interfaces/Sensors/Sensors.h>
 
@@ -62,6 +62,9 @@ void AcceleroTask (void* pdata)
 		WriteDebugInfo(print);
 		WriteDebugInfo("\n");
 
+
+		getRotation();
+
 	  //DEBUG_Send("gyro");
 	  //gyroscope_get();
 	  CoTickDelay(300);
@@ -70,7 +73,6 @@ void AcceleroTask (void* pdata)
 
 void DistanceTask (void* pdata)
 {
-	sensorInitialization();
   for (;;)
   {
 	  float distance = 0;
