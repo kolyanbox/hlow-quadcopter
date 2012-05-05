@@ -41,6 +41,10 @@
         <exclude name="System\Sensorsold.h"/>
         <exclude name="driver\Motor.c"/>
         <exclude name="driver\Motor.h"/>
+        <exclude name="driver\BaroMetric.c"/>
+        <exclude name="driver\BaroMetric.h"/>
+        <exclude name="driver\gyroscope.c"/>
+        <exclude name="driver\gyroscope.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			

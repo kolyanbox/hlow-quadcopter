@@ -33,5 +33,9 @@
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\System\Sensorsold.h"/>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\Motor.c"/>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\Motor.h"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\BaroMetric.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\BaroMetric.h"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\gyroscope.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\gyroscope.h"/>
   </ExcludedFiles>
 </Project>
