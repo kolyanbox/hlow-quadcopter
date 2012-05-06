@@ -3,7 +3,7 @@
 /*Global definitions for I2C*/
 
 /** Own Slave address in Slave I2C device */
-#define I2CDEV_S_ADDR_1 (0x52)
+#define I2CDEV_S_ADDR_1 (0x53)
 #define I2CDEV_S_ADDR_2	(0x52)
 
 #define I2CDEV_M LPC_I2C2
@@ -11,41 +11,42 @@
 #define RPSPUNIT -0.00126766
 
 /* Global variables */
-uint8_t Gyro_TxBuffer[2] = { 0 };
+uint8_t Gyro_TxBuffer[2] = { 0,0 };
 
 I2C_M_SETUP_Type transferMCfg;
 
 int initializeWiiMotionPlus()
 {
-	NVIC_EnableIRQ(I2C2_IRQn);
+	//NVIC_EnableIRQ(I2C2_IRQn);
 
-	Gyro_TxBuffer[0] = 0xF0;
-	Gyro_TxBuffer[1] = 0x55;
+	Gyro_TxBuffer[0] = 0xFE;
+	Gyro_TxBuffer[1] = 0x04;
 
 	/* Transmit -------------------------------------------------------- */
 	/* Start I2C slave device first */
-	transferMCfg.sl_addr7bit = I2CDEV_S_ADDR_2;
+	transferMCfg.sl_addr7bit = 0b1010011;
 	transferMCfg.tx_data = Gyro_TxBuffer;
 	transferMCfg.tx_length = 2;//sizeof(I2C_TxBuffer);
 	transferMCfg.rx_data = NULL;
 	transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 3;
 
-	WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");
-	WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");
-	WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");WriteDebugInfo("wait");
-
-	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
+	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING))
 	{
-		Gyro_TxBuffer[0] = 0xfe;
-		Gyro_TxBuffer[1] = 0x04;
+		/*Wait for WiiMotionPlus to change address*/
+		int i = 0;
+		while (i<9999)
+		{
+			i++;
+		}
+		Gyro_TxBuffer[0] = 0x00;
 		/* Start I2C slave device first */
-		transferMCfg.sl_addr7bit = I2CDEV_S_ADDR_1;
+		transferMCfg.sl_addr7bit = 0b1010010;
 		transferMCfg.tx_data = Gyro_TxBuffer;
-		transferMCfg.tx_length = 2;//sizeof(I2C_TxBuffer);
+		transferMCfg.tx_length = 1;//sizeof(I2C_TxBuffer);
 		transferMCfg.rx_data = NULL;
 		transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
-		transferMCfg.retransmissions_max = 3;
+		transferMCfg.retransmissions_max = 0;
 		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 		{
 			return 0;
@@ -63,7 +64,6 @@ int initializeWiiMotionPlus()
 
 void gyroscope_get()
 {
-	WriteDebugInfo("gyro get\n");
 	uint8_t rxBuffer[6];
 	rxBuffer[0] = 0;
 	rxBuffer[1] = 0;
@@ -72,38 +72,36 @@ void gyroscope_get()
 	rxBuffer[4] = 0;
 	rxBuffer[5] = 0;
 
-	WriteDebugInfo("address init\n");
+	Status st;
 
 	Gyro_TxBuffer[0] = 0x00;
+	Gyro_TxBuffer[1] = 0x00;
 	/* Start I2C slave device first */
-	transferMCfg.sl_addr7bit = I2CDEV_S_ADDR_2;
+	transferMCfg.sl_addr7bit = 0b1010010;
 	transferMCfg.tx_data = Gyro_TxBuffer;
 	transferMCfg.tx_length = 1;//sizeof(I2C_TxBuffer);
 	transferMCfg.rx_data = NULL;
 	transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
-	transferMCfg.retransmissions_max = 3;
+	transferMCfg.retransmissions_max = 0;
 
-	WriteDebugInfo("send\n");
-
-	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
+	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING))
 	{
-		WriteDebugInfo("rec\n");
 		/* Start I2C slave device first */
 		transferMCfg.sl_addr7bit = I2CDEV_S_ADDR_2;
 		transferMCfg.tx_data = NULL;
 		transferMCfg.tx_length = 0;//sizeof(I2C_TxBuffer);
 		transferMCfg.rx_data = rxBuffer;
 		transferMCfg.rx_length = 6;//sizeof(I2C_RxBuffer);
-		transferMCfg.retransmissions_max = 3;
+		transferMCfg.retransmissions_max = 0;
 
 		char test[5];
 		Memset(test, '\0', sizeof(test));
 
-		WriteDebugInfo("send2\n");
+		st = I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT);
 
-		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
+		if(st)
 		{
-			WriteDebugInfo("rec2\n");
+			while (transferMCfg.rx_count <6);
 
 			//detect if we ever went into fast mode
 			if (rxBuffer[3] & 0x02)
@@ -119,7 +117,7 @@ void gyroscope_get()
 				WriteDebugInfo("fast 3\n");
 			}
 
-			while (transferMCfg.rx_count <6);
+
 
 			Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02 && rxBuffer[3] & 0x01);
 			if (fastdiscard)

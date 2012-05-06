@@ -65,8 +65,7 @@ void AcceleroTask (void* pdata)
 
 		getRotation();
 
-	  //DEBUG_Send("gyro");
-	  //gyroscope_get();
+
 	  CoTickDelay(300);
 	}
 }
@@ -106,6 +105,7 @@ int main (void)
 	/*Initialize microcontroller*/
 	SystemInit();
 	/*Set UART0 as debugging UART*/
+	CoInitOS();
 	ActuatorsInitialization();
 	sensorInitialization();
 
@@ -114,7 +114,7 @@ int main (void)
 	WriteDebugInfo("Begin startup sequence\n");
 	/*Initial CooCox CoOS*/
 	WriteDebugInfo("Launch OS\n");
-	CoInitOS();
+
 
 	/*Startup quadcopter*/
 	WriteDebugInfo("Startup all sensors\n");
