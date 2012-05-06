@@ -11,7 +11,7 @@
 
 extern uint8_t bStarted;
 
-void UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate);
+Bool UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate);
 void UARTSetMisc(LPC_UART_TypeDef *UARTx);
 void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer);
 

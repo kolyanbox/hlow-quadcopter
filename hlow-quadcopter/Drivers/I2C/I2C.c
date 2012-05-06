@@ -4,7 +4,7 @@
 /*I2C bus to use*/
 #define I2CDEV_M LPC_I2C2
 
-void I2C_Initialize()
+Bool I2C_Initialize()
 {
 	PINSEL_CFG_Type PinCfg;
 	/*
@@ -25,6 +25,7 @@ void I2C_Initialize()
 
 	/* Enable Slave I2C operation */
 	I2C_Cmd(I2CDEV_M, ENABLE);
+	return TRUE;
 }
 
 /*Interrupt request handler for I2C*/

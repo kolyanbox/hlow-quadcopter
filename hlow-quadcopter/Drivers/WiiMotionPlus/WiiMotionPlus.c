@@ -15,9 +15,9 @@ uint8_t Gyro_TxBuffer[2] = { 0,0 };
 
 I2C_M_SETUP_Type transferMCfg;
 
-int initializeWiiMotionPlus()
+Bool initializeWiiMotionPlus()
 {
-	//NVIC_EnableIRQ(I2C2_IRQn);
+	Bool partialReturnValue = FALSE;
 
 	Gyro_TxBuffer[0] = 0xFE;
 	Gyro_TxBuffer[1] = 0x04;
@@ -49,16 +49,47 @@ int initializeWiiMotionPlus()
 		transferMCfg.retransmissions_max = 0;
 		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 		{
-			return 0;
+			/*Wait for WiiMotionPlus to change address*/
+			int i = 0;
+			while (i<9999)
+			{
+				i++;
+			}
+			partialReturnValue = TRUE;
 		}
 		else
 		{
-			return 2;
+			partialReturnValue = FALSE;
 		}
 	}
 	else
 	{
-		return 1;
+		partialReturnValue = FALSE;
+	}
+
+	/*Check if address is already changed*/
+	if (partialReturnValue == FALSE)
+	{
+		Gyro_TxBuffer[0] = 0x00;
+		/* Start I2C slave device first */
+		transferMCfg.sl_addr7bit = 0b1010010;
+		transferMCfg.tx_data = Gyro_TxBuffer;
+		transferMCfg.tx_length = 1;//sizeof(I2C_TxBuffer);
+		transferMCfg.rx_data = NULL;
+		transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
+		transferMCfg.retransmissions_max = 0;
+		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
+		return partialReturnValue;
 	}
 }
 

@@ -4,7 +4,7 @@
 #include <General/util.h>
 #include <Drivers/I2C/I2C.h>
 
-int initializeWiiMotionPlus();
+Bool initializeWiiMotionPlus();
 void gyroscope_get();
 
 #endif
