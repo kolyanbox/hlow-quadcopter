@@ -7,6 +7,7 @@
 
 #include <Tasks/Heartbeat/Heartbeat.h>
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
+#include <Tasks/Angle/AngleTask.h>
 
 void MainTask (void* pdata);
 
