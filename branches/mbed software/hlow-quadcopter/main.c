@@ -53,12 +53,7 @@ void AcceleroTask (void* pdata)
 	{
 		//getRotation();
 
-		//long lvalue = getCurrentTemperature();
-		//value = (int)lvalue;
-		//Itoa(value, print, 10);
-		//WriteDebugInfo("temp: ");
-		//WriteDebugInfo(print);
-		//WriteDebugInfo("\n");
+
 
 		//value = getCurrentPressure();
 		//Itoa(value, print, 10);

@@ -9,6 +9,12 @@ OS_STK	HeartBeat_stk[DistancToGroundStackSize];
 #define AngleStackSize 64
 OS_STK	Angle_stk[AngleStackSize];
 
+#define TemperatureStackSize 128
+OS_STK	Temperature_stk[TemperatureStackSize];
+
+#define PressureStackSize 128
+OS_STK	Pressure_stk[PressureStackSize];
+
 void MainTask (void* pdata)
 {
 	/*Create heartbeat task*/
@@ -19,6 +25,12 @@ void MainTask (void* pdata)
 
 	/*Create AngleTask task*/
 	CoCreateTask (AngleTask,0,63,&Angle_stk[AngleStackSize-1],AngleStackSize);
+
+	/*Create Temperature task*/
+	CoCreateTask (TemperatureTask,0,63,&Temperature_stk[TemperatureStackSize-1],TemperatureStackSize);
+
+	/*Create Pressure task*/
+	CoCreateTask (PressureTask,0,63,&Pressure_stk[PressureStackSize-1],PressureStackSize);
 	for (;;)
 	{
 		/*Give a status update every minute*/

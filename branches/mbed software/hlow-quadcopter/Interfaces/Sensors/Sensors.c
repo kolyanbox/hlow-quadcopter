@@ -1,9 +1,24 @@
 #include <Interfaces/Sensors/Sensors.h>
 
+/*CurrentTemperatureMutex is protecting the currentTemperature variable*/
+OS_MutexID currentTemperatureMutex;
+long currentTemperature = 0;
+
+/*CurrentPressureMutex is protecting the currentPressure variable*/
+OS_MutexID currentPressureMutex;
+long currentPressure = 0;
+
+OS_MutexID I2CMutex;
 
 /*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
 Bool sensorInitialization(void)
 {
+	/*Initialize mutexes*/
+	if (currentTemperatureMutex == E_CREATE_FAIL || I2CMutex == E_CREATE_FAIL)
+	{
+		return FALSE;
+	}
+
 	/*Initialize Ultrasonic sensor*/
 	if (initializeUltrasonicSensor() == FALSE)
 	{
@@ -37,13 +52,22 @@ Bool sensorInitialization(void)
 	return TRUE;
 }
 
+/*Only use this method after calling the gettemperature method max 1 second ago*/
 long getCurrentPressure()
 {
-	return getPressure();
+	long temp = 0;
+	CoEnterMutexSection(I2CMutex);
+	temp = getPressure();
+	CoLeaveMutexSection(I2CMutex);
+	CoEnterMutexSection(currentPressureMutex);
+	currentPressure = temp;
+	CoLeaveMutexSection(currentPressureMutex);
+	return temp;
 }
 
 long getCurrentTemperature()
 {
+	CoEnterMutexSection(I2CMutex);
 	long i = 0;
 	while(i<100000)
 	{
@@ -69,15 +93,10 @@ long getCurrentTemperature()
 	long up = getUpBMP085(0xf6, oss);
 
 	long temp = getTemperature();
-	char c[10];
-	Itoa(temp,c,10);
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-	temp = getPressure();
-	Itoa(temp,c,10);
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-
+	CoLeaveMutexSection(I2CMutex);
+	CoEnterMutexSection(currentTemperatureMutex);
+	currentTemperature = temp;
+	CoLeaveMutexSection(currentTemperatureMutex);
 	return temp;
 }
 
