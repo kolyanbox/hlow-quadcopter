@@ -6,6 +6,7 @@
 #include <CoOS.h>
 
 #include <Tasks/Heartbeat/Heartbeat.h>
+#include <Tasks/Distancetoground/DistanceToGroundTask.h>
 
 void MainTask (void* pdata);
 

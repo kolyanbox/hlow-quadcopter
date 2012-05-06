@@ -45,6 +45,8 @@
         <exclude name="driver\BaroMetric.h"/>
         <exclude name="driver\gyroscope.c"/>
         <exclude name="driver\gyroscope.h"/>
+        <exclude name="System\Init.c"/>
+        <exclude name="System\Init.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			
