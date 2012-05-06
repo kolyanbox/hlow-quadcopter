@@ -6,6 +6,9 @@ OS_STK	DistanceToGround_stk[HeartBeatStackSize];
 #define DistancToGroundStackSize 64
 OS_STK	HeartBeat_stk[DistancToGroundStackSize];
 
+#define AngleStackSize 64
+OS_STK	Angle_stk[AngleStackSize];
+
 void MainTask (void* pdata)
 {
 	/*Create heartbeat task*/
@@ -13,6 +16,9 @@ void MainTask (void* pdata)
 
 	/*Create DistanceToGroundTask task*/
 	CoCreateTask (DistanceToGroundTask,0,63,&DistanceToGround_stk[DistancToGroundStackSize-1],DistancToGroundStackSize);
+
+	/*Create AngleTask task*/
+	CoCreateTask (AngleTask,0,63,&Angle_stk[AngleStackSize-1],AngleStackSize);
 	for (;;)
 	{
 		/*Give a status update every minute*/

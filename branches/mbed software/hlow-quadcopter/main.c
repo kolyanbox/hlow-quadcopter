@@ -4,7 +4,6 @@
 #include <Interfaces/Sensors/Sensors.h>
 
 /*Startup of quadcopter*/
-#include <Control/Startup.h>
 #include <CoOS.h>			              /*!< CoOS header file	         */
 
 /*tasks*/
