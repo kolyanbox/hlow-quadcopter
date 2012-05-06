@@ -1,7 +1,7 @@
 #include <Drivers/Uart/UART.h>
 
 
-void UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
+Bool UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 {
 	/* UART Controller */
 	UART_CFG_Type UART_ConfigStruct;
@@ -21,7 +21,7 @@ void UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 
 	/* Set PINSEL and Set Interrupts */
 	UARTSetMisc(UARTx);
-
+	return TRUE;
 }
 
 void UARTSetMisc(LPC_UART_TypeDef *UARTx)

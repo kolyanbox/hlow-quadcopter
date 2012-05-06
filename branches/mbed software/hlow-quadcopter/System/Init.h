@@ -15,9 +15,6 @@
 /*Ultrasonic driver*/
 //#include <driver/UltrasonicSensor.h>
 
-/*Barometric driver*/
-#include <driver/BaroMetric.h>
-
 /*Initialize peripherals*/
 int init_Peripherals(void);
 

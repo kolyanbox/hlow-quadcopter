@@ -2,37 +2,38 @@
 
 Bool ActuatorsInitialization(void)
 {
+	/*Initialize leds if one fails the other leds won't initialize*/
+	if (GPIO_init(led4, 1, 1) == FALSE ||
+		GPIO_init(led3, 1, 1) == FALSE ||
+		GPIO_init(led2, 1, 1) == FALSE ||
+		GPIO_init(led1, 1, 1) == FALSE)
+	{
+		return FALSE;
+	}
 	/*Initialize Uart for debug perposes*/
-	UARTInit(LPC_UART0, 115200);
-	/*Initialize leds*/
-	GPIO_init(led1, 1, 1);
-	GPIO_init(led2, 1, 1);
-	GPIO_init(led3, 1, 1);
-	GPIO_init(led4, 1, 1);
-	/*Initialize PWM*/
-
-	if (initializePWM(motor2, PERIOD) == FALSE)
+	if (UARTInit(LPC_UART0, 115200) == FALSE)
 	{
-		setLed(3,ENABLE);
-	}
-	if (initializePWM(motor3, PERIOD) == FALSE)
-	{
-		setLed(4,ENABLE);
-	}
-	if (initializePWM(motor4, PERIOD) == FALSE)
-	{
-		setLed(1,ENABLE);
-	}
-	if (initializePWM(motor1, PERIOD) == FALSE)
-	{
-		setLed(3,ENABLE);
+		return FALSE;
 	}
 
-	setSpeedBack(1);
-	setSpeedFront(1);
-	setSpeedLeft(1);
-	setSpeedRight(1);
-	setLed(led2,DISABLE);
+	/*Initialize PWM. If one fails the others won't initialize*/
+	if (initializePWM(motor2, PERIOD) == FALSE ||
+		initializePWM(motor3, PERIOD) == FALSE ||
+		initializePWM(motor4, PERIOD) == FALSE ||
+		initializePWM(motor1, PERIOD) == FALSE)
+	{
+		return FALSE;
+	}
+
+	/*Set all speeds on 1 percent for initializing the ESC's
+	 * Initializing will stop if one speed cannot be set*/
+	if (setSpeedBack(1) == FALSE ||
+		setSpeedFront(1) == FALSE ||
+		setSpeedLeft(1) == FALSE ||
+		setSpeedRight(1) == FALSE)
+	{
+		return FALSE;
+	}
 	return TRUE;
 }
 

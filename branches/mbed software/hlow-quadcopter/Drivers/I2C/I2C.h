@@ -5,9 +5,7 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <General/util.h>
 
-void I2C_Initialize(void);
-
-void I2C_Initialize();
+Bool I2C_Initialize();
 void I2C2_IRQHandler(void);
 
 #endif
