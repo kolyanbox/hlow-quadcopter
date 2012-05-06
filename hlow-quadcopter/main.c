@@ -1,5 +1,4 @@
 /*---------------------------- Include ---------------------------------------*/
-#include <General/util.h>
 #include <Interfaces/Actuators/Actuators.h>
 #include <Interfaces/Sensors/Sensors.h>
 
@@ -9,23 +8,12 @@
 /*tasks*/
 #include <Tasks/Main/MainTask.h>
 
-/*Controller*/
-#include <Controller/MotorControllerTask.h>
-
 /*---------------------------- Symbol Define -------------------------------*/
-#define STACK_SIZE_DEFAULT 512              /*!< Define a Default task size */
+#define STACK_SIZE_DEFAULT 64              /*!< Define a Default task size */
 
 /*---------------------------- Variable Define -------------------------------*/
 OS_STK		Initialize_stk[STACK_SIZE_DEFAULT];
-
-OS_STK     	SystemStatus_stk[STACK_SIZE_DEFAULT];	/*!< Define "SystemStatus" task stack   */
-OS_STK     	MainTask_stk[STACK_SIZE_DEFAULT];	  	/*!< Define "HeartBeat" task stack   */
-//OS_STK		AcceleroSensor_stk[STACK_SIZE_DEFAULT];
-//OS_STK		Distance_stk[STACK_SIZE_DEFAULT];
-//OS_STK		Controller_stk[STACK_SIZE_DEFAULT];
-//OS_STK     	ControllerTaskTwo_stk[STACK_SIZE_DEFAULT];
-//OS_STK     	ControllerTaskThree_stk[STACK_SIZE_DEFAULT];
-//OS_STK     	ControllerTaskFour_stk[STACK_SIZE_DEFAULT];
+OS_STK     	MainTask_stk[STACK_SIZE_DEFAULT];
 
 void Initialize (void* pdata)
 {
@@ -61,30 +49,8 @@ void Initialize (void* pdata)
  */
 void AcceleroTask (void* pdata)
 {
-	char print[50];
-	uint16_t value = 0;
-	//gyroscope_init();
 	for (;;)
 	{
-		//value = getCurrentAngle(X);
-		//Itoa(value, print, 10);
-		//WriteDebugInfo("X: ");
-		//WriteDebugInfo(print);
-		//WriteDebugInfo("\n");
-
-		//value = getCurrentAngle(Y);
-		//Itoa(value, print, 10);
-		//WriteDebugInfo("Y: ");
-		//WriteDebugInfo(print);
-		//WriteDebugInfo("\n");
-
-		//value = getCurrentAngle(Z);
-		//Itoa(value, print, 10);
-		//WriteDebugInfo("Y: ");
-		//WriteDebugInfo(print);
-		//WriteDebugInfo("\n");
-
-
 		//getRotation();
 
 		//long lvalue = getCurrentTemperature();
