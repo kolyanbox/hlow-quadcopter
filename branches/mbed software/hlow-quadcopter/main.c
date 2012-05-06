@@ -1,5 +1,4 @@
 /*---------------------------- Include ---------------------------------------*/
-#include <System/Init.h>
 #include <General/util.h>
 #include <Interfaces/Actuators/Actuators.h>
 #include <Interfaces/Sensors/Sensors.h>
@@ -104,23 +103,6 @@ void AcceleroTask (void* pdata)
 CoExitTask();
 	  CoTickDelay(300);
 	}
-}
-
-void DistanceTask (void* pdata)
-{
-  for (;;)
-  {
-	  float distance = 0;
-	  int distanceToGround = getCurrentHeightInCm();
-	  //getValue(distanceToGround,0, &distance);
-	  char c[30];
-	  Itoa(distanceToGround,c,10);
-	  //Ftoa(distance,c,'5','f');
-	  WriteDebugInfo("Distance: ");
-	  WriteDebugInfo(c);
-	  WriteDebugInfo("\n");
-	  CoTimeDelay(0,0,0,500);
-  }
 }
 
 int main (void)

@@ -47,6 +47,8 @@
         <exclude name="driver\gyroscope.h"/>
         <exclude name="System\Init.c"/>
         <exclude name="System\Init.h"/>
+        <exclude name="Control\Startup.c"/>
+        <exclude name="Control\Startup.h"/>
       </fileset>
       <project outfile="${project.name}.elf" overwrite="true" type="xcode"/>
 			

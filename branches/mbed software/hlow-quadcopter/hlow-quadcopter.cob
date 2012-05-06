@@ -39,5 +39,7 @@
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\driver\gyroscope.h"/>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\System\Init.c"/>
     <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\System\Init.h"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Control\Startup.c"/>
+    <Exclude path="D:\My Documents\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Control\Startup.h"/>
   </ExcludedFiles>
 </Project>

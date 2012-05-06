@@ -6,17 +6,7 @@
  * to safely stop the quadcopters functions*/
 int StartUpQuadCopter(void)
 {
-	/*Initialize all to use Peripherals*/
-	int PeripheralError = init_Peripherals();
-	if (PeripheralError != 0)
-	{
-		return PeripheralError;
-	}
-	/*Initialize motors*/
-	//if (!MotorInit())
-	//{
-	//	return 10;
-	//}
+
 	return 0;
 }
 
