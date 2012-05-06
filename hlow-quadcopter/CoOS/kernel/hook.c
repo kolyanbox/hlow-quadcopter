@@ -1,5 +1,4 @@
 #include <Interfaces/Actuators/Actuators.h>
-#include <Control/Startup.h>
 
 /**
  *******************************************************************************
@@ -57,8 +56,12 @@ void CoStkOverflowHook(OS_TID taskID)
     /* Process stack overflow  here */
     for(; ;) 
     {
+    	//TODO: Create more debuginfo
     	WriteDebugInfo("StackOverFlow!!!!\n");
-    	while (StopQuadCopterImmediate())
+    	while (setSpeedBack(0) != TRUE ||
+    			setSpeedFront(0) != TRUE ||
+    			setSpeedLeft(0) != TRUE ||
+    			setSpeedRight(0) != TRUE)
 		{
     		WriteDebugInfo("Quadcopter didnt't stop!\n\r");
 		}

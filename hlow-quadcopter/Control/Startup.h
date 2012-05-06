@@ -2,7 +2,6 @@
 #define STARTUP_H_
 
 #include <lpc_types.h>
-#include <System/Init.h>
 
 enum ERRORMESSAGES{
 	motorstartfail = 1
