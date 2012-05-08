@@ -11,6 +11,17 @@ void PressureTask (void* pdata)
 		WriteDebugInfo("Pressure: ");
 		WriteDebugInfo(print);
 		WriteDebugInfo("\n");
+
+		Ftoa(getCurrentPressureAtSeaLevel(80),print,3,'f');
+		WriteDebugInfo("Pressure at sea: ");
+		WriteDebugInfo(print);
+		WriteDebugInfo("\n");
+
+		Ftoa(getCurrentAltitude(),print,3,'f');
+		WriteDebugInfo("Pressure at sea: ");
+		WriteDebugInfo(print);
+		WriteDebugInfo("\n");
+
 		CoTimeDelay(0,0,0,100);
 	}
 }
