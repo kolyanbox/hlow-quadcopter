@@ -65,6 +65,22 @@ long getCurrentPressure()
 	return temp;
 }
 
+float getCurrentPressureAtSeaLevel(int currentAltitude)
+{
+	long PressureAtSeaLevel = 0;
+	float temp = Pow(1-(currentAltitude/44330),5.255);
+	PressureAtSeaLevel = ((float)getCurrentPressure()/100)/ temp;
+	return PressureAtSeaLevel;
+}
+
+float getCurrentAltitude()
+{
+	float altitude = 0;
+	float temp = Pow((((float)getCurrentPressure()/100)/1013.84),(1/5.255));
+	altitude = 44330*(1-(temp));
+	return altitude;
+}
+
 long getCurrentTemperature()
 {
 	CoEnterMutexSection(I2CMutex);

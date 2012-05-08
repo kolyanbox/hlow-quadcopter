@@ -28,6 +28,7 @@ int getCurrentHeightInCm();
 int getRotation(void);
 long getCurrentTemperature();
 long getCurrentPressure();
-
+float getCurrentPressureAtSeaLevel();
+float getCurrentAltitude();
 
 #endif
