@@ -8,6 +8,10 @@ long currentTemperature = 0;
 OS_MutexID currentPressureMutex;
 long currentPressure = 0;
 
+/*CurrentPressureMutex is protecting the currentPressure variable*/
+OS_MutexID PressureAtSeaLevelMutex;
+float pressureAtSeaLevel = 0;
+
 OS_MutexID I2CMutex;
 
 /*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
@@ -26,6 +30,11 @@ Bool sensorInitialization(void)
 	}
 	/*Initialize Telecommand(pinout: p9, p10)*/
 	if (UARTInit(LPC_UART3, 9600) == FALSE)
+	{
+		return FALSE;
+	}
+	/*Initialize GPS*/
+	if (UARTInit(LPC_UART1, 4800) == FALSE)
 	{
 		return FALSE;
 	}
@@ -65,20 +74,32 @@ long getCurrentPressure()
 	return temp;
 }
 
-float getCurrentPressureAtSeaLevel(int currentAltitude)
+float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 {
-	long PressureAtSeaLevel = 0;
-	float temp = Pow(1-(currentAltitude/44330),5.255);
-	PressureAtSeaLevel = ((float)getCurrentPressure()/100)/ temp;
-	return PressureAtSeaLevel;
+	float t = getTemperature()/10;
+	float p = getCurrentPressure()/100;
+	float temp = 1-((0.0065*currentAltitude)/(t+(0.0065*currentAltitude)+273.15));
+	temp = Pow(temp,-5.257);
+	temp = p*temp;
+
+	CoEnterMutexSection(PressureAtSeaLevelMutex);
+	pressureAtSeaLevel = temp;
+	CoLeaveMutexSection(PressureAtSeaLevelMutex);
+
+	return temp;
 }
 
 float getCurrentAltitude()
 {
-	float altitude = 0;
-	float temp = Pow((((float)getCurrentPressure()/100)/1013.84),(1/5.255));
-	altitude = 44330*(1-(temp));
-	return altitude;
+	CoEnterMutexSection(PressureAtSeaLevelMutex);
+	float p0 = pressureAtSeaLevel;
+	CoLeaveMutexSection(PressureAtSeaLevelMutex);
+
+	float p = getCurrentPressure()/100;
+	float temp = Pow((p0/p),(1/5.257))-1;
+	float t = getTemperature()/10;
+	temp = temp * (t+273.15);
+	return temp/0.0065;
 }
 
 long getCurrentTemperature()

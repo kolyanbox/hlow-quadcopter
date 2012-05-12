@@ -148,7 +148,13 @@ void UART0_IRQHandler (void)
 /* Interrupt Handler */
 void UART1_IRQHandler (void)
 {
-	UART_SendByte(LPC_UART0,UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART1));
+	unsigned char ucCharacter;
+	ucCharacter = UART_ReceiveByte(LPC_UART1);
+	UART_SendByte(LPC_UART0,ucCharacter);
+
+	//WriteDebugInfo("boe\n");
+	//UART_Send(LPC_UART0, UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART1), Strlen(UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART1)), BLOCKING);
+//	UART_SendByte(LPC_UART0,UART_ReceiveByte((LPC_UART_TypeDef *)LPC_UART0));
 }
 
 /* Interrupt Handler */
