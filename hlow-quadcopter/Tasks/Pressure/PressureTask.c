@@ -2,23 +2,22 @@
 
 void PressureTask (void* pdata)
 {
+	long lvalue = getCurrentPressure();
+	int value = (int)lvalue;
+	char print[10];
+	Itoa(value, print, 10);
+	WriteDebugInfo("Pressure: ");
+	WriteDebugInfo(print);
+	WriteDebugInfo("\n");
+
+	Ftoa(calculateCurrentPressureAtSeaLevel(38),print,3,'f');
+	WriteDebugInfo("Pressure at sea: ");
+	WriteDebugInfo(print);
+	WriteDebugInfo("\n");
 	for(;;)
 	{
-		long lvalue = getCurrentPressure();
-		int value = (int)lvalue;
-		char print[10];
-		Itoa(value, print, 10);
-		WriteDebugInfo("Pressure: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
-
-		Ftoa(getCurrentPressureAtSeaLevel(80),print,3,'f');
-		WriteDebugInfo("Pressure at sea: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
-
 		Ftoa(getCurrentAltitude(),print,3,'f');
-		WriteDebugInfo("Pressure at sea: ");
+		WriteDebugInfo("Current altitude: ");
 		WriteDebugInfo(print);
 		WriteDebugInfo("\n");
 
