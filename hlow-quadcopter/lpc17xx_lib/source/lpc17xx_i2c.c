@@ -592,6 +592,8 @@ end_stage:
 				I2C_Stop(I2Cx);
 
 				I2C_MasterComplete[tmp] = TRUE;
+				if (txrx_setup->callback != 0 )
+					txrx_setup->callback();
 			}
 			break;
 		}

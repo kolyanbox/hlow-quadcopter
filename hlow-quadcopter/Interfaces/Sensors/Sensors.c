@@ -118,6 +118,7 @@ long getCurrentTemperature()
 		i++;
 	}
 	long ut = getUtBMP085(0xf6);
+	CoTickDelay(300);
 	short oss = 0;
 	uint8_t transmitData = 0x34;
 	transmitData += oss<<6;
@@ -151,4 +152,10 @@ int getRotation()
 {
 	gyroscope_get();
 	return 0;
+}
+
+enum Command getCommand()
+{
+
+	return commandDistanceToGround;
 }

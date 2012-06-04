@@ -6,6 +6,7 @@
 #include <CoOS.h>
 
 #include <Interfaces/Sensors/Sensors.h>
+#include <Tasks/Debug/DebugTask.h>
 
 void PressureTask (void* pdata);
 

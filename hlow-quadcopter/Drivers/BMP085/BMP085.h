@@ -3,6 +3,7 @@
 
 #include <General/util.h>
 #include "lpc17xx_i2c.h"
+#include <Interfaces/Actuators/Actuators.h>
 
 Bool initializeBMP085();
 short getDataBMP085(uint8_t transmitMessage);
@@ -13,5 +14,9 @@ long getUtBMP085(uint8_t transmitMessage);
 
 long getTemperature(void);
 long getPressure(void);
+
+void dataBMP085Callback (void);
+void UPBMP085Callback (void);
+void UTBMP085Callback (void);
 
 #endif
