@@ -21,6 +21,11 @@ enum Axle {
 	Z = 2
 };
 
+enum Command {
+	commandOsTime = 0,
+	commandDistanceToGround = 1
+};
+
 /*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
 Bool sensorInitialization(void);
 int getCurrentAngle(enum Axle axle);
@@ -30,5 +35,6 @@ long getCurrentTemperature();
 long getCurrentPressure();
 float calculateCurrentPressureAtSeaLevel(float currentAltitude);
 float getCurrentAltitude();
+enum Command getCommand();
 
 #endif

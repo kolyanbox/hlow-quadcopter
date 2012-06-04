@@ -37,33 +37,6 @@ void Initialize (void* pdata)
 	CoCreateTask (MainTask,0,63,&MainTask_stk[STACK_SIZE_DEFAULT-1],STACK_SIZE_DEFAULT);
 	CoExitTask();
 }
-/**
- *******************************************************************************
- * @brief      	Accelero task
- * @param[in]   None
- * @param[out]  None
- * @retval      None
- * @par Description
- * @details    get values from accelerosensor
- *******************************************************************************
- */
-void AcceleroTask (void* pdata)
-{
-	for (;;)
-	{
-		//getRotation();
-
-
-
-		//value = getCurrentPressure();
-		//Itoa(value, print, 10);
-		//WriteDebugInfo("pressure: ");
-		//WriteDebugInfo(print);
-		//WriteDebugInfo("\n");
-CoExitTask();
-	  CoTickDelay(300);
-	}
-}
 
 int main (void)
 {

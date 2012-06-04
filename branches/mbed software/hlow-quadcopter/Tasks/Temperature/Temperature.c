@@ -8,9 +8,9 @@ void TemperatureTask (void* pdata)
 		int value = (int)lvalue;
 		char print[10];
 		Itoa(value, print, 10);
-		WriteDebugInfo("Temperature: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
+		WriteDebugInformation("Temperature: ",Other);
+		WriteDebugInformation(print,Temperature);
+		WriteDebugInformation("\n",Other);
 		CoTimeDelay(0,0,0,100);
 	}
 }
