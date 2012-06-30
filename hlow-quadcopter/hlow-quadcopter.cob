@@ -16,6 +16,7 @@
     <Component id="c248f121-96ed-11df-80ae-001d7d723e56" name="NVIC"/>
     <Component id="c24d8502-96ed-11df-80ae-001d7d723e56" name="GPIO"/>
     <Component id="c256acc1-96ed-11df-80ae-001d7d723e56" name="PINSEL"/>
+    <Component id="c26a82e1-96ed-11df-80ae-001d7d723e56" name="SPI"/>
     <Component id="c2786591-96ed-11df-80ae-001d7d723e56" name="I2C"/>
     <Component id="c2892e71-96ed-11df-80ae-001d7d723e56" name="PWM"/>
     <Component id="c28dc252-96ed-11df-80ae-001d7d723e56" name="MCPWM"/>

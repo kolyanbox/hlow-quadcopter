@@ -137,12 +137,7 @@ void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer)
 /* Interrupt Handler */
 void UART0_IRQHandler (void)
 {
-	unsigned char ucCharacter;
-
-	ucCharacter = UART_ReceiveByte(LPC_UART0);
-	UART_SendByte(LPC_UART0,ucCharacter);
-	UART_SendByte(LPC_UART0,'q');
-	UART_SendByte(LPC_UART3,ucCharacter);
+	lastReceivedChar = UART_ReceiveByte(LPC_UART0);
 }
 
 /* Interrupt Handler */
