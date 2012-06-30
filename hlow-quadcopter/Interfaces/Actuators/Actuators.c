@@ -1,5 +1,9 @@
 #include <Interfaces/Actuators/Actuators.h>
 
+Bool correctlyInitializedActuatorLeds = FALSE;
+Bool correctlyInitializedActuatorMotors = FALSE;
+Bool correctlyInitializedActuatorUart = FALSE;
+
 Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 {
 	switch (actuatorType)
@@ -8,8 +12,10 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 			/*Initialize Uart for debug purposes*/
 			if (UARTInit(LPC_UART0, 115200) == FALSE)
 			{
+				correctlyInitializedActuatorUart = FALSE;
 				return FALSE;
 			}
+			correctlyInitializedActuatorUart = TRUE;
 			return TRUE;
 		}
 		case (ActuatorLeds):{
@@ -19,8 +25,10 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 				GPIO_init(led2, 1, 1) == FALSE ||
 				GPIO_init(led1, 1, 1) == FALSE)
 			{
+				correctlyInitializedActuatorLeds = FALSE;
 				return FALSE;
 			}
+			correctlyInitializedActuatorLeds = TRUE;
 			return TRUE;
 		}
 		case (ActuatorMotors):{
@@ -30,6 +38,7 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 				initializePWM(motor4, PERIOD) == FALSE ||
 				initializePWM(motor1, PERIOD) == FALSE)
 			{
+				correctlyInitializedActuatorMotors = FALSE;
 				return FALSE;
 			}
 
@@ -40,8 +49,10 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 				setSpeedLeft(1) == FALSE ||
 				setSpeedRight(1) == FALSE)
 			{
+				correctlyInitializedActuatorMotors = FALSE;
 				return FALSE;
 			}
+			correctlyInitializedActuatorMotors = TRUE;
 			return TRUE;
 		}
 	}
@@ -50,18 +61,30 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 
 Bool WriteDebugInfo(const char * sendBuffer)
 {
+	if (correctlyInitializedActuatorUart == FALSE)
+	{
+		return FALSE;
+	}
 	UART_Send(LPC_UART0, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
 	return TRUE;
 }
 
 Bool setLed(enum LED led ,Bool enable)
 {
+	if (correctlyInitializedActuatorLeds == FALSE)
+	{
+		return FALSE;
+	}
 	GPIO_set(1,led,enable);
 	return TRUE;
 }
 
 Bool setSpeedFront(int speedPercent)
 {
+	if (correctlyInitializedActuatorMotors == FALSE)
+	{
+		return FALSE;
+	}
 	float fSpeed = 0.0;
 
 	/*If input variables aren't correct*/
@@ -82,6 +105,10 @@ Bool setSpeedFront(int speedPercent)
 
 Bool setSpeedBack(int speedPercent)
 {
+	if (correctlyInitializedActuatorMotors == FALSE)
+	{
+		return FALSE;
+	}
 	float fSpeed = 0.0;
 
 	/*If input variables aren't correct*/
@@ -102,6 +129,10 @@ Bool setSpeedBack(int speedPercent)
 
 Bool setSpeedLeft(int speedPercent)
 {
+	if (correctlyInitializedActuatorMotors == FALSE)
+	{
+		return FALSE;
+	}
 	float fSpeed = 0.0;
 
 	/*If input variables aren't correct*/
@@ -122,6 +153,10 @@ Bool setSpeedLeft(int speedPercent)
 
 Bool setSpeedRight(int speedPercent)
 {
+	if (correctlyInitializedActuatorMotors == FALSE)
+	{
+		return FALSE;
+	}
 	float fSpeed = 0.0;
 
 	/*If input variables aren't correct*/
