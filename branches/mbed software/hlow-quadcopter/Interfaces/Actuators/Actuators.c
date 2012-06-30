@@ -1,40 +1,51 @@
 #include <Interfaces/Actuators/Actuators.h>
 
-Bool ActuatorsInitialization(void)
+Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 {
-	/*Initialize leds if one fails the other leds won't initialize*/
-	if (GPIO_init(led4, 1, 1) == FALSE ||
-		GPIO_init(led3, 1, 1) == FALSE ||
-		GPIO_init(led2, 1, 1) == FALSE ||
-		GPIO_init(led1, 1, 1) == FALSE)
+	switch (actuatorType)
 	{
-		return FALSE;
-	}
-	/*Initialize Uart for debug perposes*/
-	if (UARTInit(LPC_UART0, 115200) == FALSE)
-	{
-		return FALSE;
-	}
+		case (ActuatorUart):{
+			/*Initialize Uart for debug purposes*/
+			if (UARTInit(LPC_UART0, 115200) == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		case (ActuatorLeds):{
+			/*Initialize leds if one fails the other leds won't initialize*/
+			if (GPIO_init(led4, 1, 1) == FALSE ||
+				GPIO_init(led3, 1, 1) == FALSE ||
+				GPIO_init(led2, 1, 1) == FALSE ||
+				GPIO_init(led1, 1, 1) == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		case (ActuatorMotors):{
+			/*Initialize PWM. If one fails the others won't initialize*/
+			if (initializePWM(motor2, PERIOD) == FALSE ||
+				initializePWM(motor3, PERIOD) == FALSE ||
+				initializePWM(motor4, PERIOD) == FALSE ||
+				initializePWM(motor1, PERIOD) == FALSE)
+			{
+				return FALSE;
+			}
 
-	/*Initialize PWM. If one fails the others won't initialize*/
-	if (initializePWM(motor2, PERIOD) == FALSE ||
-		initializePWM(motor3, PERIOD) == FALSE ||
-		initializePWM(motor4, PERIOD) == FALSE ||
-		initializePWM(motor1, PERIOD) == FALSE)
-	{
-		return FALSE;
+			/*Set all speeds on 1 percent for initializing the ESC's
+			 * Initializing will stop if one speed cannot be set*/
+			if (setSpeedBack(1) == FALSE ||
+				setSpeedFront(1) == FALSE ||
+				setSpeedLeft(1) == FALSE ||
+				setSpeedRight(1) == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
 	}
-
-	/*Set all speeds on 1 percent for initializing the ESC's
-	 * Initializing will stop if one speed cannot be set*/
-	if (setSpeedBack(1) == FALSE ||
-		setSpeedFront(1) == FALSE ||
-		setSpeedLeft(1) == FALSE ||
-		setSpeedRight(1) == FALSE)
-	{
-		return FALSE;
-	}
-	return TRUE;
+	return FALSE;
 }
 
 Bool WriteDebugInfo(const char * sendBuffer)

@@ -14,15 +14,22 @@ float pressureAtSeaLevel = 0;
 
 OS_MutexID I2CMutex;
 
-/*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
-Bool sensorInitialization(void)
-{
-	/*Initialize mutexes*/
-	if (currentTemperatureMutex == E_CREATE_FAIL || I2CMutex == E_CREATE_FAIL)
-	{
-		return FALSE;
-	}
+Bool firstTimeInitialization = TRUE;
 
+//extern volatile unsigned char lastReceivedChar;
+
+/*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
+Bool sensorInitialization(enum SensorType sensorType)
+{
+	if (firstTimeInitialization == TRUE)
+	{
+		/*Initialize mutexes*/
+		if (currentTemperatureMutex == E_CREATE_FAIL || I2CMutex == E_CREATE_FAIL)
+		{
+			return FALSE;
+		}
+		firstTimeInitialization = FALSE;
+	}
 	/*Initialize Ultrasonic sensor*/
 	if (initializeUltrasonicSensor() == FALSE)
 	{
@@ -158,4 +165,10 @@ enum Command getCommand()
 {
 
 	return commandDistanceToGround;
+}
+
+//Only use this method in startup sequence
+unsigned char getLastCharacterFromUart()
+{
+	return lastReceivedChar;
 }

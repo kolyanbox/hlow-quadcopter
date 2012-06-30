@@ -23,6 +23,51 @@ OS_STK	Debug_stk[DebugStackSize];
 
 void MainTask (void* pdata)
 {
+	//Startup sequence. First statup Uart
+	if (ActuatorsInitialization(ActuatorUart) == FALSE)
+	{
+		//Because there isn't an other actuator initialized you haven't debug info
+		while (1);
+	}
+	//Because the debug task isn't launched we need to wite debug info directly
+	WriteDebugInfo("Welcome!\nInitalize Actuator Leds? (Y/N)\n");
+	//Wait for command from uart (Y or N)
+	unsigned char lastChar = getLastCharacterFromUart();
+	char tempArray[1];
+	tempArray[0] = lastChar;
+	WriteDebugInfo(tempArray);
+
+	if (ActuatorsInitialization(ActuatorLeds) == TRUE)
+			{
+				WriteDebugInfo("jow4");
+			}
+
+	while(tempArray[0] != 'N' &&
+			tempArray[0] != 'n' &&
+			tempArray[0] != 'y' &&
+			tempArray[0] != 'Y')
+	{
+		lastChar = getLastCharacterFromUart();
+
+	}
+	WriteDebugInfo("jow5");
+	if (lastChar == 'y' || lastChar == 'Y')
+	{
+		if (ActuatorsInitialization(ActuatorLeds) == TRUE)
+		{
+			WriteDebugInfo("jow4");
+		}
+		//else {
+			{WriteDebugInfo("Initialization stopped! Leds couldn't be initialized.");
+			while (1);
+		}
+	}
+	else {
+		WriteDebugInfo("jow");
+	}
+
+
+
 	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (osTimeSem == E_CREATE_FAIL)
 	{

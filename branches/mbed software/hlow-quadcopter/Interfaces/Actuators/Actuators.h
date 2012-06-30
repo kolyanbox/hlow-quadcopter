@@ -18,6 +18,12 @@ enum LED {
 	led4 = (1 << 23)
 };
 
+enum ActuatorType{
+	ActuatorUart = 0,
+	ActuatorLeds = 1,
+	ActuatorMotors = 2
+};
+
 #define PERIOD			0.018
 #define SPEED_NEUTRAL	0.05
 #define SPEED_LOW		0.05
@@ -33,7 +39,7 @@ enum MOTOR {
 };
 
 /*Public actuator initialization*/
-Bool ActuatorsInitialization(void);
+Bool ActuatorsInitialization(enum ActuatorType actuatorType);
 Bool WriteDebugInfo(const char * sendBuffer);
 Bool setLed(enum LED led ,Bool enable);
 Bool setSpeedFront(int speedPercent);
