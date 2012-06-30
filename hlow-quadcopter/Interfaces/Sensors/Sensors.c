@@ -170,5 +170,7 @@ enum Command getCommand()
 //Only use this method in startup sequence
 unsigned char getLastCharacterFromUart()
 {
-	return lastReceivedChar;
+	unsigned char tempChar = lastReceivedChar;
+	lastReceivedChar = 0;
+	return tempChar;
 }
