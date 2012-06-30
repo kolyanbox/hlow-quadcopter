@@ -44,6 +44,7 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 
 			/*Set all speeds on 1 percent for initializing the ESC's
 			 * Initializing will stop if one speed cannot be set*/
+			correctlyInitializedActuatorMotors = TRUE;
 			if (setSpeedBack(1) == FALSE ||
 				setSpeedFront(1) == FALSE ||
 				setSpeedLeft(1) == FALSE ||

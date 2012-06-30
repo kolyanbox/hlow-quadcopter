@@ -23,7 +23,7 @@ OS_STK	Debug_stk[DebugStackSize];
 
 void MainTask (void* pdata)
 {
-	//Startup sequence. First statup Uart
+	//Startup sequence. First startup Uart
 	if (ActuatorsInitialization(ActuatorUart) == FALSE)
 	{
 		//Because there isn't an other actuator initialized you haven't debug info
@@ -31,19 +31,16 @@ void MainTask (void* pdata)
 	}
 	//Because the debug task isn't launched we need to write debug info directly
 	WriteDebugInfo("Welcome!\nInitalize Actuator Leds? (Y/N)\n");
+
 	//Wait for command from uart (Y or N)
 	unsigned char lastChar = getLastCharacterFromUart();
 	char tempArray[1];
 	tempArray[0] = lastChar;
 	WriteDebugInfo(tempArray);
 
-	while(tempArray[0] != 'N' &&
-			tempArray[0] != 'n' &&
-			tempArray[0] != 'y' &&
-			tempArray[0] != 'Y')
+	while(tempArray[0] != 'N' && tempArray[0] != 'n' &&	tempArray[0] != 'y' && tempArray[0] != 'Y')
 	{
 		tempArray[0] = getLastCharacterFromUart();
-
 	}
 
 	if (tempArray[0] == 'y' || tempArray[0] == 'Y')
@@ -64,6 +61,31 @@ void MainTask (void* pdata)
 		WriteDebugInfo("Leds didn't Initialize!\n");
 	}
 
+
+	//Because the debug task isn't launched we need to write debug info directly
+	WriteDebugInfo("Initialize Actuator Motors? (Y/N)\n");
+	lastChar = getLastCharacterFromUart();
+	tempArray[0] = lastChar;
+	while(tempArray[0] != 'N' && tempArray[0] != 'n' &&	tempArray[0] != 'y' && tempArray[0] != 'Y')
+	{
+		tempArray[0] = getLastCharacterFromUart();
+	}
+
+	if (tempArray[0] == 'y' || tempArray[0] == 'Y')
+	{
+		if (ActuatorsInitialization(ActuatorMotors) == TRUE)
+		{
+			WriteDebugInfo("Motors are initialized.\n");
+		}
+		else {
+			WriteDebugInfo("Initialization stopped! Motors couldn't be initialized.\n");
+			while (1);
+		}
+	}
+	else {
+
+		WriteDebugInfo("Motors didn't Initialize!\n");
+	}
 
 
 	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
