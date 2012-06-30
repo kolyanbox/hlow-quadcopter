@@ -29,7 +29,7 @@ void MainTask (void* pdata)
 		//Because there isn't an other actuator initialized you haven't debug info
 		while (1);
 	}
-	//Because the debug task isn't launched we need to wite debug info directly
+	//Because the debug task isn't launched we need to write debug info directly
 	WriteDebugInfo("Welcome!\nInitalize Actuator Leds? (Y/N)\n");
 	//Wait for command from uart (Y or N)
 	unsigned char lastChar = getLastCharacterFromUart();
@@ -37,33 +37,31 @@ void MainTask (void* pdata)
 	tempArray[0] = lastChar;
 	WriteDebugInfo(tempArray);
 
-	if (ActuatorsInitialization(ActuatorLeds) == TRUE)
-			{
-				WriteDebugInfo("jow4");
-			}
-
 	while(tempArray[0] != 'N' &&
 			tempArray[0] != 'n' &&
 			tempArray[0] != 'y' &&
 			tempArray[0] != 'Y')
 	{
-		lastChar = getLastCharacterFromUart();
+		tempArray[0] = getLastCharacterFromUart();
 
 	}
-	WriteDebugInfo("jow5");
-	if (lastChar == 'y' || lastChar == 'Y')
+
+	if (tempArray[0] == 'y' || tempArray[0] == 'Y')
 	{
 		if (ActuatorsInitialization(ActuatorLeds) == TRUE)
 		{
-			WriteDebugInfo("jow4");
+			/*Create heartbeat task*/
+			CoCreateTask (HeartBeat,0,63,&HeartBeat_stk[HeartBeatStackSize-1],HeartBeatStackSize);
+			WriteDebugInfo("Leds are initialized.\n");
 		}
-		//else {
-			{WriteDebugInfo("Initialization stopped! Leds couldn't be initialized.");
+		else {
+			WriteDebugInfo("Initialization stopped! Leds couldn't be initialized.\n");
 			while (1);
 		}
 	}
 	else {
-		WriteDebugInfo("jow");
+
+		WriteDebugInfo("Leds didn't Initialize!\n");
 	}
 
 
@@ -83,9 +81,6 @@ void MainTask (void* pdata)
 		while(1);
 	}
 	CoCreateTask(DebugTask,0,63,&Debug_stk[DebugStackSize-1],DebugStackSize);
-
-	/*Create heartbeat task*/
-	CoCreateTask (HeartBeat,0,63,&HeartBeat_stk[HeartBeatStackSize-1],HeartBeatStackSize);
 
 	/*Create DistanceToGroundTask task*/
 	CoCreateTask (DistanceToGroundTask,0,63,&DistanceToGround_stk[DistancToGroundStackSize-1],DistancToGroundStackSize);
