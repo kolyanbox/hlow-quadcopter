@@ -8,6 +8,6 @@ void DistanceToGroundTask (void* pdata)
 		char c[30];
 		Itoa(distanceToGround,c,10);
 		WriteDebugInformation(c,DistanceToGround);
-		CoTimeDelay(0,0,30,0);
+		CoTimeDelay(0,0,1,0);
 	}
 }

@@ -15,6 +15,8 @@
 void MainTask (void* pdata);
 void setOsTime (int osTime);
 int getOsTime ();
-
+Bool isAnswerFromUserYes();
+Bool initializeSensors();
+Bool initializeActuators();
 
 #endif

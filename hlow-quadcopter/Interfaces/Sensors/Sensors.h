@@ -23,11 +23,19 @@ enum Axle {
 
 enum Command {
 	commandOsTime = 0,
-	commandDistanceToGround = 1
+	commandDistanceToGround = 1,
+	CommandRotationX = 2,
+	CommandRotationY = 3,
+	CommandRotationZ = 4
 };
 
 enum SensorType{
-	SensorUart = 0
+	SensorUart = 0,
+	SensorDistanceToGround = 1,
+	SensorAccelero = 2,
+	SensorPressure = 3,
+	SensorRotation = 4,
+	SensorGPS = 5
 };
 
 extern volatile unsigned char lastReceivedChar;

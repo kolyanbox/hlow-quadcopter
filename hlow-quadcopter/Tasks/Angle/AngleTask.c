@@ -9,20 +9,20 @@ void AngleTask (void* pdata)
 		value = getCurrentAngle(X);
 		Itoa(value, print, 10);
 		WriteDebugInfo("X: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
+		WriteDebugInformation(print,CommandRotationX);
+		WriteDebugInfo("\n\r");
 
 		value = getCurrentAngle(Y);
 		Itoa(value, print, 10);
 		WriteDebugInfo("Y: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
+		WriteDebugInformation(print,CommandRotationY);
+		WriteDebugInfo("\n\r");
 
 		value = getCurrentAngle(Z);
 		Itoa(value, print, 10);
 		WriteDebugInfo("Z: ");
-		WriteDebugInfo(print);
-		WriteDebugInfo("\n");
+		WriteDebugInformation(print,CommandRotationZ);
+		WriteDebugInfo("\n\r");
 		CoTimeDelay(0,0,15,0);
 	}
 }

@@ -6,13 +6,17 @@
 #include <lpc_types.h>
 #include <Interfaces/Actuators/Actuators.h>
 #include <CoOS.h>
+#include <Interfaces/Sensors/Sensors.h>
 
 enum SortData {
-	Other = 0,
+	DirectDebug = 0,
 	DistanceToGround = 1,
 	Temperature = 2,
 	Pressure = 3,
 	OsTime = 4,
+	AngleX = 5,
+	AngleY = 6,
+	AngleZ = 7
 };
 
 void DebugTask (void* pdata);

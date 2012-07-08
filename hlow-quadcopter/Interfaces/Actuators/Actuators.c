@@ -8,9 +8,9 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 {
 	switch (actuatorType)
 	{
-		case (ActuatorUart):{
+		case (ActuatorTelemetry):{
 			/*Initialize Uart for debug purposes*/
-			if (UARTInit(LPC_UART0, 115200) == FALSE)
+			if (UARTInit(LPC_UART3, 9600) == FALSE)
 			{
 				correctlyInitializedActuatorUart = FALSE;
 				return FALSE;
@@ -66,7 +66,7 @@ Bool WriteDebugInfo(const char * sendBuffer)
 	{
 		return FALSE;
 	}
-	UART_Send(LPC_UART0, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
+	UART_Send(LPC_UART3, (uint8_t *)sendBuffer, Strlen(sendBuffer), BLOCKING);
 	return TRUE;
 }
 
