@@ -17,9 +17,9 @@ void PressureTask (void* pdata)
 	for(;;)
 	{
 		Ftoa(getCurrentAltitude(),print,3,'f');
-		WriteDebugInformation("Current altitude: ",Other);
+		WriteDebugInformation("Current altitude: ",DirectDebug);
 		WriteDebugInformation(print,Pressure);
-		WriteDebugInformation("\n",Other);
+		WriteDebugInformation("\n",DirectDebug);
 
 		CoTimeDelay(0,0,1,0);
 	}

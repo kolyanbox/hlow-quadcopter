@@ -19,7 +19,7 @@ enum LED {
 };
 
 enum ActuatorType{
-	ActuatorUart = 0,
+	ActuatorTelemetry = 0,
 	ActuatorLeds = 1,
 	ActuatorMotors = 2
 };

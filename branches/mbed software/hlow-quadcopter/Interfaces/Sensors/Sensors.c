@@ -15,12 +15,13 @@ float pressureAtSeaLevel = 0;
 OS_MutexID I2CMutex;
 
 Bool firstTimeInitialization = TRUE;
-
-//extern volatile unsigned char lastReceivedChar;
+/*True if the this is the first time I2C will be initialized*/
+Bool firstTimeInitializeI2CSensor = TRUE;
 
 /*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
 Bool sensorInitialization(enum SensorType sensorType)
 {
+	//If there isn't initialized 1 sensor
 	if (firstTimeInitialization == TRUE)
 	{
 		/*Initialize mutexes*/
@@ -30,42 +31,75 @@ Bool sensorInitialization(enum SensorType sensorType)
 		}
 		firstTimeInitialization = FALSE;
 	}
-	/*Initialize Ultrasonic sensor*/
-	if (initializeUltrasonicSensor() == FALSE)
+
+
+	switch (sensorType)
 	{
-		return FALSE;
+		/*Initialize Ultrasonic sensor*/
+		case (SensorDistanceToGround):
+		{
+			return initializeUltrasonicSensor();
+		}
+		/*Initialize Accelero sensor*/
+		case (SensorAccelero):
+		{
+			if (ADC_init() == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		/*Initialize Pressure Sensor*/
+		case (SensorPressure):
+		{
+			if (firstTimeInitializeI2CSensor == TRUE)
+			{
+				/*Initialize I2C before initializing I2C based sensors*/
+				if (I2C_Initialize() == FALSE)
+				{
+					return FALSE;
+				}
+			}
+			/*Initialize BMP085*/
+			if (initializeBMP085() == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		/*Initialize Rotation sensor*/
+		case (SensorRotation):
+		{
+			if (firstTimeInitializeI2CSensor == TRUE)
+			{
+				/*Initialize I2C before initializing I2C based sensors*/
+				if (I2C_Initialize() == FALSE)
+				{
+					return FALSE;
+				}
+			}
+			/*Initialize WiiMotionPlus*/
+			if (initializeWiiMotionPlus() == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		/*Initialize GPS sensor*/
+		case (SensorGPS):
+		{
+			if (UARTInit(LPC_UART1, 4800) == FALSE)
+			{
+				return FALSE;
+			}
+			return TRUE;
+		}
+		/*If there isn't a sensor selected, return FALSE*/
+		default:
+		{
+			return FALSE;
+		}
 	}
-	/*Initialize Telecommand(pinout: p9, p10)*/
-	if (UARTInit(LPC_UART3, 9600) == FALSE)
-	{
-		return FALSE;
-	}
-	/*Initialize GPS*/
-	if (UARTInit(LPC_UART1, 4800) == FALSE)
-	{
-		return FALSE;
-	}
-	/*Initialize Accelero*/
-	if (ADC_init() == FALSE)
-	{
-		return FALSE;
-	}
-	/*Initialize I2C before initializing I2C based sensors*/
-	if (I2C_Initialize() == FALSE)
-	{
-		return FALSE;
-	}
-	/*Initialize BMP085*/
-	if (initializeBMP085() == FALSE)
-	{
-		return FALSE;
-	}
-	/*Initialize WiiMotionPlus*/
-	if (initializeWiiMotionPlus() == FALSE)
-	{
-		return FALSE;
-	}
-	return TRUE;
 }
 
 /*Only use this method after calling the gettemperature method max 1 second ago*/
@@ -163,8 +197,7 @@ int getRotation()
 
 enum Command getCommand()
 {
-
-	return commandDistanceToGround;
+	return CommandRotationX;
 }
 
 //Only use this method in startup sequence

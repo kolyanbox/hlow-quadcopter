@@ -3,6 +3,7 @@
 int messageNumber = 0;
 char* messages[maxMessages];
 char* osTime;
+char* Angle[3];
 
 OS_EventID messagesSem;
 
@@ -21,7 +22,25 @@ void DebugTask (void* pdata)
 {
 	for (;;)
 	{
-		getCommand();
+		switch (getCommand())
+		{
+			case (CommandRotationX):
+			{
+				WriteDebugInfo(AngleX);
+				WriteDebugInfo("\n\r");
+			}
+			case (CommandRotationY):
+			{
+				WriteDebugInfo(AngleY);
+				WriteDebugInfo("\n\r");
+			}
+			case (CommandRotationZ):
+			{
+				WriteDebugInfo(AngleZ);
+				WriteDebugInfo("\n\r");
+			}
+		}
+
 		if (CoPendSem(messagesSem,0) == E_OK){
 
 			int message = 0;
@@ -31,9 +50,8 @@ void DebugTask (void* pdata)
 			}
 			messageNumber = 0;
 
-			CoTickDelay(10);
-
 			CoPostSem(messagesSem);
+			CoTickDelay(10);
 		}
 	}
 }
@@ -42,7 +60,7 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 {
 	switch (sortData)
 	{
-		case Other:
+		case DirectDebug:
 		{
 			if (CoPendSem(messagesSem,0) == E_OK){
 				if (messageNumber >= maxMessages-1)
@@ -57,6 +75,18 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 		case OsTime:
 		{
 			osTime = sendBuffer;
+		}
+		case AngleX:
+		{
+			Angle[0] = sendBuffer;
+		}
+		case AngleY:
+		{
+			Angle[1] = sendBuffer;
+		}
+		case AngleZ:
+		{
+			Angle[2] = sendBuffer;
 		}
 	}
 
