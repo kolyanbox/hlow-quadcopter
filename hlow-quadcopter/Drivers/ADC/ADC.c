@@ -1,4 +1,8 @@
 #include <Drivers/ADC/ADC.h>
+
+#include <Interfaces/Actuators/Actuators.h>
+#include <General/util.h>
+#include <lpc17xx_pinsel.h>
 Bool ADC_init()
 {
 	PINSEL_CFG_Type PinCfg1;

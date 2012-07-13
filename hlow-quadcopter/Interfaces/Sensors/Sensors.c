@@ -1,5 +1,20 @@
 #include <Interfaces/Sensors/Sensors.h>
 
+/*common includes*/
+#include "lpc17xx_timer.h"
+#include "lpc_exti.h"
+
+#include <Drivers/GPIO/GPIO.h>
+#include <Drivers/ADC/ADC.h>
+#include <Drivers/Ultrasonic/Ultrasonic.h>
+#include <Interfaces/Actuators/Actuators.h>
+#include <Drivers/I2C/I2C.h>
+#include <Drivers/BMP085/BMP085.h>
+#include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
+#include <CoOS.h>
+#include <Drivers/Uart/Uart.h>
+#include <Tasks/Debug/DebugTask.h>
+
 /*CurrentTemperatureMutex is protecting the currentTemperature variable*/
 OS_MutexID currentTemperatureMutex;
 long currentTemperature = 0;
@@ -197,6 +212,20 @@ int getRotation()
 
 enum Command getCommand()
 {
+	unsigned char getAngleX[] = {"getanglex"};
+	unsigned char* lrc = lastReceivedCommand();
+	int length = Strlen(getAngleX);
+	int i = 0;
+	for (i=0;i<length;i++)
+	{
+		if (lrc[i] != getAngleX[i])
+		{
+			if (lrc[0] != '\0'){
+				WriteDebugInformation("Wrong command!\n\r", DirectDebug);
+			}
+			return CommandNoCommand;
+		}
+	}
 	return CommandRotationX;
 }
 

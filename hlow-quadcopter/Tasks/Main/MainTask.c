@@ -52,6 +52,7 @@ void MainTask (void* pdata)
 		WriteDebugInfo("Debug task couldn't be initialized!\n\r");
 		while(1);
 	}
+	clearLastCommand();
 	CoCreateTask(DebugTask,0,63,&Debug_stk[DebugStackSize-1],DebugStackSize);
 
 	/*	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);

@@ -1,12 +1,9 @@
 #ifndef DEBUGTASK_H
 #define DEBUGTASK_H
 
-#define maxMessages 50
-
 #include <lpc_types.h>
-#include <Interfaces/Actuators/Actuators.h>
-#include <CoOS.h>
-#include <Interfaces/Sensors/Sensors.h>
+
+#define maxMessages 50
 
 enum SortData {
 	DirectDebug = 0,

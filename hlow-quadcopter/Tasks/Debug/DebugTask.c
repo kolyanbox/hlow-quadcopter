@@ -1,11 +1,19 @@
 #include <Tasks/Debug/DebugTask.h>
 
+#include <Interfaces/Actuators/Actuators.h>
+#include <CoOS.h>
+#include <Interfaces/Sensors/Sensors.h>
+
 int messageNumber = 0;
 char* messages[maxMessages];
 char* osTime;
-char* Angle[3];
+
 
 OS_EventID messagesSem;
+
+//Angle semaphore
+OS_EventID angleSem;
+char* Angle[3];
 
 Bool DebugTaskInitialization()
 {
@@ -15,6 +23,13 @@ Bool DebugTaskInitialization()
 		return FALSE;
 	}
 	CoPostSem(messagesSem);
+
+	angleSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
+	if (angleSem == E_CREATE_FAIL)
+	{
+		return FALSE;
+	}
+	CoPostSem(angleSem);
 	return TRUE;
 }
 
@@ -26,18 +41,30 @@ void DebugTask (void* pdata)
 		{
 			case (CommandRotationX):
 			{
-				WriteDebugInfo(AngleX);
+				if (CoPendSem(messagesSem,0) == E_OK){
+					WriteDebugInfo(Angle[0]);
+					CoPostSem(messagesSem);
+				}
 				WriteDebugInfo("\n\r");
+				break;
 			}
 			case (CommandRotationY):
 			{
-				WriteDebugInfo(AngleY);
+				if (CoPendSem(messagesSem,0) == E_OK){
+					WriteDebugInfo(Angle[1]);
+					CoPostSem(messagesSem);
+				}
 				WriteDebugInfo("\n\r");
+				break;
 			}
 			case (CommandRotationZ):
 			{
-				WriteDebugInfo(AngleZ);
+				if (CoPendSem(messagesSem,0) == E_OK){
+					WriteDebugInfo(Angle[2]);
+					CoPostSem(messagesSem);
+				}
 				WriteDebugInfo("\n\r");
+				break;
 			}
 		}
 
@@ -51,8 +78,8 @@ void DebugTask (void* pdata)
 			messageNumber = 0;
 
 			CoPostSem(messagesSem);
-			CoTickDelay(10);
 		}
+		CoTimeDelay(0,0,1,0);
 	}
 }
 
@@ -78,15 +105,27 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 		}
 		case AngleX:
 		{
-			Angle[0] = sendBuffer;
+			if (CoPendSem(messagesSem,0) == E_OK){
+				Angle[0] = sendBuffer;
+				CoPostSem(messagesSem);
+			}
+			break;
 		}
 		case AngleY:
 		{
-			Angle[1] = sendBuffer;
+			if (CoPendSem(messagesSem,0) == E_OK){
+				Angle[1] = sendBuffer;
+				CoPostSem(messagesSem);
+			}
+			break;
 		}
 		case AngleZ:
 		{
-			Angle[2] = sendBuffer;
+			if (CoPendSem(messagesSem,0) == E_OK){
+				Angle[2] = sendBuffer;
+				CoPostSem(messagesSem);
+			}
+			break;
 		}
 	}
 

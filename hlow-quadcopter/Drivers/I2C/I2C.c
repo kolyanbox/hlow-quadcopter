@@ -1,5 +1,7 @@
 #include <Drivers/I2C/I2C.h>
 
+#include <lpc17xx_pinsel.h>
+
 /*Global definitions for I2C*/
 /*I2C bus to use*/
 #define I2CDEV_M LPC_I2C2
