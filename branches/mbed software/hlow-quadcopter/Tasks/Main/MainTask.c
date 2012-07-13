@@ -1,5 +1,17 @@
 #include <Tasks/Main/MainTask.h>
 
+#include <Interfaces/Actuators/Actuators.h>
+#include <Drivers/Uart/Uart.h>
+#include <CoOS.h>
+
+#include <Tasks/Heartbeat/Heartbeat.h>
+#include <Tasks/Distancetoground/DistanceToGroundTask.h>
+#include <Tasks/Angle/AngleTask.h>
+#include <Tasks/Temperature/Temperature.h>
+#include <Tasks/Pressure/PressureTask.h>
+#include <Tasks/Debug/DebugTask.h>
+#include <Tasks/Logging/LoggingTask.h>
+
 OS_EventID osTimeSem;
 int oStime = 0;
 
@@ -20,6 +32,9 @@ OS_STK	Pressure_stk[PressureStackSize];
 
 #define DebugStackSize 128
 OS_STK	Debug_stk[DebugStackSize];
+
+#define LoggingStackSize 64
+OS_STK	Logging_stk[LoggingStackSize];
 
 void MainTask (void* pdata)
 {
@@ -52,8 +67,13 @@ void MainTask (void* pdata)
 		WriteDebugInfo("Debug task couldn't be initialized!\n\r");
 		while(1);
 	}
+	/*clear all received commands*/
 	clearLastCommand();
+	/*Start debug task*/
 	CoCreateTask(DebugTask,0,63,&Debug_stk[DebugStackSize-1],DebugStackSize);
+	/*start logging task*/
+	CoCreateTask(LoggingTask,0,63,&Logging_stk[LoggingStackSize-1],LoggingStackSize);
+
 
 	/*	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (osTimeSem == E_CREATE_FAIL)

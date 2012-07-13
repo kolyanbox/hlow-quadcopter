@@ -28,6 +28,7 @@ Bool LoggingTaskInitialization()
 
 void LoggingTask (void* pdata)
 {
+	LoggingTaskInitialization();
 	for (;;)
 	{
         CoTimeDelay(0,0,1,0);
