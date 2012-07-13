@@ -4,12 +4,6 @@
 /*common includes*/
 #include <lpc_types.h>
 #include <cox_types.h>
-/*Uart*/
-#include <Drivers/Uart/UART.h>
-/*GPIO*/
-#include <Drivers/GPIO/GPIO.h>
-/*PWM*/
-#include <Drivers/PWM/PWM.h>
 
 enum LED {
 	led1 =  (1 << 18),

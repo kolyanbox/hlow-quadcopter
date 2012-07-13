@@ -1,5 +1,13 @@
 #include <Interfaces/Actuators/Actuators.h>
 
+/*common includes*/
+/*Uart*/
+#include <Drivers/Uart/UART.h>
+/*GPIO*/
+#include <Drivers/GPIO/GPIO.h>
+/*PWM*/
+#include <Drivers/PWM/PWM.h>
+
 Bool correctlyInitializedActuatorLeds = FALSE;
 Bool correctlyInitializedActuatorMotors = FALSE;
 Bool correctlyInitializedActuatorUart = FALSE;

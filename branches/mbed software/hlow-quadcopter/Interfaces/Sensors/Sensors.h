@@ -3,17 +3,6 @@
 
 /*common includes*/
 #include <lpc_types.h>
-#include "lpc17xx_timer.h"
-#include "lpc_exti.h"
-
-#include <Drivers/GPIO/GPIO.h>
-#include <Drivers/ADC/ADC.h>
-#include <Drivers/Ultrasonic/Ultrasonic.h>
-#include <Interfaces/Actuators/Actuators.h>
-#include <Drivers/I2C/I2C.h>
-#include <Drivers/BMP085/BMP085.h>
-#include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
-#include <CoOS.h>
 
 enum Axle {
 	X = 0,
@@ -26,7 +15,8 @@ enum Command {
 	commandDistanceToGround = 1,
 	CommandRotationX = 2,
 	CommandRotationY = 3,
-	CommandRotationZ = 4
+	CommandRotationZ = 4,
+	CommandNoCommand = 5
 };
 
 enum SensorType{

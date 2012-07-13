@@ -164,11 +164,55 @@ void UART2_IRQHandler (void)
 	UART_SendByte(LPC_UART0,UART_ReceiveByte(LPC_UART2));
 }
 
+unsigned char lastReceivedCommandString[20];
+int lastReceivedCommandPosition = 0;
+Bool receivedValidCommand = FALSE;
 /* Interrupt Handler */
 void UART3_IRQHandler (void)
 {
 	lastReceivedChar = UART_ReceiveByte(LPC_UART3);
+	if (receivedValidCommand == FALSE){
+		if (lastReceivedChar != '\n')
+		{
+			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
+			if (lastReceivedCommandPosition > 19)
+			{
+				lastReceivedCommandPosition = 0;
+			}
+		}
+		else {
+			receivedValidCommand = TRUE;
+		}
+	}
+	//UART_Send(LPC_UART3,lastReceivedCommandString, Strlen(lastReceivedCommandString), BLOCKING);
 }
 
+void clearLastCommand()
+{
+	int i = 19;
+	while (i >= 0)
+	{
+		lastReceivedCommandString[i] = '\0';
+		i--;
+	}
+}
 
+unsigned char* lastReceivedCommand()
+{
+	if (receivedValidCommand == TRUE)
+	{
+		receivedValidCommand =  FALSE;
+		int i = 19;
+		while (i >= lastReceivedCommandPosition)
+		{
+			lastReceivedCommandString[i] = '\0';
+			i--;
+		}
+		lastReceivedCommandPosition = 0;
+		return lastReceivedCommandString;
+	}
+	unsigned char emptyString[1];
+	emptyString[0] = '\0';
+	return emptyString;
+}
 
