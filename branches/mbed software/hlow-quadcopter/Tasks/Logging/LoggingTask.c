@@ -9,7 +9,7 @@ loglevels currentLogLevel = LOG_DEBUG;
 /* Id counter from 1 to 255 */
 unsigned char ucIdCounter = 1;
 
-Bool DebugTaskInitialization()
+Bool LoggingTaskInitialization()
 {
     unsigned char i = 0;
  
