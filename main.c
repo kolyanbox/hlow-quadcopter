@@ -21,13 +21,23 @@ int main(int argc, char *argv[])
     writeLog(test1Id,"Warning log app 1",LOG_WARNING);
     writeLog(test1Id,"Critical log app 1",LOG_CRIT);
     
-    test2Id = registerApp("app2",LOG_EMERG);
+    test2Id = registerApp("app2",LOG_DEBUG);
     if(test2Id < 1)
     {
        printf("Failed to register app2 to logging service.\n");           
     }
     writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
+    writeLog(test2Id,"Debug log app 2",LOG_DEBUG);
     writeLog(test2Id,"Emergency log app 2",LOG_EMERG);
+    writeLog(test2Id,"Critical log app 2",LOG_CRIT); writeLog(test2Id,"Emergency log app 2",LOG_EMERG);
+    writeLog(test2Id,"Critical log app 2",LOG_CRIT); writeLog(test2Id,"Emergency log app 2",LOG_EMERG);
+    writeLog(test2Id,"Critical log app 2",LOG_CRIT); writeLog(test2Id,"Emergency log app 2",LOG_EMERG);
+    writeLog(test2Id,"Critical log app 2",LOG_CRIT); writeLog(test2Id,"Emergency log app 2",LOG_EMERG);
     writeLog(test2Id,"Critical log app 2",LOG_CRIT);
     
     cmd_printLogTable();
