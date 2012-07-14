@@ -88,7 +88,6 @@ void DebugTask (void* pdata)
 			}
 			case (commandDistanceToGround):
 			{
-				WriteDebugInfo("3");
 				if (CoPendSem(distanceToGroundSem,0) == E_OK){
 					WriteDebugInfo(distanceToGround);
 					CoPostSem(distanceToGroundSem);
