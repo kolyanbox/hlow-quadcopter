@@ -210,23 +210,48 @@ int getRotation()
 	return 0;
 }
 
-enum Command getCommand()
+Bool sameString(unsigned char* stringOne, unsigned char* stringTwo)
 {
-	unsigned char getAngleX[] = {"getanglex"};
-	unsigned char* lrc = lastReceivedCommand();
-	int length = Strlen(getAngleX);
+	int length = Strlen(stringOne);
+	if (length != Strlen(stringTwo)-1)
+	{
+		return FALSE;
+	}
 	int i = 0;
 	for (i=0;i<length;i++)
 	{
-		if (lrc[i] != getAngleX[i])
+		if (stringTwo[i] != stringOne[i])
 		{
-			if (lrc[0] != '\0'){
-				WriteDebugInformation("Wrong command!\n\r", DirectDebug);
-			}
-			return CommandNoCommand;
+			return FALSE;
 		}
 	}
-	return CommandRotationX;
+	return TRUE;
+}
+
+enum Command getCommand()
+{
+	unsigned char getAngleX[] = {"getanglex"};
+	unsigned char getAngleY[] = {"getangley"};
+	unsigned char getAngleZ[] = {"getanglez"};
+	unsigned char* lrc = lastReceivedCommand();
+	if (sameString(getAngleX,lrc))
+	{
+		return CommandRotationX;
+	}
+	else if (sameString(getAngleY,lrc))
+	{
+		return CommandRotationY;
+	}
+	else if (sameString(getAngleZ,lrc))
+	{
+		return CommandRotationZ;
+	}
+	else if (lrc[0] != '\0'){
+		WriteDebugInformation(lrc,DirectDebug);
+		WriteDebugInformation("Not a valid command.\n\r/>", DirectDebug);
+		clearLastCommand();
+	}
+	return CommandNoCommand;
 }
 
 //Only use this method in startup sequence

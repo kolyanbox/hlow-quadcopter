@@ -8,15 +8,16 @@ void AngleTask (void* pdata)
 	char print[50];
 	unsigned char angleApp = 0;
 
-	angleApp = registerApp("Angle task",LOG_DEBUG);
-    if(angleApp < 1)
-    {
-       WriteDebugInformation("Couldn't register angle app!", DirectDebug);
-    }
+	//angleApp = registerApp("Angle task",LOG_DEBUG);
+    //if(angleApp < 1)
+    //{
+    //   WriteDebugInformation("Couldn't register angle app!\n\r", DirectDebug);
+    //}
 
 	for(;;)
 	{
-		writeLog(angleApp,"inside angletask",LOG_DEBUG);
+		//writeLog(angleApp,"inside angletask\n\r",LOG_DEBUG);
+
 		value = getCurrentAngle(X);
 		Itoa(value, print, 10);
 		WriteDebugInformation(print,CommandRotationX);
