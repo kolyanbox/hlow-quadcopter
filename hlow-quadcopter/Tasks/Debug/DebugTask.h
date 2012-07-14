@@ -10,10 +10,9 @@ enum SortData {
 	DistanceToGround = 1,
 	Temperature = 2,
 	Pressure = 3,
-	OsTime = 4,
-	AngleX = 5,
-	AngleY = 6,
-	AngleZ = 7
+	AngleX = 4,
+	AngleY = 5,
+	AngleZ = 6
 };
 
 void DebugTask (void* pdata);

@@ -12,9 +12,6 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 
-OS_EventID osTimeSem;
-int oStime = 0;
-
 #define HeartBeatStackSize 64
 OS_STK	DistanceToGround_stk[HeartBeatStackSize];
 
@@ -84,10 +81,12 @@ void MainTask (void* pdata)
 	CoPostSem(osTimeSem);
 
 	 * */
-	for (;;)
+
+	 for (;;)
 	{
+
 		/*Give a status update every minute
-		setOsTime(CoGetOSTime());
+
 		char c[10];
 
 		int osVersion = CoGetOSVersion();
@@ -102,7 +101,7 @@ void MainTask (void* pdata)
 		WriteDebugInformation(c,Other);
 		WriteDebugInformation("\n",Other);
 */
-		CoTimeDelay(0,1,0,0);
+		CoTimeDelay(0,0,0,500);
 	}
 }
 
@@ -193,23 +192,6 @@ Bool initializeActuators()
 	}
 
 	return TRUE;
-}
-
-void setOsTime (int osTime)
-{
-	if (CoPendSem(osTimeSem,0) == E_OK){
-		oStime = osTime;
-		CoPostSem(osTimeSem);
-	}
-}
-int getOsTime ()
-{
-	int temposTime = 0;
-	if (CoPendSem(osTimeSem,0) == E_OK){
-		temposTime = oStime;
-		CoPostSem(osTimeSem);
-	}
-	return temposTime;
 }
 
 /*This method waits till a user sends an y or a n to the debug interface*/

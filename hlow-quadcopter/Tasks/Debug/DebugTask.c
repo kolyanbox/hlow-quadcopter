@@ -6,8 +6,6 @@
 
 int messageNumber = 0;
 char* messages[maxMessages];
-char* osTime;
-
 
 OS_EventID messagesSem;
 
@@ -30,6 +28,7 @@ Bool DebugTaskInitialization()
 		return FALSE;
 	}
 	CoPostSem(angleSem);
+
 	return TRUE;
 }
 
@@ -67,6 +66,15 @@ void DebugTask (void* pdata)
 				WriteDebugInfo("\n\r/>");
 				break;
 			}
+			case (commandOsTime):
+			{
+				char osTime[10];
+				int t = CoGetOSTime();
+				Itoa(t,osTime,10);
+				WriteDebugInfo(osTime);
+				WriteDebugInfo("\n\r/>");
+				break;
+			}
 		}
 
 		if (CoPendSem(messagesSem,0) == E_OK){
@@ -99,10 +107,7 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 				messageNumber++;
 				CoPostSem(messagesSem);
 			}
-		}
-		case OsTime:
-		{
-			osTime = sendBuffer;
+			break;
 		}
 		case AngleX:
 		{
