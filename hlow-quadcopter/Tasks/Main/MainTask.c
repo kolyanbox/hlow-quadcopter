@@ -71,7 +71,6 @@ void MainTask (void* pdata)
 	/*start logging task*/
 	CoCreateTask(LoggingTask,0,63,&Logging_stk[LoggingStackSize-1],LoggingStackSize);
 
-
 	/*	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (osTimeSem == E_CREATE_FAIL)
 	{

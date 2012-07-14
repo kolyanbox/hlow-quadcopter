@@ -9,6 +9,8 @@
 #include <cmsis/core_cm3.h>
 #include <Interfaces/Actuators/Actuators.h>
 
+#define COMMANDLENGTH 30
+
 extern uint8_t bStarted;
 
 volatile unsigned char lastReceivedChar;
