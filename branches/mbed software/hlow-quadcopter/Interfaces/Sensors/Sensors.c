@@ -233,6 +233,7 @@ enum Command getCommand()
 	unsigned char getAngleX[] = {"getanglex"};
 	unsigned char getAngleY[] = {"getangley"};
 	unsigned char getAngleZ[] = {"getanglez"};
+	unsigned char getOsTime[] = {"getostime"};
 	unsigned char* lrc = lastReceivedCommand();
 	if (sameString(getAngleX,lrc))
 	{
@@ -245,6 +246,10 @@ enum Command getCommand()
 	else if (sameString(getAngleZ,lrc))
 	{
 		return CommandRotationZ;
+	}
+	else if (sameString(getOsTime,lrc))
+	{
+		return commandOsTime;
 	}
 	else if (lrc[0] != '\0'){
 		WriteDebugInformation(lrc,DirectDebug);
