@@ -1,6 +1,6 @@
 #include <Drivers/Uart/UART.h>
 
-unsigned char lastReceivedCommandString[20];
+unsigned char lastReceivedCommandString[COMMANDLENGTH];
 int lastReceivedCommandPosition = 0;
 Bool receivedValidCommand = FALSE;
 Bool isUart0Initialized = FALSE;
@@ -199,7 +199,7 @@ void UART3_IRQHandler (void)
 		if (lastReceivedChar != '\n')
 		{
 			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
-			if (lastReceivedCommandPosition > 19)
+			if (lastReceivedCommandPosition > COMMANDLENGTH-1)
 			{
 				lastReceivedCommandPosition = 0;
 			}
@@ -212,7 +212,7 @@ void UART3_IRQHandler (void)
 
 void clearLastCommand()
 {
-	int i = 19;
+	int i = COMMANDLENGTH-1;
 	while (i >= 0)
 	{
 		lastReceivedCommandString[i] = '\0';
@@ -225,7 +225,7 @@ unsigned char* lastReceivedCommand()
 	if (receivedValidCommand == TRUE)
 	{
 		receivedValidCommand =  FALSE;
-		int i = 19;
+		int i = COMMANDLENGTH-1;
 		while (i >= lastReceivedCommandPosition)
 		{
 			lastReceivedCommandString[i] = '\0';

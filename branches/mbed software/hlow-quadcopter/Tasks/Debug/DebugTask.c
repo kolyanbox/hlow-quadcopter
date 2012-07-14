@@ -13,6 +13,10 @@ OS_EventID messagesSem;
 OS_EventID angleSem;
 char* Angle[3];
 
+//distance to ground semaphore
+OS_EventID distanceToGroundSem;
+char* distanceToGround;
+
 Bool DebugTaskInitialization()
 {
 	messagesSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
@@ -28,6 +32,13 @@ Bool DebugTaskInitialization()
 		return FALSE;
 	}
 	CoPostSem(angleSem);
+
+	distanceToGroundSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
+	if (distanceToGroundSem == E_CREATE_FAIL)
+	{
+		return FALSE;
+	}
+	CoPostSem(distanceToGroundSem);
 
 	return TRUE;
 }
@@ -75,6 +86,16 @@ void DebugTask (void* pdata)
 				WriteDebugInfo("\n\r/>");
 				break;
 			}
+			case (commandDistanceToGround):
+			{
+				WriteDebugInfo("3");
+				if (CoPendSem(distanceToGroundSem,0) == E_OK){
+					WriteDebugInfo(distanceToGround);
+					CoPostSem(distanceToGroundSem);
+				}
+				WriteDebugInfo("\n\r/>");
+				break;
+			}
 		}
 
 		if (CoPendSem(messagesSem,0) == E_OK){
@@ -111,25 +132,33 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 		}
 		case AngleX:
 		{
-			if (CoPendSem(messagesSem,0) == E_OK){
+			if (CoPendSem(angleSem,0) == E_OK){
 				Angle[0] = sendBuffer;
-				CoPostSem(messagesSem);
+				CoPostSem(angleSem);
 			}
 			break;
 		}
 		case AngleY:
 		{
-			if (CoPendSem(messagesSem,0) == E_OK){
+			if (CoPendSem(angleSem,0) == E_OK){
 				Angle[1] = sendBuffer;
-				CoPostSem(messagesSem);
+				CoPostSem(angleSem);
 			}
 			break;
 		}
 		case AngleZ:
 		{
-			if (CoPendSem(messagesSem,0) == E_OK){
+			if (CoPendSem(angleSem,0) == E_OK){
 				Angle[2] = sendBuffer;
-				CoPostSem(messagesSem);
+				CoPostSem(angleSem);
+			}
+			break;
+		}
+		case DistanceToGround:
+		{
+			if (CoPendSem(distanceToGroundSem,0) == E_OK){
+				distanceToGround = sendBuffer;
+				CoPostSem(distanceToGroundSem);
 			}
 			break;
 		}
