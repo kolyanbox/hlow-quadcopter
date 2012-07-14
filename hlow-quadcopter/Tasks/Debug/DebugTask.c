@@ -35,6 +35,7 @@ Bool DebugTaskInitialization()
 
 void DebugTask (void* pdata)
 {
+	WriteDebugInfo("/>");
 	for (;;)
 	{
 		switch (getCommand())
@@ -45,7 +46,7 @@ void DebugTask (void* pdata)
 					WriteDebugInfo(Angle[0]);
 					CoPostSem(messagesSem);
 				}
-				WriteDebugInfo("\n\r");
+				WriteDebugInfo("\n\r/>");
 				break;
 			}
 			case (CommandRotationY):
@@ -54,7 +55,7 @@ void DebugTask (void* pdata)
 					WriteDebugInfo(Angle[1]);
 					CoPostSem(messagesSem);
 				}
-				WriteDebugInfo("\n\r");
+				WriteDebugInfo("\n\r/>");
 				break;
 			}
 			case (CommandRotationZ):
@@ -63,7 +64,7 @@ void DebugTask (void* pdata)
 					WriteDebugInfo(Angle[2]);
 					CoPostSem(messagesSem);
 				}
-				WriteDebugInfo("\n\r");
+				WriteDebugInfo("\n\r/>");
 				break;
 			}
 		}

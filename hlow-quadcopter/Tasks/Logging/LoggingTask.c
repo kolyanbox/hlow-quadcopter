@@ -170,7 +170,7 @@ void cmd_printLogTable()
         {
             WriteDebugInformation("Slot ",DirectDebug); 
             WriteDebugInformation(cSlotNumber,DirectDebug); 
-            WriteDebugInformation(": [empty]\n",DirectDebug);                                                    
+            WriteDebugInformation(": [empty]\n\r",DirectDebug);
         }
         else
         {
@@ -178,7 +178,7 @@ void cmd_printLogTable()
             WriteDebugInformation(cSlotNumber,DirectDebug); 
             WriteDebugInformation(": ",DirectDebug); 
             WriteDebugInformation(appLogTable[i].uacApp,DirectDebug);    
-            WriteDebugInformation("\n",DirectDebug);    
+            WriteDebugInformation("\n\r",DirectDebug);
         }      
     } 
 }

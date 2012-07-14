@@ -1,5 +1,9 @@
 #include <Drivers/Uart/UART.h>
 
+unsigned char lastReceivedCommandString[20];
+int lastReceivedCommandPosition = 0;
+Bool receivedValidCommand = FALSE;
+Bool isUart0Initialized = FALSE;
 
 Bool UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 {
@@ -21,6 +25,11 @@ Bool UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate)
 
 	/* Set PINSEL and Set Interrupts */
 	UARTSetMisc(UARTx);
+
+	if (UARTx ==  LPC_UART0)
+	{
+		isUart0Initialized = TRUE;
+	}
 	return TRUE;
 }
 
@@ -138,11 +147,25 @@ void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer)
 void UART0_IRQHandler (void)
 {
 	lastReceivedChar = UART_ReceiveByte(LPC_UART0);
+	if (receivedValidCommand == FALSE){
+		if (lastReceivedChar != '\n')
+		{
+			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
+			if (lastReceivedCommandPosition > 19)
+			{
+				lastReceivedCommandPosition = 0;
+			}
+		}
+		else {
+			receivedValidCommand = TRUE;
+		}
+	}
 }
 
 /* Interrupt Handler */
 void UART1_IRQHandler (void)
 {
+
 //	unsigned char ucCharacter;
 //	ucCharacter = UART_ReceiveByte(LPC_UART1);
 //	UART_SendByte(LPC_UART0,ucCharacter);
@@ -164,13 +187,14 @@ void UART2_IRQHandler (void)
 	UART_SendByte(LPC_UART0,UART_ReceiveByte(LPC_UART2));
 }
 
-unsigned char lastReceivedCommandString[20];
-int lastReceivedCommandPosition = 0;
-Bool receivedValidCommand = FALSE;
 /* Interrupt Handler */
 void UART3_IRQHandler (void)
 {
 	lastReceivedChar = UART_ReceiveByte(LPC_UART3);
+	if (isUart0Initialized == TRUE)
+	{
+		UART_SendByte(LPC_UART0,lastReceivedChar);
+	}
 	if (receivedValidCommand == FALSE){
 		if (lastReceivedChar != '\n')
 		{
@@ -184,7 +208,6 @@ void UART3_IRQHandler (void)
 			receivedValidCommand = TRUE;
 		}
 	}
-	//UART_Send(LPC_UART3,lastReceivedCommandString, Strlen(lastReceivedCommandString), BLOCKING);
 }
 
 void clearLastCommand()
@@ -211,8 +234,7 @@ unsigned char* lastReceivedCommand()
 		lastReceivedCommandPosition = 0;
 		return lastReceivedCommandString;
 	}
-	unsigned char emptyString[1];
-	emptyString[0] = '\0';
-	return emptyString;
+	clearLastCommand();
+	return lastReceivedCommandString;
 }
 

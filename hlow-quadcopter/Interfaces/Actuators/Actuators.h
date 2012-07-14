@@ -18,6 +18,8 @@ enum ActuatorType{
 	ActuatorMotors = 2
 };
 
+#define USEBOTHDEBUGINGMODULES TRUE
+
 #define PERIOD			0.018
 #define SPEED_NEUTRAL	0.05
 #define SPEED_LOW		0.05
