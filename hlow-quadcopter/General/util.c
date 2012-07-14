@@ -127,6 +127,23 @@ int Strlen(const char* c_pcString)
     return iLength;
 }
 
+char * Strcat ( char * destination, const char * source )
+{
+	int i = Strlen(destination);
+	int j =  Strlen(source);
+	char c[i+j];
+	int k = 0;
+	for (k=0;k<i;k++)
+	{
+		c[k] = destination[k];
+	}
+	for (k=i;k<i+j;k++)
+	{
+		c[k] = source[k];
+	}
+	return (c);
+}
+
 int Atoi(char *ap)
 {
 	register int n = 0;

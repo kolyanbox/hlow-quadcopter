@@ -71,35 +71,8 @@ void MainTask (void* pdata)
 	/*start logging task*/
 	CoCreateTask(LoggingTask,0,63,&Logging_stk[LoggingStackSize-1],LoggingStackSize);
 
-	/*	osTimeSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
-	if (osTimeSem == E_CREATE_FAIL)
-	{
-		setLed(led4,ENABLE);
-		while(1);
-	}
-	CoPostSem(osTimeSem);
-
-	 * */
-
 	 for (;;)
 	{
-
-		/*Give a status update every minute
-
-		char c[10];
-
-		int osVersion = CoGetOSVersion();
-		Itoa(osVersion,c,10);
-		WriteDebugInformation("OsVersion: ",Other);
-		WriteDebugInformation(c,Other);
-		WriteDebugInformation("\n",Other);
-
-		int curTaskId = CoGetCurTaskID();
-		Itoa(curTaskId,c,10);
-		WriteDebugInformation("CurTaskId: ",Other);
-		WriteDebugInformation(c,Other);
-		WriteDebugInformation("\n",Other);
-*/
 		CoTimeDelay(0,0,0,500);
 	}
 }
@@ -108,14 +81,14 @@ void MainTask (void* pdata)
 Bool initializeSensors()
 {
 	//Initialize DistancetoGroundSensor
-	WriteDebugInfo("Initalize distance to ground sensor? (Y/N)\n\r");
+	WriteDebugInfo("Initalize distance to ground sensor? (Y/N)\n\r/>");
 	if (isAnswerFromUserYes())
 	{
 		if (sensorInitialization(SensorDistanceToGround) == TRUE)
 		{
 			/*Create heartbeat task*/
 			CoCreateTask (DistanceToGroundTask,0,63,&DistanceToGround_stk[DistancToGroundStackSize-1],DistancToGroundStackSize);
-			WriteDebugInfo("Distance to ground sensor is initialized.\n\r");
+			WriteDebugInfo("Distance to ground sensor is initialized.\n\r/>");
 		}
 		else {
 			WriteDebugInfo("Distance to ground sensor couldn't be initialized!\n\r");
@@ -128,7 +101,7 @@ Bool initializeSensors()
 	}
 
 	/*Initialize Angle sensor*/
-	WriteDebugInfo("Initalize angle sensor? (Y/N)\n\r");
+	WriteDebugInfo("Initalize angle sensor? (Y/N)\n\r/>");
 	if (isAnswerFromUserYes())
 	{
 		if (sensorInitialization(SensorAccelero) == TRUE)
@@ -153,7 +126,7 @@ Bool initializeSensors()
 Bool initializeActuators()
 {
 	//initialize leds
-	WriteDebugInfo("Initalize Actuator Leds? (Y/N)\n\r");
+	WriteDebugInfo("Initalize Actuator Leds? (Y/N)\n\r/>");
 	if (isAnswerFromUserYes())
 	{
 		if (ActuatorsInitialization(ActuatorLeds) == TRUE)
@@ -173,7 +146,7 @@ Bool initializeActuators()
 	}
 
 	//Because the debug task isn't launched we need to write debug info directly
-	WriteDebugInfo("Initialize Actuator Motors? (Y/N)\n\r");
+	WriteDebugInfo("Initialize Actuator Motors? (Y/N)\n\r/>");
 	if (isAnswerFromUserYes() == TRUE)
 	{
 		if (ActuatorsInitialization(ActuatorMotors) == TRUE)

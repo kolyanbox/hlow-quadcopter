@@ -235,6 +235,10 @@ enum Command getCommand()
 	unsigned char getAngleZ[] = {"getanglez"};
 	unsigned char getOsTime[] = {"getostime"};
 	unsigned char getDistanceToGround[] = {"getdtg"};
+	unsigned char getAllCommands0[] = {"?"};
+	unsigned char getAllCommands1[] = {"--help"};
+	unsigned char getAllCommands2[] = {"--h"};
+	unsigned char getStatusAllTasks[] = {"getstatustasks"};
 	unsigned char* lrc = lastReceivedCommand();
 	if (sameString(getAngleX,lrc))
 	{
@@ -255,6 +259,14 @@ enum Command getCommand()
 	else if (sameString(getDistanceToGround,lrc))
 	{
 		return commandDistanceToGround;
+	}
+	else if (sameString(getAllCommands0,lrc) || sameString(getAllCommands1,lrc) || sameString(getAllCommands2,lrc))
+	{
+		return CommandHelp;
+	}
+	else if (sameString(getStatusAllTasks,lrc))
+	{
+		return CommandAllTaskStatus;
 	}
 	else if (lrc[0] != '\0'){
 		WriteDebugInformation(lrc,DirectDebug);

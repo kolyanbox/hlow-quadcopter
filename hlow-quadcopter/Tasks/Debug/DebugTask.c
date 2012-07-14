@@ -3,6 +3,7 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <CoOS.h>
 #include <Interfaces/Sensors/Sensors.h>
+#include <General/Taskmanager/Taskmanager.h>
 
 int messageNumber = 0;
 char* messages[maxMessages];
@@ -79,7 +80,7 @@ void DebugTask (void* pdata)
 			}
 			case (commandOsTime):
 			{
-				char osTime[10];
+				char osTime[20];
 				int t = CoGetOSTime();
 				Itoa(t,osTime,10);
 				WriteDebugInfo(osTime);
@@ -91,6 +92,46 @@ void DebugTask (void* pdata)
 				if (CoPendSem(distanceToGroundSem,0) == E_OK){
 					WriteDebugInfo(distanceToGround);
 					CoPostSem(distanceToGroundSem);
+				}
+				WriteDebugInfo("\n\r/>");
+				break;
+			}
+			case (CommandHelp):
+			{
+				WriteDebugInfo("These are all available commands:\n\r"
+								"Get current os time:            getostime\n\r"
+								"Get current angle x:            getanglex\n\r"
+								"Get current angle y:            getangley\n\r"
+								"Get current angle z:            getanglez\n\r"
+								"Get current distance to ground: getdtc\n\r"
+								"/>");
+				break;
+			}
+			case (CommandAllTaskStatus):
+			{
+				allTasks tasks = getAllTaskStatus();
+				int i = 0;
+				for (i=0;i<getCurrentAmountOfTasks();i++)
+				{
+					char number[1];
+					Itoa(tasks.taskIds[i],number,10);
+					WriteDebugInfo("Tasknumber: ");
+					WriteDebugInfo(number);
+					WriteDebugInfo("\n\rTaskname: ");
+					WriteDebugInfo(tasks.allTaskDefs[i].taskName);
+					WriteDebugInfo("\n\rRunning: ");
+					if (tasks.taskRunnings[i] == TRUE)
+					{
+						WriteDebugInfo("true\n\r");
+					}
+					else
+					{
+						WriteDebugInfo("false\n\r");
+					}
+					WriteDebugInfo("Priority: ");
+					Itoa(tasks.allTaskDefs[i].priority,number,10);
+					WriteDebugInfo(number);
+					WriteDebugInfo("\n\r");
 				}
 				WriteDebugInfo("\n\r/>");
 				break;

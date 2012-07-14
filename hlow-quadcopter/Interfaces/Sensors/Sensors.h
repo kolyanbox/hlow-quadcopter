@@ -16,7 +16,9 @@ enum Command {
 	CommandRotationX = 2,
 	CommandRotationY = 3,
 	CommandRotationZ = 4,
-	CommandNoCommand = 5
+	CommandNoCommand = 5,
+	CommandHelp = 6,
+	CommandAllTaskStatus = 7
 };
 
 enum SensorType{
