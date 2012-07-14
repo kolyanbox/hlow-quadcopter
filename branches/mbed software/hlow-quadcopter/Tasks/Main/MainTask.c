@@ -12,26 +12,35 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 
+#include <General/Taskmanager/Taskmanager.h>
+
 #define HeartBeatStackSize 64
 OS_STK	DistanceToGround_stk[HeartBeatStackSize];
+taskDef distanceToGroundTask;
 
 #define DistancToGroundStackSize 64
 OS_STK	HeartBeat_stk[DistancToGroundStackSize];
+taskDef heartbeatTask;
 
 #define AngleStackSize 64
 OS_STK	Angle_stk[AngleStackSize];
+taskDef angleTask;
 
 #define TemperatureStackSize 128
 OS_STK	Temperature_stk[TemperatureStackSize];
+taskDef temperatureTask;
 
 #define PressureStackSize 128
 OS_STK	Pressure_stk[PressureStackSize];
+taskDef pressureTask;
 
 #define DebugStackSize 128
 OS_STK	Debug_stk[DebugStackSize];
+taskDef debugTask;
 
 #define LoggingStackSize 64
 OS_STK	Logging_stk[LoggingStackSize];
+taskDef loggingTask;
 
 void MainTask (void* pdata)
 {
@@ -67,9 +76,27 @@ void MainTask (void* pdata)
 	/*clear all received commands*/
 	clearLastCommand();
 	/*Start debug task*/
-	CoCreateTask(DebugTask,0,63,&Debug_stk[DebugStackSize-1],DebugStackSize);
+	debugTask.priority = 63;
+	debugTask.stk = &Debug_stk[DebugStackSize-1];
+	debugTask.stkSz = DebugStackSize;
+	debugTask.task = DebugTask;
+	debugTask.taskName = "Debug";
+	if (createTask(debugTask) ==FALSE)
+	{
+		WriteDebugInfo("couldn't start debug task!");
+		while(1);
+	}
 	/*start logging task*/
-	CoCreateTask(LoggingTask,0,63,&Logging_stk[LoggingStackSize-1],LoggingStackSize);
+	loggingTask.priority = 63;
+	loggingTask.stk = &Logging_stk[LoggingStackSize-1];
+	loggingTask.stkSz = LoggingStackSize;
+	loggingTask.task = LoggingTask;
+	loggingTask.taskName = "Logging";
+	if (createTask(loggingTask) ==FALSE)
+	{
+		WriteDebugInfo("couldn't start logging task!");
+		while(1);
+	}
 
 	 for (;;)
 	{
@@ -86,8 +113,17 @@ Bool initializeSensors()
 	{
 		if (sensorInitialization(SensorDistanceToGround) == TRUE)
 		{
-			/*Create heartbeat task*/
-			CoCreateTask (DistanceToGroundTask,0,63,&DistanceToGround_stk[DistancToGroundStackSize-1],DistancToGroundStackSize);
+			/*Create distance task*/
+			distanceToGroundTask.priority = 63;
+			distanceToGroundTask.stk = &DistanceToGround_stk[DistancToGroundStackSize-1];
+			distanceToGroundTask.stkSz = DistancToGroundStackSize;
+			distanceToGroundTask.task = DistanceToGroundTask;
+			distanceToGroundTask.taskName = "distance";
+			if (createTask(distanceToGroundTask) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start logging task!");
+				while(1);
+			}
 			WriteDebugInfo("Distance to ground sensor is initialized.\n\r/>");
 		}
 		else {
@@ -106,8 +142,17 @@ Bool initializeSensors()
 	{
 		if (sensorInitialization(SensorAccelero) == TRUE)
 		{
-			/*Create heartbeat task*/
-			CoCreateTask (AngleTask,0,63,&Angle_stk[AngleStackSize-1],AngleStackSize);
+			/*Create angle task*/
+			angleTask.priority = 63;
+			angleTask.stk = &Angle_stk[AngleStackSize-1];
+			angleTask.stkSz = AngleStackSize;
+			angleTask.task = AngleTask;
+			angleTask.taskName = "angle";
+			if (createTask(angleTask) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start distance task!");
+				while(1);
+			}
 			WriteDebugInfo("Angle sensor is initialized.\n\r");
 		}
 		else {
@@ -132,7 +177,16 @@ Bool initializeActuators()
 		if (ActuatorsInitialization(ActuatorLeds) == TRUE)
 		{
 			/*Create heartbeat task*/
-			CoCreateTask (HeartBeat,0,63,&HeartBeat_stk[HeartBeatStackSize-1],HeartBeatStackSize);
+			heartbeatTask.priority = 63;
+			heartbeatTask.stk = &HeartBeat_stk[HeartBeatStackSize-1];
+			heartbeatTask.stkSz = HeartBeatStackSize;
+			heartbeatTask.task = HeartBeat;
+			heartbeatTask.taskName = "heartbeat";
+			if (createTask(heartbeatTask) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start distance task!");
+				while(1);
+			}
 			WriteDebugInfo("Leds are initialized.\n\r");
 		}
 		else {
