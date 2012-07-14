@@ -100,6 +100,7 @@ extern int 		Strcmp(const char* c_pcStr1, const char* c_pcStr2);
 extern char* 	Strcpy(char *pcDst, const char *c_pcSrc);
 extern int 		Strlen(const char* c_pcString);
 extern int 		Strncmp(const char *c_pcStr1, const char *c_pcStr2, unsigned int uiLen);
+extern char*		Strcat(char* dest, const char *src);
 
 /* Conversion related functions */
 extern long int	Strtol(const char *c_pcStr, char **ppcEnd, int iBase);
