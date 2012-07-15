@@ -273,11 +273,6 @@ enum Command getCommand()
 		WriteDebugInformation("Not a valid command.\n\r/>", DirectDebug);
 		clearLastCommand();
 	}
-	else
-	{
-		/* To be sure this isn't the case just write a debug message */
-		WriteDebugInformation("LastReceivedCommand is empty!", DirectDebug);
-	}
 	return CommandNoCommand;
 }
 

@@ -151,7 +151,7 @@ void UART0_IRQHandler (void)
 		if (lastReceivedChar != '\n')
 		{
 			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
-			if (lastReceivedCommandPosition > 19)
+			if (lastReceivedCommandPosition > COMMANDLENGTH - 1)
 			{
 				lastReceivedCommandPosition = 0;
 			}
