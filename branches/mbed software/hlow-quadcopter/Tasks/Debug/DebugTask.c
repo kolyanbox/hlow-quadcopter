@@ -96,131 +96,34 @@ void DebugTask (void* pdata)
 {
 	for (;;)
 	{
-		char *command = lastReceivedCommand();
-		int i;
-		for (i=0;i<MAXAMOUNTOFINTERFACES;i++)
+		char *c[MAX_COMMAND_LENGTH];
+		char command[MAX_COMMAND_LENGTH];
+		Strcpy(command, lastReceivedCommand());
+		char *delimiter = " ";
+		if (strtok(command, delimiter) != NULL)
 		{
-			if (interfaces[i].occupiedSlot == TRUE && Strcmp(interfaces[i].command,command) == 0)
+
+			int i = 0;
+			while ((c[i] = strtok(NULL, delimiter)) != NULL)
 			{
-				callInterfaceById(i);
-				WriteDebugInfo("\n\r/>");
-				break;
+				i++;
 			}
 		}
-
-/*		switch (getCommand())
+		int j;
+		for (j=0;j<MAXAMOUNTOFINTERFACES;j++)
 		{
-			case (CommandRotationX):
+			if (interfaces[j].occupiedSlot == TRUE && Strcmp(interfaces[j].command,strtok(command, delimiter)) == 0)
 			{
-				if (CoPendSem(messagesSem,0) == E_OK){
-					WriteDebugInfo(Angle[0]);
-					CoPostSem(messagesSem);
-				}
+				interfaces[j].parameters = c;
+				callInterfaceById(j);
 				WriteDebugInfo("\n\r/>");
 				break;
 			}
-			case (CommandRotationY):
+			else if (j == MAXAMOUNTOFINTERFACES-1 && command[0] != '\0')
 			{
-				if (CoPendSem(messagesSem,0) == E_OK){
-					WriteDebugInfo(Angle[1]);
-					CoPostSem(messagesSem);
-				}
 				WriteDebugInfo("\n\r/>");
-				break;
-			}
-			case (CommandRotationZ):
-			{
-				if (CoPendSem(messagesSem,0) == E_OK){
-					WriteDebugInfo(Angle[2]);
-					CoPostSem(messagesSem);
-				}
-				WriteDebugInfo("\n\r/>");
-				break;
-			}
-			case (commandOsTime):
-			{
-				char osTime[20];
-				int t = CoGetOSTime();
-				Itoa(t,osTime,10);
-				WriteDebugInfo(osTime);
-				WriteDebugInfo("\n\r/>");
-				break;
-			}
-			case (commandDistanceToGround):
-			{
-				if (CoPendSem(distanceToGroundSem,0) == E_OK){
-					WriteDebugInfo(distanceToGround);
-					CoPostSem(distanceToGroundSem);
-				}
-				WriteDebugInfo("\n\r/>");
-				break;
-			}
-			case (CommandHelp):
-			{
-				WriteDebugInfo("These are all available commands:\n\r"
-								"Get current os time:            getostime\n\r"
-								"Get current angle x:            getanglex\n\r"
-								"Get current angle y:            getangley\n\r"
-								"Get current angle z:            getanglez\n\r"
-								"Get current distance to ground: getdtc\n\r"
-								"/>");
-				break;
-			}
-			case (CommandAllTaskStatus):
-			{
-				allTasks tasks = getAllTaskStatus();
-				int i = 0;
-				for (i=0;i<getCurrentAmountOfTasks();i++)
-				{
-					char number[1];
-					Itoa(tasks.taskIds[i],number,10);
-					WriteDebugInfo("Tasknumber: ");
-					WriteDebugInfo(number);
-					WriteDebugInfo("\n\rTaskname: ");
-					WriteDebugInfo(tasks.allTaskDefs[i].taskName);
-					WriteDebugInfo("\n\rRunning: ");
-					if (tasks.taskRunnings[i] == TRUE)
-					{
-						WriteDebugInfo("true\n\r");
-					}
-					else
-					{
-						WriteDebugInfo("false\n\r");
-					}
-					WriteDebugInfo("Priority: ");
-					Itoa(tasks.allTaskDefs[i].priority,number,10);
-					WriteDebugInfo(number);
-					WriteDebugInfo("\n\r");
-				}
-				WriteDebugInfo("\n\r/>");
-				break;
-			}
-			case (CommandStopTaskWithId):
-			{
-				int taskId = Atoi(firstParam);
-				if (suspendTask(taskId) == TRUE)
-				{
-					WriteDebugInfo("stop a task\n\r/>");
-				}
-				else {
-					WriteDebugInfo("Task couldn't be stopped!\n\r/>");
-				}
-				break;
 			}
 		}
-
-		if (CoPendSem(messagesSem,0) == E_OK){
-
-			int message = 0;
-			for (;message < messageNumber;message++)
-			{
-				WriteDebugInfo(messages[message]);
-			}
-			messageNumber = 0;
-
-			CoPostSem(messagesSem);
-		}
-		*/
 		CoTimeDelay(0,0,1,0);
 	}
 }

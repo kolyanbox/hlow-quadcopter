@@ -137,6 +137,7 @@ extern double	Frexp(double value, int *eptr);
 
 /* Other functions */
 extern uint8_t	explode(char *pcInput, char *pacExploded[], char cExplodeCh);
-
+char *strtok(char *s, const char *delim);
+char * strtok_r(char *s, const char *delim, char **last);
 
 #endif

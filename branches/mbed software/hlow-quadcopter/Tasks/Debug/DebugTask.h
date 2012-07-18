@@ -8,7 +8,7 @@
 
 typedef struct {
     char **parameters;
-    char* (*interface)(char **arguments);
+    char* (*interface)(char *arguments[]);
     char command[MAX_COMMAND_LENGTH];
     Bool occupiedSlot;
 }interface;
