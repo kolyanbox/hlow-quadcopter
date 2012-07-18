@@ -4,30 +4,33 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 
-logtable appLogTable[LOG_APP_AMOUNT];
-loglevels currentLogLevel = LOG_DEBUG;
-/* Id counter from 1 to 255 */
-unsigned char ucIdCounter = 1;
+logtable *pAppLogTable;
+unsigned char *pucIdCounter;
 
 Bool LoggingTaskInitialization()
 {
     unsigned char i = 0;
- 
-    /* Set id to one, zero means empty slot */
-    ucIdCounter = 1;
     
     /* Reset everything */
     for(i = 0; i < LOG_APP_AMOUNT; i++)
     {
-        appLogTable[i].ucId = 0; /* 0 means this slot is free */
-        appLogTable[i].uacApp[0] = '\0';
-        appLogTable[i].logLevel = LOG_DEBUG;      
+    	pAppLogTable[i].ucId = 0; /* 0 means this slot is free */
+    	pAppLogTable[i].uacApp[0] = '\0';
+        pAppLogTable[i].logLevel = LOG_DEBUG;
     }    	
 	return TRUE;
 }
 
 void LoggingTask (void* pdata)
 {
+	logtable appLogTable[LOG_APP_AMOUNT];
+	/* Id counter from 1 to 255 */
+	unsigned char ucIdCounter = 1;
+
+	/* Address global pointers */
+	pAppLogTable = appLogTable;
+	pucIdCounter = &ucIdCounter;
+
 	LoggingTaskInitialization();
 	for (;;)
 	{
@@ -47,19 +50,19 @@ void updateIdCounter()
          ucIdFree = 1;
          
          /* Update id counter */
-         if(ucIdCounter == 255)
+         if(*pucIdCounter == 255)
          {
-             ucIdCounter = 1;               
+        	 *pucIdCounter = 1;
          }
          else
          {
-             ucIdCounter++;    
+        	 *pucIdCounter++;
          }  
          
          /* Check if the id is in use */
          for(i = 0; i < LOG_APP_AMOUNT; i++)
          {
-             if(appLogTable[i].ucId == ucIdCounter)
+             if(pAppLogTable[i].ucId == *pucIdCounter)
              {
                  ucIdFree = 0;
                  break;                       
@@ -88,7 +91,7 @@ unsigned char registerApp(unsigned char *uacApp, loglevels logLevel)
     /* Look for free slot */
     for(i = 0; i < LOG_APP_AMOUNT; i++)
     {
-          if(appLogTable[i].ucId == 0)
+          if(pAppLogTable[i].ucId == 0)
           {
               ucSlotFound = 1;
               break;                         
@@ -105,13 +108,13 @@ unsigned char registerApp(unsigned char *uacApp, loglevels logLevel)
     /* Set slot to found slot */
     ucSlotFound = i;
     
-    appLogTable[ucSlotFound].ucId = ucIdCounter;  
-    Strcpy(appLogTable[ucSlotFound].uacApp,uacApp);
-    appLogTable[ucSlotFound].logLevel = logLevel;
+    pAppLogTable[ucSlotFound].ucId = *pucIdCounter;
+    Strcpy(pAppLogTable[ucSlotFound].uacApp,uacApp);
+    pAppLogTable[ucSlotFound].logLevel = logLevel;
     
     updateIdCounter();
     
-    return appLogTable[ucSlotFound].ucId;
+    return pAppLogTable[ucSlotFound].ucId;
 }
 
 Bool deregisterApp(unsigned char ucAppId)
@@ -123,11 +126,11 @@ Bool deregisterApp(unsigned char ucAppId)
         
     for(i = 0; i < LOG_APP_AMOUNT; i++)
     {
-        if(appLogTable[i].ucId == ucAppId)
+        if(pAppLogTable[i].ucId == ucAppId)
         {
-            appLogTable[i].ucId = 0; /* 0 means this slot is free */
-            appLogTable[i].uacApp[0] = '\0';
-            appLogTable[i].logLevel = LOG_DEBUG;
+        	pAppLogTable[i].ucId = 0; /* 0 means this slot is free */
+        	pAppLogTable[i].uacApp[0] = '\0';
+        	pAppLogTable[i].logLevel = LOG_DEBUG;
             return TRUE;                       
         }      
     }           
@@ -143,12 +146,12 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
      
      for(i = 0; i < LOG_APP_AMOUNT; i++)
      {
-         if(appLogTable[i].ucId == ucAppId)
+         if(pAppLogTable[i].ucId == ucAppId)
          {
              /* Only log when loglevel is greater */
-             if(appLogTable[i].logLevel <= logLevel)
+             if(pAppLogTable[i].logLevel <= logLevel)
              {
-                 WriteDebugInformation(appLogTable[i].uacApp,DirectDebug);
+                 WriteDebugInformation(pAppLogTable[i].uacApp,DirectDebug);
                  WriteDebugInformation(": ",DirectDebug);
                  WriteDebugInformation(uacLogMessage,DirectDebug);
                  WriteDebugInformation("\n",DirectDebug);
@@ -166,7 +169,7 @@ void cmd_printLogTable()
     for(i = 0; i < LOG_APP_AMOUNT; i++)
     {
         Itoa((i+1), cSlotNumber, 10);
-        if(appLogTable[i].ucId == 0)
+        if(pAppLogTable[i].ucId == 0)
         {
             WriteDebugInformation("Slot ",DirectDebug); 
             WriteDebugInformation(cSlotNumber,DirectDebug); 
@@ -177,7 +180,7 @@ void cmd_printLogTable()
             WriteDebugInformation("Slot ",DirectDebug); 
             WriteDebugInformation(cSlotNumber,DirectDebug); 
             WriteDebugInformation(": ",DirectDebug); 
-            WriteDebugInformation(appLogTable[i].uacApp,DirectDebug);    
+            WriteDebugInformation(pAppLogTable[i].uacApp,DirectDebug);
             WriteDebugInformation("\n\r",DirectDebug);
         }      
     } 
