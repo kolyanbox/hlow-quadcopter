@@ -22,7 +22,8 @@ typedef struct
 
 
 Bool createTask(taskDef t);
-Bool suspendTask(void);
+Bool suspendTask(OS_TID id);
+Bool suspendTaskByName(char* taskName);
 allTasks getAllTaskStatus();
 int getCurrentAmountOfTasks();
 

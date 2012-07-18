@@ -34,7 +34,7 @@ taskDef temperatureTask;
 OS_STK	Pressure_stk[PressureStackSize];
 taskDef pressureTask;
 
-#define DebugStackSize 128
+#define DebugStackSize 256
 OS_STK	Debug_stk[DebugStackSize];
 taskDef debugTask;
 

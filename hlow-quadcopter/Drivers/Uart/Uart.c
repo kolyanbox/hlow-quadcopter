@@ -151,7 +151,7 @@ void UART0_IRQHandler (void)
 		if (lastReceivedChar != '\n')
 		{
 			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
-			if (lastReceivedCommandPosition > COMMANDLENGTH - 1)
+			if (lastReceivedCommandPosition > 19)
 			{
 				lastReceivedCommandPosition = 0;
 			}
@@ -220,7 +220,7 @@ void clearLastCommand()
 	}
 }
 
-unsigned char* lastReceivedCommand()
+const char* lastReceivedCommand()
 {
 	if (receivedValidCommand == TRUE)
 	{
@@ -228,7 +228,7 @@ unsigned char* lastReceivedCommand()
 		int i = COMMANDLENGTH-1;
 		while (i >= lastReceivedCommandPosition)
 		{
-			lastReceivedCommandString[i] = '\0';
+			lastReceivedCommandString[i-1] = '\0';
 			i--;
 		}
 		lastReceivedCommandPosition = 0;
