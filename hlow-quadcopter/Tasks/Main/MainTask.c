@@ -38,7 +38,7 @@ taskDef pressureTask;
 OS_STK	Debug_stk[DebugStackSize];
 taskDef debugTask;
 
-#define LoggingStackSize 64
+#define LoggingStackSize 128
 OS_STK	Logging_stk[LoggingStackSize];
 taskDef loggingTask;
 
@@ -75,6 +75,14 @@ void MainTask (void* pdata)
 	}
 	/*clear all received commands*/
 	clearLastCommand();
+
+
+	if (initializeTaskmanager() == FALSE)
+	{
+		WriteDebugInfo("couldn't initialize taskmanager!");
+		while (1);
+	}
+
 	/*Start debug task*/
 	debugTask.priority = 63;
 	debugTask.stk = &Debug_stk[DebugStackSize-1];

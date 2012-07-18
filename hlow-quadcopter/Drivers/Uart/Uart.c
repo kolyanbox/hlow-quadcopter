@@ -228,7 +228,7 @@ const char* lastReceivedCommand()
 		int i = COMMANDLENGTH-1;
 		while (i >= lastReceivedCommandPosition)
 		{
-			lastReceivedCommandString[i-1] = '\0';
+			lastReceivedCommandString[i] = '\0';
 			i--;
 		}
 		lastReceivedCommandPosition = 0;
