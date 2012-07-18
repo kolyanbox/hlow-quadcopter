@@ -18,8 +18,23 @@ char* Angle[3];
 OS_EventID distanceToGroundSem;
 char* distanceToGround;
 
+char* firstParam;
+
+interface interfaces[MAXAMOUNTOFINTERFACES];
+int currentAmmountOfInterfaces = 0;
+
+Bool cliInitialization()
+{
+	int i;
+	for (i = 0; i<MAXAMOUNTOFINTERFACES;i++)
+	{
+		interfaces[i].occupiedSlot = FALSE;
+	}
+}
+
 Bool DebugTaskInitialization()
 {
+	cliInitialization();
 	messagesSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (messagesSem == E_CREATE_FAIL)
 	{
@@ -44,12 +59,56 @@ Bool DebugTaskInitialization()
 	return TRUE;
 }
 
+int registerInterface(char* command, void *interface)
+{
+	int i = 0;
+	int prevAmmountOfInterfaces = currentAmmountOfInterfaces;
+	while (i < MAXAMOUNTOFINTERFACES)
+	{
+		if (interfaces[i].occupiedSlot == FALSE)
+		{
+			interfaces[i].occupiedSlot = TRUE;
+			interfaces[i].interface = interface;
+			Strcpy(interfaces[i].command,command);
+			currentAmmountOfInterfaces++;
+			break;
+		}
+		i++;
+	}
+	if (prevAmmountOfInterfaces == currentAmmountOfInterfaces)
+	{
+		return -1;
+	}
+	return currentAmmountOfInterfaces-1;
+}
+
+Bool callInterfaceById (int interfaceNumber)
+{
+	if (interfaces[interfaceNumber].occupiedSlot == TRUE)
+	{
+		WriteDebugInfo(interfaces[interfaceNumber].interface(interfaces[interfaceNumber].parameters));
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void DebugTask (void* pdata)
 {
-	WriteDebugInfo("/>");
 	for (;;)
 	{
-		switch (getCommand())
+		char *command = lastReceivedCommand();
+		int i;
+		for (i=0;i<MAXAMOUNTOFINTERFACES;i++)
+		{
+			if (interfaces[i].occupiedSlot == TRUE && Strcmp(interfaces[i].command,command) == 0)
+			{
+				callInterfaceById(i);
+				WriteDebugInfo("\n\r/>");
+				break;
+			}
+		}
+
+/*		switch (getCommand())
 		{
 			case (CommandRotationX):
 			{
@@ -136,6 +195,18 @@ void DebugTask (void* pdata)
 				WriteDebugInfo("\n\r/>");
 				break;
 			}
+			case (CommandStopTaskWithId):
+			{
+				int taskId = Atoi(firstParam);
+				if (suspendTask(taskId) == TRUE)
+				{
+					WriteDebugInfo("stop a task\n\r/>");
+				}
+				else {
+					WriteDebugInfo("Task couldn't be stopped!\n\r/>");
+				}
+				break;
+			}
 		}
 
 		if (CoPendSem(messagesSem,0) == E_OK){
@@ -149,6 +220,7 @@ void DebugTask (void* pdata)
 
 			CoPostSem(messagesSem);
 		}
+		*/
 		CoTimeDelay(0,0,1,0);
 	}
 }
@@ -205,4 +277,17 @@ Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
 	}
 
 	return TRUE;
+}
+
+
+void getFirstParameter(char* firstParameter)
+{
+	int i;
+	int lengthParam = Strlen(firstParameter);
+	char param[lengthParam];
+	for (i=0;i<lengthParam;i++)
+	{
+		param[i] = firstParameter[i];
+	}
+	firstParam = param;
 }

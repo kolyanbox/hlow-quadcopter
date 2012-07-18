@@ -18,7 +18,7 @@ volatile unsigned char lastReceivedChar;
 Bool UARTInit(LPC_UART_TypeDef *UARTx, uint32_t uiBaudrate);
 void UARTSetMisc(LPC_UART_TypeDef *UARTx);
 void UARTSend(LPC_UART_TypeDef *UARTx , const char * sendBuffer);
-unsigned char* lastReceivedCommand();
+const char* lastReceivedCommand();
 void clearLastCommand();
 
 #endif

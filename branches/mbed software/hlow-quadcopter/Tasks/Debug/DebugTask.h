@@ -3,6 +3,16 @@
 
 #include <lpc_types.h>
 
+#define MAXAMOUNTOFINTERFACES 20
+#define MAX_COMMAND_LENGTH 30
+
+typedef struct {
+    char **parameters;
+    char* (*interface)(char **arguments);
+    char command[MAX_COMMAND_LENGTH];
+    Bool occupiedSlot;
+}interface;
+
 #define maxMessages 50
 
 enum SortData {
@@ -15,7 +25,11 @@ enum SortData {
 	AngleZ = 6
 };
 
+int registerInterface(char* interfaceName, void *interface);
+Bool callInterfaceById (int interfaceNumber);
+
 void DebugTask (void* pdata);
 Bool DebugTaskInitialization();
 Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData);
+void getFirstParameter(char* firstParameter);
 #endif

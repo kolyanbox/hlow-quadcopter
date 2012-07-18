@@ -2,6 +2,27 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 #include <General/util.h>
+
+const char commandx[] = {"getanglex"};
+const char commandy[] = {"getangley"};
+const char commandz[] = {"getanglez"};
+
+char * printInfoAngleX()
+{
+	static char bla[] = {"Value of angle x: "};
+	return bla;
+}
+char * printInfoAngleY()
+{
+	static char bla[] = {"Value of angle y: "};
+	return bla;
+}
+char * printInfoAngleZ()
+{
+	static char bla[] = {"Value of angle z: "};
+	return bla;
+}
+
 void AngleTask (void* pdata)
 {
 	uint16_t value = 0;
@@ -9,6 +30,11 @@ void AngleTask (void* pdata)
 	char Angley[10];
 	char Anglez[10];
 	unsigned char angleApp = 0;
+
+	//register angle app in cli
+	registerInterface(commandx,printInfoAngleX);
+	registerInterface(commandy,printInfoAngleY);
+	registerInterface(commandz,printInfoAngleZ);
 
 	//angleApp = registerApp("Angle task",LOG_DEBUG);
     //if(angleApp < 1)
