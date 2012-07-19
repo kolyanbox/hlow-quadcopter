@@ -3,7 +3,6 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <CoOS.h>
 #include <Interfaces/Sensors/Sensors.h>
-#include <General/Taskmanager/Taskmanager.h>
 
 int messageNumber = 0;
 char* messages[maxMessages];
@@ -22,6 +21,21 @@ char* firstParam;
 
 interface interfaces[MAXAMOUNTOFINTERFACES];
 int currentAmmountOfInterfaces = 0;
+
+#define DebugStackSize 256
+OS_STK	Debug_stk[DebugStackSize];
+taskDef debugTask;
+
+taskDef t;
+taskDef getDebugTaskDefenition()
+{
+	t.priority = 63;
+	t.stk = &Debug_stk[DebugStackSize-1];
+	t.stkSz = DebugStackSize;
+	t.task = DebugTask;
+	t.taskName = "Debug";
+	return t;
+}
 
 Bool cliInitialization()
 {

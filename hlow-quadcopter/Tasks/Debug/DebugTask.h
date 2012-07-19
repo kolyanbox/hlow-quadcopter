@@ -2,6 +2,7 @@
 #define DEBUGTASK_H
 
 #include <lpc_types.h>
+#include <General/Taskmanager/Taskmanager.h>
 
 #define MAXAMOUNTOFINTERFACES 20
 #define MAX_COMMAND_LENGTH 30
@@ -27,7 +28,7 @@ enum SortData {
 
 int registerInterface(char* interfaceName, void *interface);
 Bool callInterfaceById (int interfaceNumber);
-
+taskDef getDebugTaskDefenition();
 void DebugTask (void* pdata);
 Bool DebugTaskInitialization();
 Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData);

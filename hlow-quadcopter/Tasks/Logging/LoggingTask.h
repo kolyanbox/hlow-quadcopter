@@ -3,6 +3,7 @@
 #define LOGGING_TASK_H
 
 #include <lpc_types.h>
+#include <General/Taskmanager/Taskmanager.h>
 
 /* Maximum amount of apps to register to logging */
 #define LOG_APP_AMOUNT 10
@@ -31,7 +32,7 @@ typedef struct
     loglevels logLevel;       
 } logtable;
 
-
+taskDef getLoggingTaskDefenition();
 void LoggingTask (void* pdata);
 Bool LoggingTaskInitialization();
 unsigned char registerApp(unsigned char *uacApp, loglevels logLevel);

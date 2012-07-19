@@ -12,12 +12,6 @@
 /*tasks*/
 #include <Tasks/Main/MainTask.h>
 
-/*---------------------------- Symbol Define -------------------------------*/
-#define STACK_SIZE_DEFAULT 64              /*!< Define a Default task size */
-
-/*---------------------------- Variable Define -------------------------------*/
-OS_STK     	MainTask_stk[STACK_SIZE_DEFAULT];
-
 int main (void)
 {
 	/*Initialize microcontroller*/
@@ -26,13 +20,7 @@ int main (void)
 	/*Initialize CoOs so that all sensors and actuators can use OS related functions*/
 	CoInitOS();
 
-	taskDef t;
-	t.priority = 63;
-	t.stk = &MainTask_stk[STACK_SIZE_DEFAULT-1];
-	t.stkSz = STACK_SIZE_DEFAULT;
-	t.task = MainTask;
-	t.taskName = "Main";
-	if (createTask(t) ==FALSE)
+	if (createTask(getMainTaskDefenition()) ==FALSE)
 	{
 		while(1);
 	}

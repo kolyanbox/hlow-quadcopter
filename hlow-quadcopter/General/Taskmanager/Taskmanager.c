@@ -2,24 +2,31 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <General/util.h>
 #include <Drivers/Uart/Uart.h>
+#include <Tasks/Main/MainTask.h>
+#include <Tasks/Logging/LoggingTask.h>
+#include <Tasks/Heartbeat/Heartbeat.h>
+#include <Tasks/Distancetoground/DistanceToGroundTask.h>
 
-allTasks tasks;
+allRunningTasks tasks;
 int currentAmmountOfTasks = 0;
 
 char commandPs [] = {"ps"};
+char commandKill [] = {"kill"};
+char commandStart [] = {"start"};
 char completeString[400];
 char * processStatus(char *args[])
 {
-	char *tempString;
-	char *tempString2;
 	int i;
 	completeString[0] = '\0';
-	Strcat(completeString,"ID\tRunning\tPriority\tStack size\tTask name\n\r");
+	Strcat(completeString,"ID\tosID\tRunning\tPriority\tStack size\tTask name\n\r");
 	for(i=0;i<CFG_MAX_USER_TASKS;i++)
 	{
 		if (tasks.taskRunnings[i] == TRUE)
 		{
 			char c[5];
+			Itoa(i,c,10);
+			Strcat(completeString,c);
+			Strcat(completeString,"\t");
 			Itoa(tasks.taskIds[i],c,10);
 			Strcat(completeString,c);
 			Strcat(completeString,"\t");
@@ -29,20 +36,74 @@ char * processStatus(char *args[])
 			Strcat(completeString,c);
 			Strcat(completeString,"\t");
 			Itoa(tasks.allTaskDefs[i].stkSz,c,10);
-			Strcat(completeString,"\t");
 			Strcat(completeString,c);
-			Strcat(completeString,"\t");
+			Strcat(completeString,"\t\t");
 			Strcat(completeString,tasks.allTaskDefs[i].taskName);
 			Strcat(completeString,"\n\r");
 		}
 	}
+	Strcat(completeString,"Free slots: ");
+	char c[5];
+	Itoa((CFG_MAX_USER_TASKS-getCurrentAmountOfTasks()),c,10);
+	Strcat(completeString,c);
+	Strcat(completeString,"\n\r");
 	return completeString;
+}
+
+char * killProcess(char *args[])
+{
+	int processId = Atoi(args[0]);
+	WriteDebugInfo(args[0]);
+	if (processId < currentAmmountOfTasks && killTask(tasks.taskIds[processId]) == TRUE)
+	{
+		return "Process killed";
+	}
+	else
+	{
+		return "No such process";
+	}
+}
+#include <Tasks/Angle/AngleTask.h>
+char * startProcess(char *args[])
+{
+	Bool retVal = FALSE;
+	if (Strcmp(args[0],getLoggingTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getLoggingTaskDefenition());
+	}
+	else if (Strcmp(args[0],getMainTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getMainTaskDefenition());
+	}
+	else if (Strcmp(args[0],getDebugTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getDebugTaskDefenition());
+	}
+	else if (Strcmp(args[0],getAngleTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getAngleTaskDefenition());
+	}
+	else if (Strcmp(args[0],getHeartbeatTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getHeartbeatTaskDefenition());
+	}
+	else if (Strcmp(args[0],getDistanceTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getDistanceTaskDefenition());
+	}
+	if (retVal == FALSE)
+	{
+		return "Task couldn't be created";
+	}
+	return "task started";
 }
 
 Bool initializeTaskmanager()
 {
 	//register taskmanager app in cli
 	registerInterface(commandPs,processStatus);
+	registerInterface(commandKill,killProcess);
+	registerInterface(commandStart,startProcess);
 	return TRUE;
 }
 
@@ -73,9 +134,10 @@ void cleanupTaskList()
 {
 	int i;
 	int j = 0;
-	allTasks tempTaskList;
+	allRunningTasks tempTaskList;
 	for (i=0;i<CFG_MAX_USER_TASKS;i++)
 	{
+		tempTaskList.taskRunnings[i] = FALSE;
 		if (tasks.taskRunnings[i] == TRUE)
 		{
 			tempTaskList.allTaskDefs[j] = tasks.allTaskDefs[i];
@@ -83,15 +145,12 @@ void cleanupTaskList()
 			tempTaskList.taskRunnings[j] = tasks.taskRunnings[i];
 			j++;
 		}
-		else
-		{
-			currentAmmountOfTasks--;
-		}
 	}
+	currentAmmountOfTasks = j;
 	tasks = tempTaskList;
 }
 
-Bool suspendTask(OS_TID id)
+Bool killTask(OS_TID id)
 {
 	int i;
 	Bool taskExists = FALSE;
@@ -104,28 +163,15 @@ Bool suspendTask(OS_TID id)
 			taskExists = TRUE;
 		}
 	}
-	if (taskExists = FALSE)
+	if (taskExists == FALSE)
 	{
 		return FALSE;
 	}
-	if (CoSuspendTask(id) == E_OK)
+	if (CoDelTask(id) == E_OK)
 	{
 		tasks.taskRunnings[taskNumber] = FALSE;
 		cleanupTaskList();
 		return TRUE;
-	}
-	return FALSE;
-}
-
-Bool suspendTaskByName(char* taskName)
-{
-	int i;
-	for (i=0;i<CFG_MAX_USER_TASKS;i++)
-	{
-		if (Strcmp(tasks.allTaskDefs[i].taskName, taskName) == 0)
-		{
-			return suspendTask(tasks.taskIds[i]);
-		}
 	}
 	return FALSE;
 }

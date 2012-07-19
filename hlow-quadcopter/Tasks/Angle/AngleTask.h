@@ -6,7 +6,9 @@
 #include <CoOS.h>
 
 #include <Interfaces/Sensors/Sensors.h>
+#include <General/Taskmanager/Taskmanager.h>
 
+taskDef getAngleTaskDefenition();
 void AngleTask (void* pdata);
 
 #endif
