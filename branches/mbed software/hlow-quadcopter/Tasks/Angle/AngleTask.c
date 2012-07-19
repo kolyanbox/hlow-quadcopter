@@ -15,6 +15,20 @@ char Anglex[5];
 char Angley[5];
 char Anglez[5];
 
+#define AngleStackSize 64
+OS_STK	Angle_stk[AngleStackSize];
+
+taskDef t;
+taskDef getAngleTaskDefenition()
+{
+	t.priority = 63;
+	t.stk = &Angle_stk[AngleStackSize-1];
+	t.stkSz = AngleStackSize;
+	t.task = AngleTask;
+	t.taskName = "Angle";
+	return t;
+}
+
 char * printInfoAngle(char *args[])
 {
 	char x[] = {"x"};

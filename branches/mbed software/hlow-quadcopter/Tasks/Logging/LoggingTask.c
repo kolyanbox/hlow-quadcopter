@@ -3,9 +3,23 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
-
 logtable *pAppLogTable;
 unsigned char *pucIdCounter;
+
+taskDef t;
+#define LoggingStackSize 128
+OS_STK	Logging_stk[LoggingStackSize];
+taskDef loggingTask;
+
+taskDef getLoggingTaskDefenition()
+{
+	t.priority = 63;
+	t.stk = &Logging_stk[LoggingStackSize-1];
+	t.stkSz = LoggingStackSize;
+	t.task = LoggingTask;
+	t.taskName = "Logging";
+	return t;
+}
 
 Bool LoggingTaskInitialization()
 {
