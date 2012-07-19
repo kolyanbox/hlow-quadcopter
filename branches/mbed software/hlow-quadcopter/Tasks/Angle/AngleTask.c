@@ -29,8 +29,12 @@ taskDef getAngleTaskDefenition()
 	return t;
 }
 
-char * printInfoAngle(char *args[])
+char * printInfoAngle(int argc, char *args[])
 {
+	if (argc != 1)
+	{
+		return "Unknown amount of parameters";
+	}
 	char x[] = {"x"};
 	char y[] = {"y"};
 	char z[] = {"z"};

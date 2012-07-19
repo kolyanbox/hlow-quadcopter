@@ -14,7 +14,7 @@ char commandPs [] = {"ps"};
 char commandKill [] = {"kill"};
 char commandStart [] = {"start"};
 char completeString[400];
-char * processStatus(char *args[])
+char * processStatus(int argc, char *args[])
 {
 	int i;
 	completeString[0] = '\0';
@@ -50,10 +50,9 @@ char * processStatus(char *args[])
 	return completeString;
 }
 
-char * killProcess(char *args[])
+char * killProcess(int argc, char *args[])
 {
 	int processId = Atoi(args[0]);
-	WriteDebugInfo(args[0]);
 	if (processId < currentAmmountOfTasks && killTask(tasks.taskIds[processId]) == TRUE)
 	{
 		return "Process killed";
@@ -64,7 +63,7 @@ char * killProcess(char *args[])
 	}
 }
 #include <Tasks/Angle/AngleTask.h>
-char * startProcess(char *args[])
+char * startProcess(int argc, char *args[])
 {
 	Bool retVal = FALSE;
 	if (Strcmp(args[0],getLoggingTaskDefenition().taskName) == 0)
@@ -109,6 +108,14 @@ Bool initializeTaskmanager()
 
 Bool createTask(taskDef t)
 {
+	int i;
+	for (i=0;i<CFG_MAX_USER_TASKS;i++)
+	{
+		if (tasks.allTaskDefs[i].task == t.task)
+		{
+			return FALSE;
+		}
+	}
 	if (currentAmmountOfTasks+1 > CFG_MAX_USER_TASKS)
 	{
 		return FALSE;

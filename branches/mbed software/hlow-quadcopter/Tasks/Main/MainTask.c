@@ -99,7 +99,7 @@ Bool initializeSensors()
 			/*Create distance task*/
 			if (createTask(getDistanceTaskDefenition()) ==FALSE)
 			{
-				WriteDebugInfo("couldn't start logging task!");
+				WriteDebugInfo("couldn't start distance to ground sensor task!\n\r");
 				while(1);
 			}
 			WriteDebugInfo("Distance to ground sensor is initialized.\n\r/>");

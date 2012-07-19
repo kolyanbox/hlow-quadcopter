@@ -29,7 +29,7 @@ taskDef debugTask;
 taskDef t;
 taskDef getDebugTaskDefenition()
 {
-	t.priority = 63;
+	t.priority = 1;
 	t.stk = &Debug_stk[DebugStackSize-1];
 	t.stkSz = DebugStackSize;
 	t.task = DebugTask;
@@ -100,7 +100,7 @@ Bool callInterfaceById (int interfaceNumber)
 {
 	if (interfaces[interfaceNumber].occupiedSlot == TRUE)
 	{
-		WriteDebugInfo(interfaces[interfaceNumber].interface(interfaces[interfaceNumber].parameters));
+		WriteDebugInfo(interfaces[interfaceNumber].interface(interfaces[interfaceNumber].amountOfCommands, interfaces[interfaceNumber].parameters));
 		return TRUE;
 	}
 	return FALSE;
@@ -114,10 +114,9 @@ void DebugTask (void* pdata)
 		char command[MAX_COMMAND_LENGTH];
 		Strcpy(command, lastReceivedCommand());
 		char *delimiter = " ";
+		int i = 0;
 		if (strtok(command, delimiter) != NULL)
 		{
-
-			int i = 0;
 			while ((c[i] = strtok(NULL, delimiter)) != NULL)
 			{
 				i++;
@@ -128,6 +127,7 @@ void DebugTask (void* pdata)
 		{
 			if (interfaces[j].occupiedSlot == TRUE && Strcmp(interfaces[j].command,strtok(command, delimiter)) == 0)
 			{
+				interfaces[j].amountOfCommands = i;
 				interfaces[j].parameters = c;
 				callInterfaceById(j);
 				WriteDebugInfo("\n\r/>");
