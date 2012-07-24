@@ -62,15 +62,15 @@ void AngleTask (void* pdata)
 	registerInterface(command,printInfoAngle);
 
 
-	//angleApp = registerApp("Angle task",LOG_DEBUG);
-    //if(angleApp < 1)
-    //{
-    //   WriteDebugInformation("Couldn't register angle app!\n\r", DirectDebug);
-    //}
+	angleApp = registerApp("Angle task",LOG_DEBUG);
+    if(angleApp < 1)
+    {
+       WriteDebugInformation("Couldn't register angle app!\n\r", DirectDebug);
+    }
 
 	for(;;)
 	{
-		//writeLog(angleApp,"inside angletask\n\r",LOG_DEBUG);
+		writeLog(angleApp,"inside angletask\n\r",LOG_DEBUG);
 
 		value = getCurrentAngle(X);
 		Itoa(value, Anglex, 10);

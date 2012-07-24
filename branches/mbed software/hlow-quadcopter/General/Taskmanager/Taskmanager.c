@@ -168,6 +168,7 @@ Bool killTask(OS_TID id)
 		{
 			taskNumber = i;
 			taskExists = TRUE;
+			break;
 		}
 	}
 	if (taskExists == FALSE)
@@ -176,6 +177,7 @@ Bool killTask(OS_TID id)
 	}
 	if (CoDelTask(id) == E_OK)
 	{
+		WriteDebugInfo("deleted task\n\r");
 		tasks.taskRunnings[taskNumber] = FALSE;
 		cleanupTaskList();
 		return TRUE;
