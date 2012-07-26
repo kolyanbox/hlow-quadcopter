@@ -181,10 +181,10 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
              /* Only log when loglevel is greater */
              if(pAppLogTable[i].logLevel <= logLevel)
              {
-                 WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
-                 WriteDebugInformation(": ",DirectDebug);
-                 WriteDebugInformation((char *)uacLogMessage,DirectDebug);
-                 WriteDebugInformation("\n",DirectDebug);
+//                 WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
+//                 WriteDebugInformation(": ",DirectDebug);
+//                 WriteDebugInformation((char *)uacLogMessage,DirectDebug);
+//                 WriteDebugInformation("\n",DirectDebug);
                  break;                            
              }                        
          }      
@@ -204,17 +204,17 @@ void cmd_printLogTable()
         Itoa((i+1), cSlotNumber, 10);
         if(pAppLogTable[i].ucId == 0)
         {
-            WriteDebugInformation("Slot ",DirectDebug); 
-            WriteDebugInformation(cSlotNumber,DirectDebug); 
-            WriteDebugInformation(": [empty]\n\r",DirectDebug);
+//            WriteDebugInformation("Slot ",DirectDebug);
+//            WriteDebugInformation(cSlotNumber,DirectDebug);
+//            WriteDebugInformation(": [empty]\n\r",DirectDebug);
         }
         else
         {
-            WriteDebugInformation("Slot ",DirectDebug); 
-            WriteDebugInformation(cSlotNumber,DirectDebug); 
-            WriteDebugInformation(": ",DirectDebug); 
-            WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
-            WriteDebugInformation("\n\r",DirectDebug);
+//            WriteDebugInformation("Slot ",DirectDebug);
+//            WriteDebugInformation(cSlotNumber,DirectDebug);
+//            WriteDebugInformation(": ",DirectDebug);
+//            WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
+//            WriteDebugInformation("\n\r",DirectDebug);
         }      
     } 
 }

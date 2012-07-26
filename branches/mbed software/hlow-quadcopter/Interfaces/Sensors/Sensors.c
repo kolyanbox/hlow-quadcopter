@@ -220,9 +220,9 @@ Bool sameString(unsigned char* stringOne, unsigned char* stringTwo)
 	int i = 0;
 	while (stringOne[i] != '\0' || stringTwo[i] != '\0')
 	{
-		WriteDebugInfo("in while");
-		WriteDebugInfo(stringOne);
-		WriteDebugInfo(stringTwo);
+//		WriteDebugInfo("in while");
+//		WriteDebugInfo(stringOne);
+//		WriteDebugInfo(stringTwo);
 		if (stringTwo[i] != stringOne[i])
 		{
 			if (stringOne[i] != '\0')
@@ -257,12 +257,12 @@ enum Command getCommand()
 
 	char c2[10];
 	Itoa(Strlen(lrc),c2,10);
-	WriteDebugInfo(c2);
-	WriteDebugInfo("<-\n\r");
+//	WriteDebugInfo(c2);
+//	WriteDebugInfo("<-\n\r");
 	Itoa(Strlen(stopTaskWithId),c2,10);
-	WriteDebugInfo(c2);
-	WriteDebugInfo(lrc);
-	WriteDebugInfo("<-\n\r");
+//	WriteDebugInfo(c2);
+//	WriteDebugInfo(lrc);
+//	WriteDebugInfo("<-\n\r");
 
 	//check if there are spaces in lrc
 	int i;
@@ -336,8 +336,7 @@ enum Command getCommand()
 		return CommandStopTaskWithId;
 	}
 	else if (lrc[0] != '\0'){
-		WriteDebugInformation(lrc,DirectDebug);
-		WriteDebugInformation("Not a valid command.\n\r/>", DirectDebug);
+//		WriteDebugInformation("Not a valid command.\n\r/>", DirectDebug);
 		clearLastCommand();
 	}
 	return CommandNoCommand;

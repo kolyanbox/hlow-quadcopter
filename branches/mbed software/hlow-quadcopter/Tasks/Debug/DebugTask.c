@@ -3,6 +3,8 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <CoOS.h>
 #include <Interfaces/Sensors/Sensors.h>
+#include <General/util.h>
+#include <Drivers/Uart/Uart.h>
 
 int messageNumber = 0;
 char* messages[maxMessages];
@@ -44,6 +46,7 @@ Bool cliInitialization()
 	{
 		interfaces[i].occupiedSlot = FALSE;
 	}
+	return TRUE;
 }
 
 Bool DebugTaskInitialization()
@@ -141,61 +144,6 @@ void DebugTask (void* pdata)
 		CoTimeDelay(0,0,1,0);
 	}
 }
-
-Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData)
-{
-	switch (sortData)
-	{
-		case DirectDebug:
-		{
-			if (CoPendSem(messagesSem,0) == E_OK){
-				if (messageNumber >= maxMessages-1)
-				{
-					return FALSE;
-				}
-				messages[messageNumber] = sendBuffer;
-				messageNumber++;
-				CoPostSem(messagesSem);
-			}
-			break;
-		}
-		case AngleX:
-		{
-			if (CoPendSem(angleSem,0) == E_OK){
-				Angle[0] = sendBuffer;
-				CoPostSem(angleSem);
-			}
-			break;
-		}
-		case AngleY:
-		{
-			if (CoPendSem(angleSem,0) == E_OK){
-				Angle[1] = sendBuffer;
-				CoPostSem(angleSem);
-			}
-			break;
-		}
-		case AngleZ:
-		{
-			if (CoPendSem(angleSem,0) == E_OK){
-				Angle[2] = sendBuffer;
-				CoPostSem(angleSem);
-			}
-			break;
-		}
-		case DistanceToGround:
-		{
-			if (CoPendSem(distanceToGroundSem,0) == E_OK){
-				distanceToGround = sendBuffer;
-				CoPostSem(distanceToGroundSem);
-			}
-			break;
-		}
-	}
-
-	return TRUE;
-}
-
 
 void getFirstParameter(char* firstParameter)
 {

@@ -32,6 +32,5 @@ Bool callInterfaceById (int interfaceNumber);
 taskDef getDebugTaskDefenition();
 void DebugTask (void* pdata);
 Bool DebugTaskInitialization();
-Bool WriteDebugInformation(const char* sendBuffer, enum SortData sortData);
 void getFirstParameter(char* firstParameter);
 #endif
