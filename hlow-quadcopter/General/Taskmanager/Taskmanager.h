@@ -2,7 +2,7 @@
  * @file      : Taskmanager.h
  * @brief     : Task manager able to manage tasks of real time operating system CoOs
  * @version   : V0.1
- * @date      : 19. Jul. 2012
+ * @date      : 19. July. 2012
 *******************************************************************************/
 
 #ifndef TASKMANAGER_H_
@@ -37,8 +37,17 @@ typedef struct
  * First call this method before using others
  */
 Bool initializeTaskmanager();
+/**
+ * Method for creating a new task. Returns TRUE on success, False otherwise
+ */
 Bool createTask(taskDef t);
+/**
+ * Method to kill a task by task id
+ */
 Bool killTask(OS_TID id);
+/**
+ * Method to get the current amount of tasks
+ */
 int getCurrentAmountOfTasks();
 
 #endif

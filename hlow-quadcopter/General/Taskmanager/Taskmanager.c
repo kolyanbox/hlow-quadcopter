@@ -109,9 +109,10 @@ Bool initializeTaskmanager()
 Bool createTask(taskDef t)
 {
 	int i;
+	// check if task already exists
 	for (i=0;i<CFG_MAX_USER_TASKS;i++)
 	{
-		if (tasks.allTaskDefs[i].task == t.task)
+		if (tasks.allTaskDefs[i].task == t.task && tasks.taskRunnings[i] == TRUE)
 		{
 			return FALSE;
 		}
@@ -137,7 +138,7 @@ int getCurrentAmountOfTasks()
 	return currentAmmountOfTasks;
 }
 
-void cleanupTaskList()
+static void cleanupTaskList()
 {
 	int i;
 	int j = 0;
@@ -179,6 +180,7 @@ Bool killTask(OS_TID id)
 	{
 		WriteDebugInfo("deleted task\n\r");
 		tasks.taskRunnings[taskNumber] = FALSE;
+		tasks.taskIds[taskNumber] = -1;
 		cleanupTaskList();
 		return TRUE;
 	}

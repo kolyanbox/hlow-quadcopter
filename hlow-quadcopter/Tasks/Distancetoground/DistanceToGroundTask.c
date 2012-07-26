@@ -1,9 +1,11 @@
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
 #include <General/util.h>
-char c[30];
+char distanceToGroundVal[30];
 
 #define DistancToGroundStackSize 128
 OS_STK	Distance_stk[DistancToGroundStackSize];
+
+const char commandDtg[] = {"getdtg"};
 
 taskDef t;
 taskDef getDistanceTaskDefenition()
@@ -16,13 +18,24 @@ taskDef getDistanceTaskDefenition()
 	return t;
 }
 
+char * printInfoDistanceToGround(int argc, char *args[])
+{
+	if (argc != 0)
+	{
+		return "Unknown amount of parameters";
+	}
+
+	return distanceToGroundVal;
+}
+
 void DistanceToGroundTask (void* pdata)
 {
+	//register angle app in cli
+	registerInterface(commandDtg,printInfoDistanceToGround);
 	for(;;)
 	{
 		int distanceToGround = getCurrentHeightInCm();
-		Itoa(distanceToGround,c,10);
-		WriteDebugInformation(c,DistanceToGround);
+		Itoa(distanceToGround,distanceToGroundVal,10);
 		CoTimeDelay(0,0,1,0);
 	}
 }

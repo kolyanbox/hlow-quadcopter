@@ -65,7 +65,8 @@ void AngleTask (void* pdata)
 	angleApp = registerApp("Angle task",LOG_DEBUG);
     if(angleApp < 1)
     {
-       WriteDebugInformation("Couldn't register angle app!\n\r", DirectDebug);
+    	//TODO: implement a function like line below
+    	//killTask(t.task);
     }
 
 	for(;;)
