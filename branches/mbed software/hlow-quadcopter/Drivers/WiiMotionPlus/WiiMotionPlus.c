@@ -1,4 +1,5 @@
 #include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
+#include <Tasks/Debug/DebugTask.h>
 
 /*Global definitions for I2C*/
 
@@ -92,10 +93,81 @@ Bool initializeWiiMotionPlus()
 		return partialReturnValue;
 	}
 }
+uint8_t rxBuffer[6];
+char test[5];
+
+void callback()
+{
+	//Memset(test, '\0', sizeof(test));
+
+	WriteDebugInfo("callback");
+
+	//detect if we ever went into fast mode
+	if (rxBuffer[3] & 0x02)
+	{
+		WriteDebugInfo("fast 1\n");
+	}
+	if (rxBuffer[4] & 0x02)
+	{
+		WriteDebugInfo("fast 2\n");
+	}
+	if (rxBuffer[3] & 0x01)
+	{
+		WriteDebugInfo("fast 3\n");
+	}
+
+
+
+	Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02 && rxBuffer[3] & 0x01);
+	if (fastdiscard)
+	{
+		WriteDebugInfo("fastdiscard");
+	}
+
+	float gyrodata[3];
+	short tmpGyro;
+	tmpGyro = (rxBuffer[3] >> 2);
+	tmpGyro <<=8;
+	gyrodata[0] = tmpGyro;
+	gyrodata[0] += rxBuffer[0];
+	gyrodata[0] -= 8000;
+	gyrodata[0] *= RPSPUNIT;
+
+	tmpGyro = (rxBuffer[4] >> 2);
+	tmpGyro <<= 8;
+	gyrodata[1] = tmpGyro;
+	gyrodata[1] += rxBuffer[1];
+	gyrodata[1] -= 8000;
+	gyrodata[1] *= RPSPUNIT;
+
+	tmpGyro = (rxBuffer[5] >> 2);
+	tmpGyro <<= 8;
+	gyrodata[2] = tmpGyro;
+	gyrodata[2] += rxBuffer[2];
+	gyrodata[2] -= 8000;
+	gyrodata[2] *= RPSPUNIT;
+
+
+
+	WriteDebugInfo("Gyrodata0: ");
+	Ftoa(gyrodata[0],test,10,'f');
+	WriteDebugInfo(test);
+	WriteDebugInfo("\r");
+
+	WriteDebugInfo("Gyrodata1: ");
+	Ftoa(gyrodata[1],test,10,'f');
+	WriteDebugInfo(test);
+	WriteDebugInfo("\r");
+
+	WriteDebugInfo("Gyrodata2: ");
+	Ftoa(gyrodata[2],test,10,'f');
+	WriteDebugInfo(test);
+	WriteDebugInfo("\r");
+
+}
 
 void gyroscope_get()
 {
-	uint8_t rxBuffer[6];
 	rxBuffer[0] = 0;
 	rxBuffer[1] = 0;
 	rxBuffer[2] = 0;
@@ -125,81 +197,17 @@ void gyroscope_get()
 		transferMCfg.rx_length = 6;//sizeof(I2C_RxBuffer);
 		transferMCfg.retransmissions_max = 0;
 
-		char test[5];
-		Memset(test, '\0', sizeof(test));
 
 		st = I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT);
 
-		if(st)
-		{
-			while (transferMCfg.rx_count <6);
-
-			//detect if we ever went into fast mode
-			if (rxBuffer[3] & 0x02)
-			{
-				WriteDebugInfo("fast 1\n");
-			}
-			if (rxBuffer[4] & 0x02)
-			{
-				WriteDebugInfo("fast 2\n");
-			}
-			if (rxBuffer[3] & 0x01)
-			{
-				WriteDebugInfo("fast 3\n");
-			}
-
-
-
-			Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02 && rxBuffer[3] & 0x01);
-			if (fastdiscard)
-			{
-				WriteDebugInfo("fastdiscard");
-			}
-
-			float gyrodata[3];
-			short tmpGyro;
-			tmpGyro = (rxBuffer[3] >> 2);
-			tmpGyro <<=8;
-			gyrodata[0] = tmpGyro;
-			gyrodata[0] += rxBuffer[0];
-			gyrodata[0] -= 8000;
-			gyrodata[0] *= RPSPUNIT;
-
-			tmpGyro = (rxBuffer[4] >> 2);
-			tmpGyro <<= 8;
-			gyrodata[1] = tmpGyro;
-			gyrodata[1] += rxBuffer[1];
-			gyrodata[1] -= 8000;
-			gyrodata[1] *= RPSPUNIT;
-
-			tmpGyro = (rxBuffer[5] >> 2);
-			tmpGyro <<= 8;
-			gyrodata[2] = tmpGyro;
-			gyrodata[2] += rxBuffer[2];
-			gyrodata[2] -= 8000;
-			gyrodata[2] *= RPSPUNIT;
-
-
-
-			WriteDebugInfo("Gyrodata0: ");
-			Ftoa(gyrodata[0],test,10,'f');
-			WriteDebugInfo(test);
-			WriteDebugInfo("\r");
-
-			WriteDebugInfo("Gyrodata1: ");
-			Ftoa(gyrodata[1],test,10,'f');
-			WriteDebugInfo(test);
-			WriteDebugInfo("\r");
-
-			WriteDebugInfo("Gyrodata2: ");
-			Ftoa(gyrodata[2],test,10,'f');
-			WriteDebugInfo(test);
-			WriteDebugInfo("\r");
-		}
-		else
-		{
-			WriteDebugInfo("Fail #3!\n\r");
-		}
+		transferMCfg.callback = callback;
+		//if(st)
+		//{
+		//}
+		//else
+		//{
+		//	WriteDebugInfo("Fail #3!\n\r");
+		//}
 	}
 	else
 	{
