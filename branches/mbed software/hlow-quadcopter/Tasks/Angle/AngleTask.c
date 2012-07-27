@@ -63,11 +63,6 @@ void AngleTask (void* pdata)
 
 
 	angleApp = registerApp("Angle task",LOG_DEBUG);
-    if(angleApp < 1)
-    {
-    	//TODO: implement a function like line below
-    	//killTask(t.task);
-    }
 
 	for(;;)
 	{

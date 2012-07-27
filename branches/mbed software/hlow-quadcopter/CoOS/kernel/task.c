@@ -961,10 +961,10 @@ StatusType CoDelTask(OS_TID taskID)
     }
 #endif
     if(taskID == 0)                     /* Is idle task?                      */
-    {											 
+    {
         return E_PROTECTED_TASK;        /* Yes,error return                   */
     }    
-    
+
     if(ptcb->state == TASK_RUNNING)     /* Is task running?                   */
     {
         if(OSSchedLock != 0)            /* Yes,is OS lock?                    */
@@ -972,7 +972,7 @@ StatusType CoDelTask(OS_TID taskID)
             return E_OS_IN_LOCK;        /* Yes,error return                   */
         }	
     }
-		
+
 #if CFG_MUTEX_EN >0                     /* Do task hold mutex?                */
     if(ptcb->mutexID != INVALID_ID)
 	{
@@ -985,13 +985,13 @@ StatusType CoDelTask(OS_TID taskID)
 #endif	
 
     OsSchedLock();                      /* Lock schedule                      */
-    
+
     if(ptcb->state == TASK_READY)       /* Is task in READY list?             */
     {
         RemoveFromTCBRdyList(ptcb);     /* Yes,remove task from the READY list*/
     }
 
-#if CFG_TASK_WAITTING_EN > 0 
+#if CFG_TASK_WAITTING_EN > 0
     else if(ptcb->state == TASK_WAITING)/* Is task in the WAITING list?       */
     {
         /* Yes,Is task in delay list? */

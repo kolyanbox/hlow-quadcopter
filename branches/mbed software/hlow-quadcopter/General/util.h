@@ -108,6 +108,7 @@ extern double 	Strtod(const char *str, char **endptr);
 extern int 		Atoi(char *ap);
 extern double	Atof(const char *str);
 extern char* 	Itoa(int value, char* result, int base);
+int str_is_digit(char* c);
 extern void 	Ftoa(float x, char *str, char prec, char format);
 
 /* Math related functions */
