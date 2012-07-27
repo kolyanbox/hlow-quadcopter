@@ -61,8 +61,6 @@ char * killProcess(int argc, char *args[])
 {
 	if (argc == 2)
 	{
-		WriteDebugInfo(args[0]);
-		WriteDebugInfo(args[1]);
 		if (Strcmp(args[0], "name") == 0)
 		{
 			if (killTaskbyName(args[1]) == TRUE)

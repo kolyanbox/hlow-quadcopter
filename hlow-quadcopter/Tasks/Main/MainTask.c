@@ -11,6 +11,7 @@
 #include <Tasks/Pressure/PressureTask.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
+#include <Tasks/Speed/SpeedTask.h>
 
 #include <General/Taskmanager/Taskmanager.h>
 
@@ -123,7 +124,7 @@ Bool initializeSensors()
 			/*Create angle task*/
 			if (createTask(getAngleTaskDefenition()) ==FALSE)
 			{
-				WriteDebugInfo("couldn't start distance task!");
+				WriteDebugInfo("couldn't start angle task!");
 				while(1);
 			}
 			WriteDebugInfo("Angle sensor is initialized.\n\r");
@@ -137,6 +138,31 @@ Bool initializeSensors()
 
 		WriteDebugInfo("Angle sensor didn't Initialize!\n\r");
 	}
+
+	/*Initialize Speed sensor*/
+	WriteDebugInfo("Initalize speed sensor? (Y/N)\n\r/>");
+	if (isAnswerFromUserYes())
+	{
+		if (sensorInitialization(SensorRotation) == TRUE)
+		{
+			/*Create angle task*/
+			if (createTask(getSpeedTaskDefenition()) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start speed task!");
+				while(1);
+			}
+			WriteDebugInfo("Speed sensor is initialized.\n\r");
+		}
+		else {
+			WriteDebugInfo("Speed sensor couldn't be initialized!\n\r");
+		}
+	}
+	//If the answer was no
+	else {
+
+		WriteDebugInfo("Speed sensor didn't Initialize!\n\r");
+	}
+
 	return TRUE;
 }
 
