@@ -1,3 +1,10 @@
+/***************************************************************************//**
+ * @file      : Taskmanager.c
+ * @brief     : Task manager able to manage tasks of real time operating system CoOs
+ * @version   : V0.1
+ * @date      : 19. July. 2012
+ * @knownbugs : A task can't kill itself
+*******************************************************************************/
 #include <General/Taskmanager/Taskmanager.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <General/util.h>
@@ -52,15 +59,39 @@ char * processStatus(int argc, char *args[])
 
 char * killProcess(int argc, char *args[])
 {
-	int processId = Atoi(args[0]);
-	if (processId < currentAmmountOfTasks && killTask(tasks.taskIds[processId]) == TRUE)
+	if (argc == 2)
 	{
-		return "Process killed";
+		WriteDebugInfo(args[0]);
+		WriteDebugInfo(args[1]);
+		if (Strcmp(args[0], "name") == 0)
+		{
+			if (killTaskbyName(args[1]) == TRUE)
+			{
+				return "Process killed";
+			}
+			else
+			{
+				return "No such process";
+			}
+		}
 	}
-	else
+	else if (argc == 1)
 	{
-		return "No such process";
+		if (!str_is_digit(args[0]))
+		{
+			return "No such process";
+		}
+		int processId = Atoi(args[0]);
+		if (processId < currentAmmountOfTasks && killTask(tasks.taskIds[processId]) == TRUE)
+		{
+			return "Process killed";
+		}
+		else
+		{
+			return "No such process";
+		}
 	}
+	return "No such process";
 }
 #include <Tasks/Angle/AngleTask.h>
 char * startProcess(int argc, char *args[])
@@ -158,6 +189,29 @@ static void cleanupTaskList()
 	tasks = tempTaskList;
 }
 
+static short getTaskIdByName(char* taskName)
+{
+	int i;
+	for (i=0;i<CFG_MAX_USER_TASKS;i++)
+	{
+		if (Strcmp(tasks.allTaskDefs[i].taskName,taskName) == 0)
+		{
+			return tasks.taskIds[i];
+		}
+	}
+	return -1;
+}
+
+Bool killTaskbyName(char* taskName)
+{
+	short id = getTaskIdByName(taskName);
+	if (id == -1)
+	{
+		return FALSE;
+	}
+	return killTask(id);
+}
+
 Bool killTask(OS_TID id)
 {
 	int i;
@@ -176,13 +230,21 @@ Bool killTask(OS_TID id)
 	{
 		return FALSE;
 	}
+	//First cleanup then kill
+	Bool running = tasks.taskRunnings[taskNumber];
+	OS_TID tid = tasks.taskIds[taskNumber];
+	tasks.taskRunnings[taskNumber] = FALSE;
+	tasks.taskIds[taskNumber] = -1;
+	cleanupTaskList();
 	if (CoDelTask(id) == E_OK)
 	{
-		WriteDebugInfo("deleted task\n\r");
-		tasks.taskRunnings[taskNumber] = FALSE;
-		tasks.taskIds[taskNumber] = -1;
-		cleanupTaskList();
 		return TRUE;
+	}
+	// if killing wasn't possible
+	else
+	{
+		tasks.taskRunnings[taskNumber] = running;
+		tasks.taskIds[taskNumber] = tid;
 	}
 	return FALSE;
 }

@@ -3,6 +3,7 @@
  * @brief     : Task manager able to manage tasks of real time operating system CoOs
  * @version   : V0.1
  * @date      : 19. July. 2012
+ * @knownbugs : A task can't kill itself
 *******************************************************************************/
 
 #ifndef TASKMANAGER_H_
@@ -45,6 +46,10 @@ Bool createTask(taskDef t);
  * Method to kill a task by task id
  */
 Bool killTask(OS_TID id);
+/**
+ * Method to kill a task by function pointer id
+ */
+Bool killTaskbyName(char* taskName);
 /**
  * Method to get the current amount of tasks
  */

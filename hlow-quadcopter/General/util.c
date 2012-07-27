@@ -137,6 +137,18 @@ char * Strcat ( char * dest, const char * src )
 	return ret;
 }
 
+int str_is_digit(char* c) {
+	int i=0;
+	while (c[i] != '\0')
+	{
+		if( c[i] < '0' || c[i] > '9' )
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
+
 int Atoi(char *ap)
 {
 	register int n = 0;
