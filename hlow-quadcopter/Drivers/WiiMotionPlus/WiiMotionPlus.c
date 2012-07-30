@@ -1,5 +1,6 @@
 #include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
 #include <Tasks/Debug/DebugTask.h>
+#include <Drivers/Uart/Uart.h>
 
 /*Global definitions for I2C*/
 
@@ -16,8 +17,23 @@ uint8_t Gyro_TxBuffer[2] = { 0,0 };
 
 I2C_M_SETUP_Type transferMCfg;
 
+OS_EventID wiiMotionPlusSensorSem;
+float gyrodata[3];
+
+
+float calX;
+float calY;
+float calZ;
+
 Bool initializeWiiMotionPlus()
 {
+	wiiMotionPlusSensorSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
+	if (wiiMotionPlusSensorSem == E_CREATE_FAIL)
+	{
+		return FALSE;
+	}
+	CoPostSem(wiiMotionPlusSensorSem);
+
 	Bool partialReturnValue = FALSE;
 
 	Gyro_TxBuffer[0] = 0xFE;
@@ -81,6 +97,14 @@ Bool initializeWiiMotionPlus()
 		transferMCfg.retransmissions_max = 0;
 		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 		{
+			int i;
+			for (i=0;i<100;i++)
+			{
+				gyroscope_get();
+				calX += gyroscope_get_value(0);
+				calY += gyroscope_get_value(1);
+				calZ += gyroscope_get_value(2);
+			}
 			return TRUE;
 		}
 		else
@@ -90,6 +114,14 @@ Bool initializeWiiMotionPlus()
 	}
 	else
 	{
+		int i;
+		for (i=0;i<100;i++)
+		{
+			gyroscope_get();
+			calX += gyroscope_get_value(0);
+			calY += gyroscope_get_value(1);
+			calZ += gyroscope_get_value(2);
+		}
 		return partialReturnValue;
 	}
 }
@@ -98,76 +130,62 @@ char test[5];
 
 void callback()
 {
-	//Memset(test, '\0', sizeof(test));
-
-	WriteDebugInfo("callback");
-
 	//detect if we ever went into fast mode
-	if (rxBuffer[3] & 0x02)
-	{
-		WriteDebugInfo("fast 1\n");
-	}
-	if (rxBuffer[4] & 0x02)
-	{
-		WriteDebugInfo("fast 2\n");
-	}
-	if (rxBuffer[3] & 0x01)
-	{
-		WriteDebugInfo("fast 3\n");
-	}
-
-
-
 	Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02 && rxBuffer[3] & 0x01);
 	if (fastdiscard)
 	{
-		WriteDebugInfo("fastdiscard");
+		return;
 	}
+	else {
+		if (CoPendSem(wiiMotionPlusSensorSem,10) == E_OK){
+			short tmpGyro;
+			tmpGyro = (rxBuffer[3] >> 2);
+			tmpGyro <<=8;
+			gyrodata[0] = tmpGyro;
+			gyrodata[0] += rxBuffer[0];
+			gyrodata[0] -= 8000;
+			gyrodata[0] *= RPSPUNIT;
+			gyrodata[0] -= calX;
 
-	float gyrodata[3];
-	short tmpGyro;
-	tmpGyro = (rxBuffer[3] >> 2);
-	tmpGyro <<=8;
-	gyrodata[0] = tmpGyro;
-	gyrodata[0] += rxBuffer[0];
-	gyrodata[0] -= 8000;
-	gyrodata[0] *= RPSPUNIT;
+			tmpGyro = (rxBuffer[4] >> 2);
+			tmpGyro <<= 8;
+			gyrodata[1] = tmpGyro;
+			gyrodata[1] += rxBuffer[1];
+			gyrodata[1] -= 8000;
+			gyrodata[1] *= RPSPUNIT;
+			gyrodata[1] -= calY;
 
-	tmpGyro = (rxBuffer[4] >> 2);
-	tmpGyro <<= 8;
-	gyrodata[1] = tmpGyro;
-	gyrodata[1] += rxBuffer[1];
-	gyrodata[1] -= 8000;
-	gyrodata[1] *= RPSPUNIT;
+			tmpGyro = (rxBuffer[5] >> 2);
+			tmpGyro <<= 8;
+			gyrodata[2] = tmpGyro;
+			gyrodata[2] += rxBuffer[2];
+			gyrodata[2] -= 8000;
+			gyrodata[2] *= RPSPUNIT;
+			gyrodata[2] -= calZ;
 
-	tmpGyro = (rxBuffer[5] >> 2);
-	tmpGyro <<= 8;
-	gyrodata[2] = tmpGyro;
-	gyrodata[2] += rxBuffer[2];
-	gyrodata[2] -= 8000;
-	gyrodata[2] *= RPSPUNIT;
+			CoPostSem(wiiMotionPlusSensorSem);
+		}
+	}
+}
 
-
-
-	WriteDebugInfo("Gyrodata0: ");
-	Ftoa(gyrodata[0],test,10,'f');
-	WriteDebugInfo(test);
-	WriteDebugInfo("\r");
-
-	WriteDebugInfo("Gyrodata1: ");
-	Ftoa(gyrodata[1],test,10,'f');
-	WriteDebugInfo(test);
-	WriteDebugInfo("\r");
-
-	WriteDebugInfo("Gyrodata2: ");
-	Ftoa(gyrodata[2],test,10,'f');
-	WriteDebugInfo(test);
-	WriteDebugInfo("\r");
-
+float gyroscope_get_value(int valueNumber)
+{
+	float data;
+	if (valueNumber > 2 || valueNumber < 0)
+	{
+		return 0;
+	}
+	if (CoPendSem(wiiMotionPlusSensorSem,10) == E_OK){
+		data = gyrodata[valueNumber];
+		CoPostSem(wiiMotionPlusSensorSem);
+	}
+	return data;
 }
 
 void gyroscope_get()
 {
+	CoTimeDelay(0,0,0,50);
+
 	rxBuffer[0] = 0;
 	rxBuffer[1] = 0;
 	rxBuffer[2] = 0;
@@ -201,13 +219,6 @@ void gyroscope_get()
 		st = I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT);
 
 		transferMCfg.callback = callback;
-		//if(st)
-		//{
-		//}
-		//else
-		//{
-		//	WriteDebugInfo("Fail #3!\n\r");
-		//}
 	}
 	else
 	{
