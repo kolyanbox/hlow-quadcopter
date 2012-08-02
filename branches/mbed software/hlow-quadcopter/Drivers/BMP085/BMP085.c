@@ -168,11 +168,12 @@ void UPBMP085Callback (void)
 	//WriteDebugInfo("upbmpcallback\n");
 }
 
-short getDataBMP085(uint8_t transmitMessage)
+uint8_t rxBuffer[4];
+Bool getDataBMP085(uint8_t transmitMessage)
 {
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
-	uint8_t rxBuffer[4];
+
 		rxBuffer[0] = 0;
 		rxBuffer[1] = 0;
 		rxBuffer[2] = 0;
@@ -191,19 +192,24 @@ short getDataBMP085(uint8_t transmitMessage)
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
-		while (transferMCfg.rx_count <2);
-		short returnValue = rxBuffer[0] << 8;
-		return returnValue += rxBuffer[1];
+		return TRUE;
 	}
 	else
 	{
-		return 1;
+		return FALSE;
 	}
+}
+
+short returnValue;
+short get_value_bmp085()
+{
+	return returnValue;
 }
 
 void dataBMP085Callback (void)
 {
-	//WriteDebugInfo("databmp\n");
+	returnValue = rxBuffer[0] << 8;
+	returnValue += rxBuffer[1];
 }
 
 long getTemperature(void)

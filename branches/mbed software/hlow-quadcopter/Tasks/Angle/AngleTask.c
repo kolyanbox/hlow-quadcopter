@@ -5,11 +5,8 @@
 
 #include <Drivers/Uart/Uart.h>
 
-const char commandx[] = {"getanglex"};
-const char commandy[] = {"getangley"};
-const char commandz[] = {"getanglez"};
-const char command[] = {"getangle"};
-const char wrongCommand[] = {"Not a valid command!"};
+char commandGetAngle[] = {"getangle"};
+char wrongCommandGetAngle[] = {"Not a valid command!"};
 
 char Anglex[5];
 char Angley[5];
@@ -50,7 +47,7 @@ char * printInfoAngle(int argc, char *args[])
 	{
 		return Anglez;
 	}
-	return wrongCommand;
+	return wrongCommandGetAngle;
 }
 
 void AngleTask (void* pdata)
@@ -59,7 +56,7 @@ void AngleTask (void* pdata)
 	unsigned char angleApp = 0;
 
 	//register angle app in cli
-	registerInterface(command,printInfoAngle);
+	registerInterface(commandGetAngle,printInfoAngle);
 
 
 	angleApp = registerApp("Angle task",LOG_DEBUG);

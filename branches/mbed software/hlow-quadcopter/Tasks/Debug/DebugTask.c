@@ -73,6 +73,12 @@ Bool DebugTaskInitialization()
 	}
 	CoPostSem(distanceToGroundSem);
 
+	int i;
+	for (i=0;i<MAXAMOUNTOFINTERFACES;i++)
+	{
+		interfaces[i].occupiedSlot = FALSE;
+	}
+
 	return TRUE;
 }
 
