@@ -163,6 +163,30 @@ Bool initializeSensors()
 		WriteDebugInfo("Speed sensor didn't Initialize!\n\r");
 	}
 
+	/*Initialize pressure sensor*/
+	WriteDebugInfo("Initalize pressure sensor? (Y/N)\n\r/>");
+	if (isAnswerFromUserYes())
+	{
+		if (sensorInitialization(SensorPressure) == TRUE)
+		{
+			/*Create angle task*/
+			if (createTask(getPressureTaskDefenition()) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start pressure task!");
+				while(1);
+			}
+			WriteDebugInfo("Pressure sensor is initialized.\n\r");
+		}
+		else {
+			WriteDebugInfo("Pressure sensor couldn't be initialized!\n\r");
+		}
+	}
+	//If the answer was no
+	else {
+
+		WriteDebugInfo("Pressure sensor didn't Initialize!\n\r");
+	}
+
 	return TRUE;
 }
 
