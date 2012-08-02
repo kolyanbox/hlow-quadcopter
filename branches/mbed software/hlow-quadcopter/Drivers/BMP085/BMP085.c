@@ -2,6 +2,8 @@
 
 /*Global definitions for I2C*/
 /** Own Slave address in Slave I2C device */
+#define I2CDEV_S_ADDR_1 (0xEF)
+#define I2CDEV_S_ADDR_2	(0xEE)
 /* Global variables */
 #define I2CDEV_M LPC_I2C2
 I2C_M_SETUP_Type transferMCfg;
@@ -23,7 +25,6 @@ long b5 = 0;
 long x1 = 0;
 long x2 = 0;
 short oss1 = 0;
-uint8_t rxUtBuffer[4];
 
 Bool initializeBMP085()
 {
@@ -59,6 +60,13 @@ Bool writeDataBmp085(uint8_t addres, uint8_t transmitData)
 {
 	uint8_t BMP085_TxBuffer[2] = {addres, transmitData};
 
+	uint8_t rxBuffer[4];
+		rxBuffer[0] = 0;
+		rxBuffer[1] = 0;
+		rxBuffer[2] = 0;
+		rxBuffer[3] = 0;
+
+
 	/* Transmit -------------------------------------------------------- */
 	/* Start I2C slave device first */
 	transferMCfg.sl_addr7bit = 0b1110111;
@@ -67,7 +75,6 @@ Bool writeDataBmp085(uint8_t addres, uint8_t transmitData)
 	transferMCfg.rx_data = NULL;
 	transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
-	transferMCfg.callback = 0;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING))
 	{
@@ -83,10 +90,11 @@ long getUtBMP085(uint8_t transmitMessage)
 {
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
-	rxUtBuffer[0] = 0;
-	rxUtBuffer[1] = 0;
-	rxUtBuffer[2] = 0;
-	rxUtBuffer[3] = 0;
+	uint8_t rxBuffer[4];
+		rxBuffer[0] = 0;
+		rxBuffer[1] = 0;
+		rxBuffer[2] = 0;
+		rxBuffer[3] = 0;
 
 
 	/* Transmit -------------------------------------------------------- */
@@ -94,36 +102,22 @@ long getUtBMP085(uint8_t transmitMessage)
 	transferMCfg.sl_addr7bit = 0b1110111;
 	transferMCfg.tx_data = BMP085_TxBuffer;
 	transferMCfg.tx_length = 1;//sizeof(I2C_TxBuffer);
-	transferMCfg.rx_data = rxUtBuffer;
+	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 2;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
-	transferMCfg.callback = UTBMP085Callback;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
-		return 0;
+		while (transferMCfg.rx_count <2);
+		long returnValue = rxBuffer[0] << 8;
+		returnValue += rxBuffer[1];
+		ut = returnValue;
+		return returnValue;
 	}
 	else
 	{
-		return 1;
+		return 0;
 	}
-}
-
-void UTBMP085Callback (void)
-{
-	//while (transferMCfg.rx_count <2);
-	long returnValue = rxUtBuffer[0] << 8;  //rxBuffer[0] << 8;
-	returnValue += rxUtBuffer[1];//rxBuffer[1];
-	ut = returnValue;
-	char c[10];
-	Itoa(returnValue,c,10);
-	//WriteDebugInfo(c);
-	//WriteDebugInfo("hoi\n");
-
-	Itoa(transferMCfg.rx_count,c,10);
-	//WriteDebugInfo(c);
-	//WriteDebugInfo("hoi\n");
-	//return returnValue;
 }
 
 long getUpBMP085(uint8_t transmitMessage, short oss)
@@ -146,7 +140,6 @@ long getUpBMP085(uint8_t transmitMessage, short oss)
 	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 3;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
-	transferMCfg.callback = UPBMP085Callback;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
@@ -163,17 +156,11 @@ long getUpBMP085(uint8_t transmitMessage, short oss)
 	}
 }
 
-void UPBMP085Callback (void)
-{
-	//WriteDebugInfo("upbmpcallback\n");
-}
-
-uint8_t rxBuffer[4];
-Bool getDataBMP085(uint8_t transmitMessage)
+short getDataBMP085(uint8_t transmitMessage)
 {
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
-
+	uint8_t rxBuffer[4];
 		rxBuffer[0] = 0;
 		rxBuffer[1] = 0;
 		rxBuffer[2] = 0;
@@ -188,28 +175,17 @@ Bool getDataBMP085(uint8_t transmitMessage)
 	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 2;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
-	transferMCfg.callback = dataBMP085Callback;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
-		return TRUE;
+		while (transferMCfg.rx_count <2);
+		short returnValue = rxBuffer[0] << 8;
+		return returnValue += rxBuffer[1];
 	}
 	else
 	{
-		return FALSE;
+		return 1;
 	}
-}
-
-short returnValue;
-short get_value_bmp085()
-{
-	return returnValue;
-}
-
-void dataBMP085Callback (void)
-{
-	returnValue = rxBuffer[0] << 8;
-	returnValue += rxBuffer[1];
 }
 
 long getTemperature(void)
