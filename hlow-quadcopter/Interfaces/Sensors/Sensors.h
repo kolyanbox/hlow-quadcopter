@@ -10,18 +10,6 @@ enum Axle {
 	Z = 2
 };
 
-enum Command {
-	commandOsTime = 0,
-	commandDistanceToGround = 1,
-	CommandRotationX = 2,
-	CommandRotationY = 3,
-	CommandRotationZ = 4,
-	CommandNoCommand = 5,
-	CommandHelp = 6,
-	CommandAllTaskStatus = 7,
-	CommandStopTaskWithId = 8
-};
-
 enum SensorType{
 	SensorUart = 0,
 	SensorDistanceToGround = 1,
@@ -37,12 +25,11 @@ extern volatile unsigned char lastReceivedChar;
 Bool sensorInitialization(enum SensorType sensorType);
 int getCurrentAngle(enum Axle axle);
 int getCurrentHeightInCm();
-int getRotation(void);
+float getRotationAroundAxle(enum Axle axle);
 long getCurrentTemperature();
 long getCurrentPressure();
 float calculateCurrentPressureAtSeaLevel(float currentAltitude);
 float getCurrentAltitude();
-enum Command getCommand();
 //Only use this method in startup sequence
 unsigned char getLastCharacterFromUart();
 

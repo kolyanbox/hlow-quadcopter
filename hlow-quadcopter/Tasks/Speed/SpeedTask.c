@@ -2,16 +2,15 @@
 #include <General/util.h>
 #include <CoOS.h>
 #include <Tasks/Debug/DebugTask.h>
-#include <Drivers/I2C/I2C.h>
-#include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
-const char commandSpeed[] = {"getspeed"};
-const char wrongCommandSpeed[] = {"Not a valid command!"};
+#include <Interfaces/Sensors/Sensors.h>
+char commandSpeed[] = {"getspeed"};
+char wrongCommandSpeed[] = {"Not a valid command!"};
 
 float Speedx;
 float Speedy;
 float Speedz;
 char retVal[15];
-#define SpeedStackSize 64
+#define SpeedStackSize 128
 OS_STK	Speed_stk[SpeedStackSize];
 
 taskDef t;
@@ -57,16 +56,12 @@ void SpeedTask (void* pdata)
 	//register angle app in cli
 	registerInterface(commandSpeed,printInfoSpeed);
 	float tempval;
+
 	for(;;)
 	{
-		gyroscope_get();
-		tempval = gyroscope_get_value(0);
-		Speedx += tempval;
-		tempval = gyroscope_get_value(1);
-		Speedy += tempval;
-		tempval = gyroscope_get_value(2);
-		Speedz +=tempval;
-
+		Speedx = getRotationAroundAxle(X);
+		Speedy = getRotationAroundAxle(Y);
+		Speedz = getRotationAroundAxle(Z);
 		CoTimeDelay(0,0,0,10);
 	}
 }

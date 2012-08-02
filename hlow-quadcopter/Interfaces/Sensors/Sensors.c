@@ -204,10 +204,10 @@ int getCurrentHeightInCm()
 	return getDistanceToGround();
 }
 
-int getRotation()
+float getRotationAroundAxle(enum Axle axle)
 {
 	gyroscope_get();
-	return 0;
+	return gyroscope_get_value(axle);
 }
 
 Bool sameString(unsigned char* stringOne, unsigned char* stringTwo)
@@ -240,108 +240,6 @@ Bool sameString(unsigned char* stringOne, unsigned char* stringTwo)
 	}
 	return TRUE;
 }
-
-enum Command getCommand()
-{
-	unsigned char getAngleX[] = {"getanglex"};
-	unsigned char getAngleY[] = {"getangley"};
-	unsigned char getAngleZ[] = {"getanglez"};
-	unsigned char getOsTime[] = {"getostime\0"};
-	unsigned char getDistanceToGround[] = {"getdtg"};
-	unsigned char getAllCommands0[] = {"?"};
-	unsigned char getAllCommands1[] = {"--help"};
-	unsigned char getAllCommands2[] = {"--h"};
-	unsigned char getStatusAllTasks[] = {"getstatustasks"};
-	unsigned char stopTaskWithId[] = {"stoptask"};
-	unsigned char* lrc = lastReceivedCommand();
-
-	char c2[10];
-	Itoa(Strlen(lrc),c2,10);
-//	WriteDebugInfo(c2);
-//	WriteDebugInfo("<-\n\r");
-	Itoa(Strlen(stopTaskWithId),c2,10);
-//	WriteDebugInfo(c2);
-//	WriteDebugInfo(lrc);
-//	WriteDebugInfo("<-\n\r");
-
-	//check if there are spaces in lrc
-	int i;
-	int spacePosition[COMMANDLENGTH];
-	int amountOfSpaces = 0;
-	int lengthLrc = Strlen(lrc);
-	for (i=0;i<lengthLrc;i++)
-	{
-		if (lrc[i] == ' ')
-		{
-			spacePosition[amountOfSpaces] = i;
-			amountOfSpaces++;
-		}
-	}
-	//get first command
-	unsigned char firstCommand[spacePosition[0]+1];
-	if (amountOfSpaces > 0)
-	{
-		int j;
-		for (j=0;j<spacePosition[0];j++)
-		{
-			firstCommand[j] = lrc[j];
-		}
-		firstCommand[j] = '\0';
-	}
-
-	if (sameString(getAngleX,lrc))
-	{
-		return CommandRotationX;
-	}
-	else if (sameString(getAngleY,lrc))
-	{
-		return CommandRotationY;
-	}
-	else if (sameString(getAngleZ,lrc))
-	{
-		return CommandRotationZ;
-	}
-	else if (sameString(getOsTime,lrc))
-	{
-		return commandOsTime;
-	}
-	else if (sameString(getDistanceToGround,lrc))
-	{
-		return commandDistanceToGround;
-	}
-	else if (sameString(getAllCommands0,lrc) || sameString(getAllCommands1,lrc) || sameString(getAllCommands2,lrc))
-	{
-		return CommandHelp;
-	}
-	else if (sameString(getStatusAllTasks,lrc))
-	{
-		return CommandAllTaskStatus;
-	}
-	else if (sameString(stopTaskWithId,firstCommand))
-	{
-		//get fisrt parameter
-		unsigned char firstParam[spacePosition[1]-(spacePosition[0])];
-		if (amountOfSpaces > 1)
-		{
-			int j;
-			for (j=spacePosition[1]+1;j<spacePosition[1]-(spacePosition[0]);j++)
-			{
-				firstParam[j-spacePosition[0]+1] = lrc[j-spacePosition[0]];
-			}
-			firstParam[j-spacePosition[0]] = '\0';
-		}
-		char c[10];
-		Itoa(spacePosition[1],c,10);
-		getFirstParameter(firstParam);
-		return CommandStopTaskWithId;
-	}
-	else if (lrc[0] != '\0'){
-//		WriteDebugInformation("Not a valid command.\n\r/>", DirectDebug);
-		clearLastCommand();
-	}
-	return CommandNoCommand;
-}
-
 //Only use this method in startup sequence
 unsigned char getLastCharacterFromUart()
 {

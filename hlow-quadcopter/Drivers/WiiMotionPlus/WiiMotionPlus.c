@@ -97,14 +97,6 @@ Bool initializeWiiMotionPlus()
 		transferMCfg.retransmissions_max = 0;
 		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 		{
-			int i;
-			for (i=0;i<100;i++)
-			{
-				gyroscope_get();
-				calX += gyroscope_get_value(0);
-				calY += gyroscope_get_value(1);
-				calZ += gyroscope_get_value(2);
-			}
 			return TRUE;
 		}
 		else
