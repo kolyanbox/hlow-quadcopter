@@ -1,13 +1,9 @@
 #ifndef PRESSURETASK_H
 #define PRESSURETASK_H
 
-#include <lpc_types.h>
-#include <Interfaces/Actuators/Actuators.h>
-#include <CoOS.h>
+#include <General/Taskmanager/Taskmanager.h>
 
-#include <Interfaces/Sensors/Sensors.h>
-#include <Tasks/Debug/DebugTask.h>
-
+taskDef getPressureTaskDefenition();
 void PressureTask (void* pdata);
 
 #endif
