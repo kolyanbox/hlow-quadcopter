@@ -82,7 +82,7 @@ Bool DebugTaskInitialization()
 	return TRUE;
 }
 
-int registerInterface(char* command, void *interface)
+int registerInterface(const char* command, void *interface)
 {
 	int i = 0;
 	int prevAmmountOfInterfaces = currentAmmountOfInterfaces;

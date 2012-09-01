@@ -232,9 +232,9 @@ const char* lastReceivedCommand()
 			i--;
 		}
 		lastReceivedCommandPosition = 0;
-		return lastReceivedCommandString;
+		return (const char*)lastReceivedCommandString;
 	}
 	clearLastCommand();
-	return lastReceivedCommandString;
+	return (const char*)lastReceivedCommandString;
 }
 

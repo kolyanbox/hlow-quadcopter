@@ -55,7 +55,6 @@ void SpeedTask (void* pdata)
 {
 	//register angle app in cli
 	registerInterface(commandSpeed,printInfoSpeed);
-	float tempval;
 
 	for(;;)
 	{

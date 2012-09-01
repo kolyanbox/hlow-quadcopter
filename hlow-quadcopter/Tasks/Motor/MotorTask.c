@@ -62,8 +62,6 @@ char * printInfoAngle(int argc, char *args[])
 
 void MotorTask (void* pdata)
 {
-	uint16_t value = 0;
-
 	//register angle app in cli
 	registerInterface(commandSetMotor,printInfoAngle);
 
