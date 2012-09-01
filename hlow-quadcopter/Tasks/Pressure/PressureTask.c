@@ -20,7 +20,7 @@ taskDef getPressureTaskDefenition()
 
 void PressureTask (void* pdata)
 {
-	long lvalue = getCurrentPressure();
+	/*long lvalue = getCurrentPressure();
 	int value = (int)lvalue;
 	char print[10];
 	Itoa(value, print, 10);
@@ -31,18 +31,18 @@ void PressureTask (void* pdata)
 	Ftoa(calculateCurrentPressureAtSeaLevel(38),print,3,'f');
 	WriteDebugInfo("Pressure at sea: ");
 	WriteDebugInfo(print);
-	WriteDebugInfo("\n");
+	WriteDebugInfo("\n");*/
 	for(;;)
 	{
-		Ftoa(getCurrentAltitude(),print,3,'f');
+//		Ftoa(getCurrentAltitude(),print,3,'f');
 		//WriteDebugInfo("Current altitude: ");
 		//WriteDebugInfo(print);
 		//WriteDebugInfo("\n");
 
-		lvalue = getCurrentHeightInCm();
-		value = (int)lvalue;
+	//	lvalue = getCurrentHeightInCm();
+	//	value = (int)lvalue;
 
-		Itoa(value, print, 10);
+	//	Itoa(value, print, 10);
 		//WriteDebugInfo("height: ");
 		//WriteDebugInfo(print);
 		//WriteDebugInfo("\n");

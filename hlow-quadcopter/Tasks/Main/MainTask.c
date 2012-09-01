@@ -12,6 +12,7 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 #include <Tasks/Speed/SpeedTask.h>
+#include <Tasks/Motor/MotorTask.h>
 
 #include <General/Taskmanager/Taskmanager.h>
 
@@ -223,6 +224,11 @@ Bool initializeActuators()
 	{
 		if (ActuatorsInitialization(ActuatorMotors) == TRUE)
 		{
+			if (createTask(getMotorTaskDefenition()) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start motor task!");
+				while(1);
+			}
 			WriteDebugInfo("Motors are initialized.\n\r");
 		}
 		else {
