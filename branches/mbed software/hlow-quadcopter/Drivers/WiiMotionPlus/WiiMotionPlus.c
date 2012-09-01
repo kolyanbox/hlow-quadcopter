@@ -176,7 +176,7 @@ float gyroscope_get_value(int valueNumber)
 
 void gyroscope_get()
 {
-	CoTimeDelay(0,0,0,50);
+	CoTimeDelay(0,0,1,50);
 
 	rxBuffer[0] = 0;
 	rxBuffer[1] = 0;
@@ -197,7 +197,7 @@ void gyroscope_get()
 	transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
 
-	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING))
+	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING) == SUCCESS)
 	{
 		/* Start I2C slave device first */
 		transferMCfg.sl_addr7bit = I2CDEV_S_ADDR_2;
@@ -206,11 +206,9 @@ void gyroscope_get()
 		transferMCfg.rx_data = rxBuffer;
 		transferMCfg.rx_length = 6;//sizeof(I2C_RxBuffer);
 		transferMCfg.retransmissions_max = 0;
-
+		transferMCfg.callback = callback;
 
 		st = I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT);
-
-		transferMCfg.callback = callback;
 	}
 	else
 	{
