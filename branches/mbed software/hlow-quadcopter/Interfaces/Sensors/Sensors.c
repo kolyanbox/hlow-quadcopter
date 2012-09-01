@@ -139,7 +139,9 @@ float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 {
 	CoEnterMutexSection(I2CMutex);
 	float t = getTemperature()/10;
-	float p = getCurrentPressure()/100;
+	float p = getPressure()/100;
+	CoLeaveMutexSection(I2CMutex);
+
 	float temp = 1-((0.0065*currentAltitude)/(t+(0.0065*currentAltitude)+273.15));
 	temp = Pow(temp,-5.257);
 	temp = p*temp;
@@ -147,7 +149,7 @@ float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 	CoEnterMutexSection(PressureAtSeaLevelMutex);
 	pressureAtSeaLevel = temp;
 	CoLeaveMutexSection(PressureAtSeaLevelMutex);
-	CoLeaveMutexSection(I2CMutex);
+
 
 	return temp;
 }
@@ -186,12 +188,19 @@ int getCurrentAngle(enum Axle axle)
 int getCurrentHeightInCm()
 {
 	char c[10];
-	/*float t = calculateCurrentPressureAtSeaLevel(31);
+	float t = calculateCurrentPressureAtSeaLevel(31);
+
+	Ftoa(t,c,2,'f');
+	WriteDebugInfo("presure at sea: ");
+	WriteDebugInfo(c);
+	WriteDebugInfo("\n");
+
+	t = getCurrentAltitude();
 
 	Ftoa(t,c,2,'f');
 	WriteDebugInfo("altitude: ");
 	WriteDebugInfo(c);
-	WriteDebugInfo("\n");*/
+	WriteDebugInfo("\n");
 
 
 	CoEnterMutexSection(I2CMutex);
@@ -201,12 +210,12 @@ int getCurrentHeightInCm()
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
-	/*CoEnterMutexSection(I2CMutex);
+	CoEnterMutexSection(I2CMutex);
 	temp = getPressure();
 	CoLeaveMutexSection(I2CMutex);
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
-	WriteDebugInfo("\n");*/
+	WriteDebugInfo("\n");
 
 
 	return getDistanceToGround();
