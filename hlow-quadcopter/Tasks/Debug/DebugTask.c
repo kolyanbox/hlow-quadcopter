@@ -21,6 +21,8 @@ char* distanceToGround;
 
 char* firstParam;
 
+const char help[] = {"help"};
+
 interface interfaces[MAXAMOUNTOFINTERFACES];
 int currentAmmountOfInterfaces = 0;
 
@@ -39,6 +41,22 @@ taskDef getDebugTaskDefenition()
 	return t;
 }
 
+char complete[MAXAMOUNTOFINTERFACES*(MAX_COMMAND_LENGTH+1)+1];
+char * getAllCommands(int argc, char *args[])
+{
+	complete[0] = '\0';
+	int j = 0;
+	for (j=0;j<MAXAMOUNTOFINTERFACES;j++)
+	{
+		if (interfaces[j].occupiedSlot == TRUE)
+		{
+			Strcat(complete,interfaces[j].command);
+			Strcat(complete,"\n");
+		}
+	}
+	return complete;
+}
+
 Bool cliInitialization()
 {
 	int i;
@@ -46,6 +64,9 @@ Bool cliInitialization()
 	{
 		interfaces[i].occupiedSlot = FALSE;
 	}
+
+	registerInterface(help,getAllCommands);
+
 	return TRUE;
 }
 
@@ -72,12 +93,6 @@ Bool DebugTaskInitialization()
 		return FALSE;
 	}
 	CoPostSem(distanceToGroundSem);
-
-	int i;
-	for (i=0;i<MAXAMOUNTOFINTERFACES;i++)
-	{
-		interfaces[i].occupiedSlot = FALSE;
-	}
 
 	return TRUE;
 }
