@@ -180,6 +180,7 @@ int getCurrentAngle(enum Axle axle)
 
 int getCurrentHeightInCm()
 {
+/*
 	float t = calculateCurrentPressureAtSeaLevel(31);
 	char c[10];
 	Ftoa(t,c,2,'f');
@@ -201,6 +202,7 @@ int getCurrentHeightInCm()
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
+*/
 
 	return getDistanceToGround();
 }
