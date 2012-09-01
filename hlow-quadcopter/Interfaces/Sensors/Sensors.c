@@ -154,8 +154,18 @@ float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 	return temp;
 }
 
-float getCurrentAltitude()
+/**
+ * If pressureAtSea is set to -1 the pressure calculated by the method
+ * calculateCurrentPressureAtSeaLevel will be used
+ */
+float getCurrentAltitude(float pressureatSea)
 {
+	if (pressureatSea != -1)
+	{
+		CoEnterMutexSection(PressureAtSeaLevelMutex);
+		pressureAtSeaLevel = pressureatSea;
+		CoLeaveMutexSection(PressureAtSeaLevelMutex);
+	}
 	CoEnterMutexSection(PressureAtSeaLevelMutex);
 	float p0 = pressureAtSeaLevel;
 	CoLeaveMutexSection(PressureAtSeaLevelMutex);
@@ -195,7 +205,7 @@ int getCurrentHeightInCm()
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
 
-	t = getCurrentAltitude();
+	t = getCurrentAltitude(1023.59);
 
 	Ftoa(t,c,2,'f');
 	WriteDebugInfo("altitude: ");

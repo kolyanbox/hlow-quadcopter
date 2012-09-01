@@ -29,7 +29,11 @@ float getRotationAroundAxle(enum Axle axle);
 long getCurrentTemperature();
 long getCurrentPressure();
 float calculateCurrentPressureAtSeaLevel(float currentAltitude);
-float getCurrentAltitude();
+/**
+ * If pressureAtSea is set to -1 the pressure calculated by the method
+ * calculateCurrentPressureAtSeaLevel will be used
+ */
+float getCurrentAltitude(float pressureatSea);
 //Only use this method in startup sequence
 unsigned char getLastCharacterFromUart();
 
