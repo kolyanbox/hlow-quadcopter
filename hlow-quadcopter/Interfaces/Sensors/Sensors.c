@@ -40,7 +40,12 @@ Bool sensorInitialization(enum SensorType sensorType)
 	if (firstTimeInitialization == TRUE)
 	{
 		/*Initialize mutexes*/
-		if (currentTemperatureMutex == E_CREATE_FAIL || I2CMutex == E_CREATE_FAIL)
+		I2CMutex = CoCreateMutex();
+		currentTemperatureMutex = CoCreateMutex();
+		currentPressureMutex = CoCreateMutex();
+		PressureAtSeaLevelMutex = CoCreateMutex();
+		if (currentTemperatureMutex == E_CREATE_FAIL || I2CMutex == E_CREATE_FAIL
+				|| currentPressureMutex == E_CREATE_FAIL || PressureAtSeaLevelMutex == E_CREATE_FAIL)
 		{
 			return FALSE;
 		}
@@ -180,13 +185,13 @@ int getCurrentAngle(enum Axle axle)
 
 int getCurrentHeightInCm()
 {
-/*
-	float t = calculateCurrentPressureAtSeaLevel(31);
 	char c[10];
+	/*float t = calculateCurrentPressureAtSeaLevel(31);
+
 	Ftoa(t,c,2,'f');
 	WriteDebugInfo("altitude: ");
 	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
+	WriteDebugInfo("\n");*/
 
 
 	CoEnterMutexSection(I2CMutex);
@@ -196,13 +201,13 @@ int getCurrentHeightInCm()
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
-	CoEnterMutexSection(I2CMutex);
+	/*CoEnterMutexSection(I2CMutex);
 	temp = getPressure();
 	CoLeaveMutexSection(I2CMutex);
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-*/
+	WriteDebugInfo("\n");*/
+
 
 	return getDistanceToGround();
 }
