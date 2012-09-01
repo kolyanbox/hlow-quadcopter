@@ -27,7 +27,7 @@ enum SortData {
 	AngleZ = 6
 };
 
-int registerInterface(char* interfaceName, void *interface);
+int registerInterface(const char* interfaceName, void *interface);
 Bool callInterfaceById (int interfaceNumber);
 taskDef getDebugTaskDefenition();
 void DebugTask (void* pdata);

@@ -161,30 +161,6 @@ float getCurrentAltitude()
 long getCurrentTemperature()
 {
 	CoEnterMutexSection(I2CMutex);
-	long i = 0;
-	while(i<100000)
-	{
-		i++;
-	}
-	writeDataBmp085(0xF4, 0x2E);
-	//wait 4.5ms
-	i = 0;
-	while(i<1000000)
-	{
-		i++;
-	}
-	long ut = getUtBMP085(0xf6);
-	CoTickDelay(300);
-	short oss = 0;
-	uint8_t transmitData = 0x34;
-	transmitData += oss<<6;
-	writeDataBmp085(0xF4, transmitData);
-	i = 0;
-	while(i<1000000)
-	{
-		i++;
-	}
-	long up = getUpBMP085(0xf6);
 
 	long temp = getTemperature();
 	CoLeaveMutexSection(I2CMutex);

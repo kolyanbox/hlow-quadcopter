@@ -2,6 +2,10 @@
 #include <Interfaces/Actuators/Actuators.h>
 #include <CoOS.h>
 
+short getDataBMP085(uint8_t transmitMessage);
+Bool writeDataBmp085(uint8_t transmitData, uint8_t addres);
+long getUtBMP085(uint8_t transmitMessage);
+
 OS_EventID sem;
 OS_EventID semUt;
 
@@ -161,7 +165,10 @@ void callbackGetUp()
 
 long getUpBMP085(uint8_t transmitMessage)
 {
-	long ut = getUtBMP085(0xf6);
+	if (getUtBMP085(0xf6) == -1)
+	{
+		return -1;
+	}
 
 	short oss = 0;
 	uint8_t transmitData = 0x34;

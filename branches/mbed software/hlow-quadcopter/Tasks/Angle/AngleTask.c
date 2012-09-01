@@ -58,12 +58,13 @@ void AngleTask (void* pdata)
 	//register angle app in cli
 	registerInterface(commandGetAngle,setMotorSpeed);
 
-
-	angleApp = registerApp("Angle task",LOG_DEBUG);
+	unsigned char appName[] = {"Angle task"};
+	angleApp = registerApp(appName,LOG_DEBUG);
 
 	for(;;)
 	{
-		writeLog(angleApp,"inside angletask\n\r",LOG_DEBUG);
+		unsigned char logMessage[] = {"inside angletask\n\r"};
+		writeLog(angleApp,logMessage,LOG_DEBUG);
 
 		value = getCurrentAngle(X);
 		Itoa(value, Anglex, 10);
