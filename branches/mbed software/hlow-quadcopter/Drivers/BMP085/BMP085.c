@@ -3,6 +3,7 @@
 #include <CoOS.h>
 
 OS_EventID sem;
+OS_EventID semUt;
 
 /*Global definitions for I2C*/
 /** Own Slave address in Slave I2C device */
@@ -32,7 +33,8 @@ short oss1 = 0;
 
 Bool initializeBMP085()
 {
-	sem = CoCreateSem(0,3,EVENT_SORT_TYPE_FIFO);
+	sem = CoCreateSem(0,1,EVENT_SORT_TYPE_FIFO);
+	semUt = CoCreateSem(0,1,EVENT_SORT_TYPE_FIFO);
 	ac1 = getDataBMP085(0xAA);
 	ac2 = getDataBMP085(0xAC);
 	ac3 = getDataBMP085(0xAE);
@@ -91,6 +93,11 @@ Bool writeDataBmp085(uint8_t addres, uint8_t transmitData)
 	}
 }
 
+void callbackGetUt()
+{
+	CoPostSem(semUt);
+}
+
 long getUtBMP085(uint8_t transmitMessage)
 {
 	long i = 0;
@@ -123,18 +130,27 @@ long getUtBMP085(uint8_t transmitMessage)
 	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 2;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
+	transferMCfg.callback = callbackGetUt;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
-		while (transferMCfg.rx_count <2);
-		long returnValue = rxBuffer[0] << 8;
-		returnValue += rxBuffer[1];
-		ut = returnValue;
-		return returnValue;
+		StatusType s1 = CoPendSem(semUt,0xff);
+		if (s1 ==  E_OK){
+			long returnValue = rxBuffer[0] << 8;
+			returnValue += rxBuffer[1];
+			ut = returnValue;
+			transferMCfg.callback = 0;
+			return returnValue;
+		}
+		else {
+			transferMCfg.callback = 0;
+			return -1;
+		}
 	}
 	else
 	{
-		return 0;
+		transferMCfg.callback = 0;
+		return -1;
 	}
 }
 
@@ -180,9 +196,7 @@ long getUpBMP085(uint8_t transmitMessage)
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
 		StatusType s1 = CoPendSem(sem,0xff);
-		StatusType s2 = CoPendSem(sem,0xff);
-		StatusType s3 = CoPendSem(sem,0xff);
-		if (s1 ==  E_OK && s2 ==  E_OK && s3 ==  E_OK){
+		if (s1 ==  E_OK){
 			up = rxBuffer[0] << 16;
 			up += rxBuffer[1] << 8;
 			up += rxBuffer[2];
@@ -191,7 +205,7 @@ long getUpBMP085(uint8_t transmitMessage)
 			return up;
 		}
 		else {
-			WriteDebugInfo("timeout oid 1\n");
+			transferMCfg.callback = 0;
 			return -1;
 		}
 	}
@@ -221,6 +235,7 @@ short getDataBMP085(uint8_t transmitMessage)
 	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 2;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
+	transferMCfg.callback = NULL;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
