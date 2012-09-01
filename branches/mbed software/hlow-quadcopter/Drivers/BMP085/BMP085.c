@@ -1,4 +1,8 @@
 #include <Drivers/BMP085/BMP085.h>
+#include <Interfaces/Actuators/Actuators.h>
+#include <CoOS.h>
+
+OS_EventID sem;
 
 /*Global definitions for I2C*/
 /** Own Slave address in Slave I2C device */
@@ -28,6 +32,7 @@ short oss1 = 0;
 
 Bool initializeBMP085()
 {
+	sem = CoCreateSem(0,3,EVENT_SORT_TYPE_FIFO);
 	ac1 = getDataBMP085(0xAA);
 	ac2 = getDataBMP085(0xAC);
 	ac3 = getDataBMP085(0xAE);
@@ -133,6 +138,11 @@ long getUtBMP085(uint8_t transmitMessage)
 	}
 }
 
+void callbackGetUp()
+{
+	CoPostSem(sem);
+}
+
 long getUpBMP085(uint8_t transmitMessage)
 {
 	long ut = getUtBMP085(0xf6);
@@ -165,19 +175,30 @@ long getUpBMP085(uint8_t transmitMessage)
 	transferMCfg.rx_data = rxBuffer;
 	transferMCfg.rx_length = 3;//sizeof(I2C_RxBuffer);
 	transferMCfg.retransmissions_max = 0;
+	transferMCfg.callback = callbackGetUp;
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
 	{
-		while (transferMCfg.rx_count <3);
-		up = rxBuffer[0] << 16;
-		up += rxBuffer[1] << 8;
-		up += rxBuffer[2];
-		up = up >> (8-oss);
-		return up;
+		StatusType s1 = CoPendSem(sem,0xff);
+		StatusType s2 = CoPendSem(sem,0xff);
+		StatusType s3 = CoPendSem(sem,0xff);
+		if (s1 ==  E_OK && s2 ==  E_OK && s3 ==  E_OK){
+			up = rxBuffer[0] << 16;
+			up += rxBuffer[1] << 8;
+			up += rxBuffer[2];
+			up = up >> (8-oss);
+			transferMCfg.callback = 0;
+			return up;
+		}
+		else {
+			WriteDebugInfo("timeout oid 1\n");
+			return -1;
+		}
 	}
 	else
 	{
-		return 0;
+		transferMCfg.callback = 0;
+		return -1;
 	}
 }
 
@@ -215,7 +236,10 @@ short getDataBMP085(uint8_t transmitMessage)
 
 long getTemperature(void)
 {
-	long up = getUpBMP085(0xf6);
+	if (getUpBMP085(0xf6) == -1)
+	{
+		return -1;
+	}
 
 	x1 = (ut-ac6) * ac5 / Pow(2,15);
 	x2 = mc * Pow(2,11) / (x1+md);
@@ -225,7 +249,10 @@ long getTemperature(void)
 
 long getPressure(void)
 {
-	getTemperature();
+	if (getTemperature() == -1)
+	{
+		return -1;
+	}
 
 	long b6 = b5 - 4000;
 	x1 = (b2*(b6*b6/Pow(2,12)))/Pow(2,11);
