@@ -39,6 +39,22 @@ void MainTask (void* pdata)
 		while (1);
 	}
 
+	//Because the debug task isn't launched we need to write debug info directly
+	WriteDebugInfo("Motors will be initialized\n\r/>");
+	if (ActuatorsInitialization(ActuatorMotors) == TRUE)
+	{
+		if (createTask(getMotorTaskDefenition()) ==FALSE)
+		{
+			WriteDebugInfo("couldn't start motor task!");
+			while(1);
+		}
+		WriteDebugInfo("Motors are initialized.\n\r");
+	}
+	else {
+		WriteDebugInfo("Motors couldn't be initialized.\n\r");
+		while(1);
+	}
+
 	/*Initialize sensors and actuators*/
 	WriteDebugInfo("Welcome!\n\r");
 	if (initializeSensors() == FALSE)
@@ -216,29 +232,6 @@ Bool initializeActuators()
 	else {
 
 		WriteDebugInfo("Leds didn't Initialize!\n\r");
-	}
-
-	//Because the debug task isn't launched we need to write debug info directly
-	WriteDebugInfo("Initialize Actuator Motors? (Y/N)\n\r/>");
-	if (isAnswerFromUserYes() == TRUE)
-	{
-		if (ActuatorsInitialization(ActuatorMotors) == TRUE)
-		{
-			if (createTask(getMotorTaskDefenition()) ==FALSE)
-			{
-				WriteDebugInfo("couldn't start motor task!");
-				while(1);
-			}
-			WriteDebugInfo("Motors are initialized.\n\r");
-		}
-		else {
-			WriteDebugInfo("Motors couldn't be initialized.\n\r");
-			return FALSE;
-		}
-	}
-	else {
-
-		WriteDebugInfo("Motors didn't Initialize!\n\r");
 	}
 
 	return TRUE;
