@@ -88,6 +88,19 @@ Bool writeDataBmp085(uint8_t addres, uint8_t transmitData)
 
 long getUtBMP085(uint8_t transmitMessage)
 {
+	long i = 0;
+	while(i<100000)
+	{
+		i++;
+	}
+	writeDataBmp085(0xF4, 0x2E);
+	//wait 4.5ms
+	i = 0;
+	while(i<1000000)
+	{
+		i++;
+	}
+
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
 	uint8_t rxBuffer[4];
@@ -120,8 +133,20 @@ long getUtBMP085(uint8_t transmitMessage)
 	}
 }
 
-long getUpBMP085(uint8_t transmitMessage, short oss)
+long getUpBMP085(uint8_t transmitMessage)
 {
+	long ut = getUtBMP085(0xf6);
+
+	short oss = 0;
+	uint8_t transmitData = 0x34;
+	transmitData += oss<<6;
+	writeDataBmp085(0xF4, transmitData);
+	long i = 0;
+	while(i<1000000)
+	{
+		i++;
+	}
+
 	oss1 = oss;
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
@@ -190,6 +215,8 @@ short getDataBMP085(uint8_t transmitMessage)
 
 long getTemperature(void)
 {
+	long up = getUpBMP085(0xf6);
+
 	x1 = (ut-ac6) * ac5 / Pow(2,15);
 	x2 = mc * Pow(2,11) / (x1+md);
 	b5 = x1 + x2;
@@ -198,6 +225,8 @@ long getTemperature(void)
 
 long getPressure(void)
 {
+	getTemperature();
+
 	long b6 = b5 - 4000;
 	x1 = (b2*(b6*b6/Pow(2,12)))/Pow(2,11);
 	x2 = ac2 * b6 / Pow(2,11);

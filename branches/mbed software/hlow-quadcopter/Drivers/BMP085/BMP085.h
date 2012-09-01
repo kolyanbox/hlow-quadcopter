@@ -8,7 +8,7 @@ Bool initializeBMP085();
 short getDataBMP085(uint8_t transmitMessage);
 Bool writeDataBmp085(uint8_t transmitData, uint8_t addres);
 
-long getUpBMP085(uint8_t transmitMessage, short oss);
+long getUpBMP085(uint8_t transmitMessage);
 long getUtBMP085(uint8_t transmitMessage);
 
 long getTemperature(void);
