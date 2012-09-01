@@ -132,6 +132,7 @@ long getCurrentPressure()
 
 float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 {
+	CoEnterMutexSection(I2CMutex);
 	float t = getTemperature()/10;
 	float p = getCurrentPressure()/100;
 	float temp = 1-((0.0065*currentAltitude)/(t+(0.0065*currentAltitude)+273.15));
@@ -141,6 +142,7 @@ float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 	CoEnterMutexSection(PressureAtSeaLevelMutex);
 	pressureAtSeaLevel = temp;
 	CoLeaveMutexSection(PressureAtSeaLevelMutex);
+	CoLeaveMutexSection(I2CMutex);
 
 	return temp;
 }
@@ -153,7 +155,9 @@ float getCurrentAltitude()
 
 	float p = getCurrentPressure()/100;
 	float temp = Pow((p0/p),(1/5.257))-1;
+	CoEnterMutexSection(I2CMutex);
 	float t = getTemperature()/10;
+	CoLeaveMutexSection(I2CMutex);
 	temp = temp * (t+273.15);
 	return temp/0.0065;
 }
@@ -161,7 +165,6 @@ float getCurrentAltitude()
 long getCurrentTemperature()
 {
 	CoEnterMutexSection(I2CMutex);
-
 	long temp = getTemperature();
 	CoLeaveMutexSection(I2CMutex);
 	CoEnterMutexSection(currentTemperatureMutex);
@@ -177,12 +180,24 @@ int getCurrentAngle(enum Axle axle)
 
 int getCurrentHeightInCm()
 {
-	long temp = getTemperature();
+	float t = calculateCurrentPressureAtSeaLevel(31);
 	char c[10];
+	Ftoa(t,c,2,'f');
+	WriteDebugInfo("altitude: ");
+	WriteDebugInfo(c);
+	WriteDebugInfo("\n");
+
+
+	CoEnterMutexSection(I2CMutex);
+	long temp = getTemperature();
+	CoLeaveMutexSection(I2CMutex);
+
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
+	CoEnterMutexSection(I2CMutex);
 	temp = getPressure();
+	CoLeaveMutexSection(I2CMutex);
 	Itoa(temp,c,10);
 	WriteDebugInfo(c);
 	WriteDebugInfo("\n");
@@ -192,40 +207,13 @@ int getCurrentHeightInCm()
 
 float getRotationAroundAxle(enum Axle axle)
 {
+	CoEnterMutexSection(I2CMutex);
 	gyroscope_get();
-	return gyroscope_get_value(axle);
+	float f = gyroscope_get_value(axle);
+	CoLeaveMutexSection(I2CMutex);
+	return f;
 }
 
-Bool sameString(unsigned char* stringOne, unsigned char* stringTwo)
-{
-	//int length = Strlen(stringOne);
-	//if (length != Strlen(stringTwo))
-	//{
-	//	return FALSE;
-	//}
-	int i = 0;
-	while (stringOne[i] != '\0' || stringTwo[i] != '\0')
-	{
-//		WriteDebugInfo("in while");
-//		WriteDebugInfo(stringOne);
-//		WriteDebugInfo(stringTwo);
-		if (stringTwo[i] != stringOne[i])
-		{
-			if (stringOne[i] != '\0')
-			{
-				WriteDebugInfo("1 niet 0");
-			}
-			if (stringOne[i+1] == '\0')
-						{
-							WriteDebugInfo("1 wel 0");
-						}
-			WriteDebugInfo("in while");
-			return FALSE;
-		}
-		i++;
-	}
-	return TRUE;
-}
 //Only use this method in startup sequence
 unsigned char getLastCharacterFromUart()
 {
