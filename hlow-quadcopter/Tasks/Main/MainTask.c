@@ -8,7 +8,6 @@
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
 #include <Tasks/Angle/AngleTask.h>
 #include <Tasks/Temperature/Temperature.h>
-#include <Tasks/Pressure/PressureTask.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 #include <Tasks/Speed/SpeedTask.h>
@@ -109,18 +108,26 @@ void MainTask (void* pdata)
 Bool initializeSensors()
 {
 	//Initialize DistancetoGroundSensor
-	WriteDebugInfo("Initalize distance to ground sensor? (Y/N)\n\r/>");
+	WriteDebugInfo("Initialize distance to ground sensors? (Y/N)\n\r/>");
 	if (isAnswerFromUserYes())
 	{
 		if (sensorInitialization(SensorDistanceToGround) == TRUE)
 		{
-			/*Create distance task*/
-			if (createTask(getDistanceTaskDefenition()) ==FALSE)
+			WriteDebugInfo("First distance to ground sensor initialized.\n\r");
+
+			if (sensorInitialization(SensorPressure) == TRUE)
 			{
-				WriteDebugInfo("couldn't start distance to ground sensor task!\n\r");
-				while(1);
+				/*Create distance task*/
+				if (createTask(getDistanceTaskDefenition()) ==FALSE)
+				{
+					WriteDebugInfo("couldn't start distance to ground sensor task!\n\r");
+					while(1);
+				}
+				WriteDebugInfo("Distance to ground sensors are initialized.\n\r/>");
 			}
-			WriteDebugInfo("Distance to ground sensor is initialized.\n\r/>");
+			else {
+				WriteDebugInfo("Second distance to ground sensor couldn't be initialized!\n\r");
+			}
 		}
 		else {
 			WriteDebugInfo("Distance to ground sensor couldn't be initialized!\n\r");
@@ -178,30 +185,6 @@ Bool initializeSensors()
 	else {
 
 		WriteDebugInfo("Speed sensor didn't Initialize!\n\r");
-	}
-
-	/*Initialize pressure sensor*/
-	WriteDebugInfo("Initalize pressure sensor? (Y/N)\n\r/>");
-	if (isAnswerFromUserYes())
-	{
-		if (sensorInitialization(SensorPressure) == TRUE)
-		{
-			/*Create angle task*/
-			if (createTask(getPressureTaskDefenition()) ==FALSE)
-			{
-				WriteDebugInfo("couldn't start pressure task!");
-				while(1);
-			}
-			WriteDebugInfo("Pressure sensor is initialized.\n\r");
-		}
-		else {
-			WriteDebugInfo("Pressure sensor couldn't be initialized!\n\r");
-		}
-	}
-	//If the answer was no
-	else {
-
-		WriteDebugInfo("Pressure sensor didn't Initialize!\n\r");
 	}
 
 	return TRUE;
