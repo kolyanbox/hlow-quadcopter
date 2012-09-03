@@ -8,6 +8,7 @@ OS_STK	Distance_stk[DistancToGroundStackSize];
 
 const char commandDtg[] = {"getdtg"};
 const char commandSetDtg[] = {"setdtg"};
+char wrongdtgCommand[] = {"Unknown amount of parameters!\nA valid parameter is a or r."};
 
 float pressureAtSL = 0;
 
@@ -26,7 +27,7 @@ char * printInfoDistanceToGround(int argc, char *args[])
 {
 	if (argc != 1)
 	{
-		return "Unknown amount of parameters";
+		return wrongdtgCommand;
 	}
 
 	char a[] = {"a"};
@@ -40,14 +41,14 @@ char * printInfoDistanceToGround(int argc, char *args[])
 		return distanceToGroundVal;
 	}
 
-	return "Unknown amount of parameters";
+	return wrongdtgCommand;
 }
 
 char * setDistanceToGround(int argc, char *args[])
 {
 	if (argc != 1)
 	{
-		return "Unknown amount of parameters";
+		return "Unknown amount of parameters.\nParameter should contain a number";
 	}
 
 	int meter = Atoi(args[0]);

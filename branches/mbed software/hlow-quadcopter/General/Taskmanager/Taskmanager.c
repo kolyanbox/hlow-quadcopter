@@ -13,6 +13,8 @@
 #include <Tasks/Logging/LoggingTask.h>
 #include <Tasks/Heartbeat/Heartbeat.h>
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
+#include <Tasks/Motor/MotorTask.h>
+#include <Tasks/Speed/SpeedTask.h>
 
 allRunningTasks tasks;
 int currentAmmountOfTasks = 0;
@@ -89,7 +91,7 @@ char * killProcess(int argc, char *args[])
 			return "No such process";
 		}
 	}
-	return "No such process";
+	return "Wrong command!\nPossible values:\nname proces name\nproces id";
 }
 #include <Tasks/Angle/AngleTask.h>
 char * startProcess(int argc, char *args[])
@@ -119,9 +121,17 @@ char * startProcess(int argc, char *args[])
 	{
 		retVal = createTask(getDistanceTaskDefenition());
 	}
+	else if (Strcmp(args[0],getMotorTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getMotorTaskDefenition());
+	}
+	else if (Strcmp(args[0],getSpeedTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getSpeedTaskDefenition());
+	}
 	if (retVal == FALSE)
 	{
-		return "Task couldn't be created";
+		return "Task couldn't be created.\nPossible value:\nproces name";
 	}
 	return "task started";
 }

@@ -7,7 +7,6 @@
 #include <Tasks/Heartbeat/Heartbeat.h>
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
 #include <Tasks/Angle/AngleTask.h>
-#include <Tasks/Temperature/Temperature.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <Tasks/Logging/LoggingTask.h>
 #include <Tasks/Speed/SpeedTask.h>
