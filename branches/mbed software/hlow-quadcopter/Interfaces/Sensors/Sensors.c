@@ -152,6 +152,7 @@ float calculateCurrentPressureAtSeaLevel(float currentAltitude)
 /**
  * If pressureAtSea is set to -1 the pressure calculated by the method
  * calculateCurrentPressureAtSeaLevel will be used
+ * returns altitude from sea level in meters
  */
 float getCurrentAltitude(float pressureatSea)
 {
@@ -196,35 +197,6 @@ int getCurrentAngle(enum Axle axle)
 
 int getCurrentHeightInCm()
 {
-	char c[10];
-	float t = calculateCurrentPressureAtSeaLevel(34.3);
-
-	Ftoa(t,c,2,'f');
-	WriteDebugInfo("presure at sea: ");
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-
-	//pressureAtSeaLevel = 1023.8;
-	t = getCurrentAltitude(t);
-
-	Ftoa(t,c,2,'f');
-	WriteDebugInfo("altitude: ");
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-
-	long temp = getCurrentTemperature();
-
-	Itoa(temp,c,10);
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-	CoEnterMutexSection(I2CMutex);
-	temp = getPressure();
-	CoLeaveMutexSection(I2CMutex);
-	Itoa(temp,c,10);
-	WriteDebugInfo(c);
-	WriteDebugInfo("\n");
-
-
 	return getDistanceToGround();
 }
 
