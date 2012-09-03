@@ -6,7 +6,8 @@
 //#include <Drivers/Uart/Uart.h>
 
 char commandSetMotor[] = {"setmotor"};
-char wrongCommandSetMotor[] = {"Not a valid command!"};
+char wrongCommandSetMotor[] = {"Not a valid command!\nCommand should have parameter f,b,l or r and a number."};
+char motorHasBeenSet[] = {"Motor has been set."};
 
 int speedMotorFront = 0;
 int speedMotorBack = 0;
@@ -31,7 +32,7 @@ char * printInfoAngle(int argc, char *args[])
 {
 	if (argc != 2)
 	{
-		return "Unknown amount of parameters";
+		return wrongCommandSetMotor;
 	}
 	char f[] = {"f"};
 	char b[] = {"b"};
@@ -40,22 +41,22 @@ char * printInfoAngle(int argc, char *args[])
 	if (Strcmp(args[0],f) == 0)
 	{
 		speedMotorFront = Atoi(args[1]);
-		return NULL;
+		return motorHasBeenSet;
 	}
 	else if (Strcmp(args[0],b) == 0)
 	{
 		speedMotorBack = Atoi(args[1]);
-		return NULL;
+		return motorHasBeenSet;
 	}
 	else if (Strcmp(args[0],l) == 0)
 	{
 		speedMotorLeft = Atoi(args[1]);
-		return NULL;
+		return motorHasBeenSet;
 	}
 	else if (Strcmp(args[0],r) == 0)
 	{
 		speedMotorRight = Atoi(args[1]);
-		return NULL;
+		return motorHasBeenSet;
 	}
 	return wrongCommandSetMotor;
 }

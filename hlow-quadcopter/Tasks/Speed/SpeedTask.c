@@ -4,7 +4,7 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Interfaces/Sensors/Sensors.h>
 char commandSpeed[] = {"getspeed"};
-char wrongCommandSpeed[] = {"Not a valid command!"};
+char wrongCommandSpeed[] = {"Not a valid command!\ncommand should have value x, y or z."};
 
 float Speedx;
 float Speedy;
@@ -28,7 +28,7 @@ char * printInfoSpeed(int argc, char *args[])
 {
 	if (argc != 1)
 	{
-		return "Unknown amount of parameters";
+		return wrongCommandSpeed;
 	}
 	char x[] = {"x"};
 	char y[] = {"y"};

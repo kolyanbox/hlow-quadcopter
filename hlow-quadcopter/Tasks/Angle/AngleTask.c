@@ -6,7 +6,7 @@
 #include <Drivers/Uart/Uart.h>
 
 char commandGetAngle[] = {"getangle"};
-char wrongCommandGetAngle[] = {"Not a valid command!"};
+char wrongCommandGetAngle[] = {"Not a valid command!\nParameter shuld contain x,y or z"};
 
 char Anglex[5];
 char Angley[5];
@@ -30,7 +30,7 @@ char * setMotorSpeed(int argc, char *args[])
 {
 	if (argc != 1)
 	{
-		return "Unknown amount of parameters";
+		return wrongCommandGetAngle;
 	}
 	char x[] = {"x"};
 	char y[] = {"y"};
