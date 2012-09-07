@@ -14,6 +14,7 @@
 #include <CoOS.h>
 #include <Drivers/Uart/Uart.h>
 #include <Tasks/Debug/DebugTask.h>
+#include <Drivers/MAG3110/MAG3110.h>
 
 /*CurrentTemperatureMutex is protecting the currentTemperature variable*/
 OS_MutexID currentTemperatureMutex;
