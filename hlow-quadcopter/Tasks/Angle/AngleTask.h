@@ -10,5 +10,6 @@
 
 taskDef getAngleTaskDefenition();
 void AngleTask (void* pdata);
+char * getAngle(int argc, char *args[]);
 
 #endif

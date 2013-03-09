@@ -15,6 +15,7 @@
 #include <Tasks/Distancetoground/DistanceToGroundTask.h>
 #include <Tasks/Motor/MotorTask.h>
 #include <Tasks/Speed/SpeedTask.h>
+#include <Tasks/Controller/ControllerTask.h>
 
 allRunningTasks tasks;
 int currentAmmountOfTasks = 0;
@@ -128,6 +129,10 @@ char * startProcess(int argc, char *args[])
 	else if (Strcmp(args[0],getSpeedTaskDefenition().taskName) == 0)
 	{
 		retVal = createTask(getSpeedTaskDefenition());
+	}
+	else if (Strcmp(args[0],getControllerTaskDefenition().taskName) == 0)
+	{
+		retVal = createTask(getControllerTaskDefenition());
 	}
 	if (retVal == FALSE)
 	{

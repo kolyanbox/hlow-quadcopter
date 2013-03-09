@@ -39,17 +39,17 @@
 				<pathentry include="C:/CooCox/CoIDE/gcc/arm-none-eabi/include" kind="inc" path="" system="true"/>
 				<pathentry include="C:/CooCox/CoIDE/gcc/lib/gcc/arm-none-eabi/4.5.2/include" kind="inc" path="" system="true"/>
 				<pathentry include="C:/CooCox/CoIDE/gcc/lib/gcc/arm-none-eabi/4.5.2/include-fixed" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/cmsis" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/cmsis_boot" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS/kernel" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS/portable" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX/COX_LPC1700" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX/COX_Peripheral" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/lpc17xx_lib" kind="inc" path="" system="true"/>
-				<pathentry include="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/lpc17xx_lib/include" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/cmsis" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/cmsis_boot" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS/kernel" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/CoOS/portable" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX/COX_LPC1700" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/COX/COX_Peripheral" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/lpc17xx_lib" kind="inc" path="" system="true"/>
+				<pathentry include="D:/svn backup checkout/trunk/Uitzoeken/my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/lpc17xx_lib/include" kind="inc" path="" system="true"/>
 				<pathentry kind="mac" name="__GNUC__" path="" value=""/>
 				<pathentry kind="mac" name="LPC1768" path="" value=""/>
 				<pathentry kind="out" path=""/>
