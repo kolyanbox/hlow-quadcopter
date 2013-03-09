@@ -11,6 +11,7 @@
 #include <Tasks/Logging/LoggingTask.h>
 #include <Tasks/Speed/SpeedTask.h>
 #include <Tasks/Motor/MotorTask.h>
+#include <Tasks/Controller/ControllerTask.h>
 
 #include <General/Taskmanager/Taskmanager.h>
 
@@ -64,6 +65,12 @@ void MainTask (void* pdata)
 	if (initializeActuators() == FALSE)
 	{
 		WriteDebugInfo("Initialization stopped!\n\r");
+		while(1);
+	}
+
+	if (createTask(getControllerTaskDefenition()) ==FALSE)
+	{
+		WriteDebugInfo("couldn't start controller task!\n\r");
 		while(1);
 	}
 

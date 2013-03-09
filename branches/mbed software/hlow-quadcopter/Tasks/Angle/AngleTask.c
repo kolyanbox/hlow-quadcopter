@@ -26,7 +26,7 @@ taskDef getAngleTaskDefenition()
 	return t;
 }
 
-char * setMotorSpeed(int argc, char *args[])
+char * getAngle(int argc, char *args[])
 {
 	if (argc != 1)
 	{
@@ -56,7 +56,7 @@ void AngleTask (void* pdata)
 	unsigned char angleApp = 0;
 
 	//register angle app in cli
-	registerInterface(commandGetAngle,setMotorSpeed);
+	registerInterface(commandGetAngle,getAngle);
 
 	unsigned char appName[] = {"Angle task"};
 	angleApp = registerApp(appName,LOG_DEBUG);

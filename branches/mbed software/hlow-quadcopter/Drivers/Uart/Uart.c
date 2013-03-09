@@ -151,7 +151,7 @@ void UART0_IRQHandler (void)
 		if (lastReceivedChar != '\n')
 		{
 			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
-			if (lastReceivedCommandPosition > 19)
+			if (lastReceivedCommandPosition > COMMANDLENGTH-1)
 			{
 				lastReceivedCommandPosition = 0;
 			}
@@ -196,7 +196,7 @@ void UART3_IRQHandler (void)
 		UART_SendByte(LPC_UART0,lastReceivedChar);
 	}
 	if (receivedValidCommand == FALSE){
-		if (lastReceivedChar != '\n')
+		if (lastReceivedChar != '\n' && lastReceivedChar != '\r')
 		{
 			lastReceivedCommandString[lastReceivedCommandPosition++] = lastReceivedChar;
 			if (lastReceivedCommandPosition > COMMANDLENGTH-1)
