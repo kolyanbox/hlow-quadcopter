@@ -5,9 +5,9 @@
 #include <lpc_types.h>
 
 enum Axle {
-	X = 0,
+	X = 2,
 	Y = 1,
-	Z = 2
+	Z = 0
 };
 
 enum SensorType{

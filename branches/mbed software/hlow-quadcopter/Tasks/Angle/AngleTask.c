@@ -66,15 +66,15 @@ void AngleTask (void* pdata)
 		unsigned char logMessage[] = {"inside angletask\n\r"};
 		writeLog(angleApp,logMessage,LOG_DEBUG);
 
-		value = getCurrentAngle(X);
+		value = (getCurrentAngle(X) - 1148) / 11.10556;
 		Itoa(value, Anglex, 10);
 
-		value = getCurrentAngle(Y);
+		value = (getCurrentAngle(Y) - 1094) / 10.90556;
 		Itoa(value, Angley, 10);
 
 		value = getCurrentAngle(Z);
 		Itoa(value, Anglez, 10);
 
-		CoTimeDelay(0,0,0,500);
+		CoTimeDelay(0,0,0,50);
 	}
 }

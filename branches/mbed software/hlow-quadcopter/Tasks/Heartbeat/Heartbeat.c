@@ -19,8 +19,8 @@ void HeartBeat (void* pdata)
   for (;;)
   {
 	  setLed(led1,TRUE);
-	  CoTimeDelay(0,0,1,0);
+	  CoTimeDelay(0,0,0,50);
 	  setLed(led1,FALSE);
-	  CoTimeDelay(0,0,1,0);
+	  CoTimeDelay(0,0,0,50);
   }
 }
