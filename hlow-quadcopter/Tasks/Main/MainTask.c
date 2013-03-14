@@ -48,6 +48,22 @@ void MainTask (void* pdata)
 			while(1);
 		}
 		WriteDebugInfo("Motors are initialized.\n\r");
+		WriteDebugInfo("Start motor test?\n\r");
+		if (isAnswerFromUserYes())
+		{
+			setSpeedBack(25);
+			setSpeedFront(25);
+			setSpeedLeft(25);
+			setSpeedRight(25);
+			WriteDebugInfo("Press y to stop motor test\n\r");
+			if (isAnswerFromUserYes())
+			{
+				setSpeedBack(0);
+				setSpeedFront(0);
+				setSpeedLeft(0);
+				setSpeedRight(0);
+			}
+		}
 	}
 	else {
 		WriteDebugInfo("Motors couldn't be initialized.\n\r");
