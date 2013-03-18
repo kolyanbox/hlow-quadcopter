@@ -63,10 +63,10 @@ Bool ActuatorsInitialization(enum ActuatorType actuatorType)
 			/*Set all speeds on 1 percent for initializing the ESC's
 			 * Initializing will stop if one speed cannot be set*/
 			correctlyInitializedActuatorMotors = TRUE;
-			if (setSpeedBack(1) == FALSE ||
-				setSpeedFront(1) == FALSE ||
-				setSpeedLeft(1) == FALSE ||
-				setSpeedRight(1) == FALSE)
+			if (setSpeedBack(0) == FALSE ||
+				setSpeedFront(0) == FALSE ||
+				setSpeedLeft(0) == FALSE ||
+				setSpeedRight(0) == FALSE)
 			{
 				correctlyInitializedActuatorMotors = FALSE;
 				return FALSE;
@@ -117,7 +117,8 @@ Bool setSpeedFront(int speedPercent)
 	}
 
 	if (speedPercent == 0){
-		speedPercent++;;
+		setPWM(motor3, SPEED_NEUTRAL);
+		return TRUE;
 	}
 
 	fSpeed = SPEED_PROCENT * (speedPercent-1)+SPEED_LOW;
@@ -141,7 +142,8 @@ Bool setSpeedBack(int speedPercent)
 	}
 
 	if (speedPercent == 0){
-		speedPercent++;;
+		setPWM(motor1, SPEED_NEUTRAL);
+		return TRUE;
 	}
 
 	fSpeed = SPEED_PROCENT * (speedPercent-1)+SPEED_LOW;
@@ -165,7 +167,8 @@ Bool setSpeedLeft(int speedPercent)
 	}
 
 	if (speedPercent == 0){
-		speedPercent++;;
+		setPWM(motor2, SPEED_NEUTRAL);
+		return TRUE;
 	}
 
 	fSpeed = SPEED_PROCENT * (speedPercent-1)+SPEED_LOW;
@@ -189,7 +192,8 @@ Bool setSpeedRight(int speedPercent)
 	}
 
 	if (speedPercent == 0){
-		speedPercent++;;
+		setPWM(motor4, SPEED_NEUTRAL);
+		return TRUE;
 	}
 
 	fSpeed = SPEED_PROCENT * (speedPercent-1)+SPEED_LOW;
