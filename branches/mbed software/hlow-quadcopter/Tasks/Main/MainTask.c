@@ -51,10 +51,10 @@ void MainTask (void* pdata)
 		WriteDebugInfo("Start motor test?\n\r");
 		if (isAnswerFromUserYes())
 		{
-			setSpeedBack(25);
-			setSpeedFront(25);
-			setSpeedLeft(25);
-			setSpeedRight(25);
+			setSpeedBack(1);
+			setSpeedFront(1);
+			setSpeedLeft(1);
+			setSpeedRight(1);
 			WriteDebugInfo("Press y to stop motor test\n\r");
 			if (isAnswerFromUserYes())
 			{
