@@ -30,14 +30,6 @@ taskDef getMainTaskDefenition()
 
 void MainTask (void* pdata)
 {
-	/*start logging task*/
-	if (createTask(getLoggingTaskDefenition()) ==FALSE)
-	{
-		WriteDebugInfo("couldn't start logging task!");
-		while(1);
-	}
-
-
 	//Startup sequence. First startup Uart
 	//If initialize fails go into infinite loop
 	//If initialization of the telemetry succeeds, go on with initializing other parts of the system
@@ -45,6 +37,15 @@ void MainTask (void* pdata)
 	{
 		while (1);
 	}
+
+	/*start logging task*/
+	if (createTask(getLoggingTaskDefenition()) ==FALSE)
+	{
+		WriteDebugInfo("couldn't start logging task!");
+		while(1);
+	}
+	//run other tasks once
+	CoTimeDelay(0,0,1,0);
 
 	//Because the debug task isn't launched we need to write debug info directly
 	WriteDebugInfo("Motors will be initialized\n\r/>");
