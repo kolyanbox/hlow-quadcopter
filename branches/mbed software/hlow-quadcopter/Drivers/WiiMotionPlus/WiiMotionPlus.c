@@ -1,6 +1,7 @@
 #include <Drivers/WiiMotionPlus/WiiMotionPlus.h>
 #include <Tasks/Debug/DebugTask.h>
 #include <Drivers/Uart/Uart.h>
+#include <Tasks/Logging/LoggingTask.h>
 
 /*Global definitions for I2C*/
 
@@ -24,12 +25,17 @@ float gyrodata[3];
 float calX;
 float calY;
 float calZ;
+unsigned char wiiLogging = 0;
+unsigned char appName[] = {"wmp Sensor"};
 
 Bool initializeWiiMotionPlus()
 {
+	wiiLogging = registerApp(appName,LOG_DEBUG);
+	writeLog(wiiLogging,"Starting initialization",LOG_DEBUG);
 	wiiMotionPlusSensorSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (wiiMotionPlusSensorSem == E_CREATE_FAIL)
 	{
+		writeLog(wiiLogging,"Semafore couldn't be created",LOG_ERR);
 		return FALSE;
 	}
 	CoPostSem(wiiMotionPlusSensorSem);
@@ -50,6 +56,7 @@ Bool initializeWiiMotionPlus()
 
 	if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_POLLING))
 	{
+		writeLog(wiiLogging,"Wait for address change",LOG_DEBUG);
 		/*Wait for WiiMotionPlus to change address*/
 		int i = 0;
 		while (i<9999)
@@ -64,20 +71,8 @@ Bool initializeWiiMotionPlus()
 		transferMCfg.rx_data = NULL;
 		transferMCfg.rx_length = 0;//sizeof(I2C_RxBuffer);
 		transferMCfg.retransmissions_max = 0;
-		if(I2C_MasterTransferData(I2CDEV_M, &transferMCfg, I2C_TRANSFER_INTERRUPT))
-		{
-			/*Wait for WiiMotionPlus to change address*/
-			int i = 0;
-			while (i<9999)
-			{
-				i++;
-			}
-			partialReturnValue = TRUE;
-		}
-		else
-		{
-			partialReturnValue = FALSE;
-		}
+
+		partialReturnValue = FALSE;
 	}
 	else
 	{
@@ -101,6 +96,7 @@ Bool initializeWiiMotionPlus()
 		}
 		else
 		{
+			writeLog(wiiLogging,"Master transfer data failed",LOG_ERR);
 			return FALSE;
 		}
 	}
@@ -126,6 +122,7 @@ void callback()
 	Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02 && rxBuffer[3] & 0x01);
 	if (fastdiscard)
 	{
+		writeLog(wiiLogging,"Sensor in fastmode!",LOG_WARNING);
 		return;
 	}
 	else {
@@ -165,6 +162,7 @@ float gyroscope_get_value(int valueNumber)
 	float data;
 	if (valueNumber > 2 || valueNumber < 0)
 	{
+		writeLog(wiiLogging,"Wrong get value",LOG_WARNING);
 		return 0;
 	}
 	if (CoPendSem(wiiMotionPlusSensorSem,10) == E_OK){
@@ -212,6 +210,6 @@ void gyroscope_get()
 	}
 	else
 	{
-		WriteDebugInfo("Fail #2!\n\r");
+		writeLog(wiiLogging,"Failed to get data",LOG_ERR);
 	}
 }
