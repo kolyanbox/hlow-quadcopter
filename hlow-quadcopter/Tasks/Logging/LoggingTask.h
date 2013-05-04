@@ -29,7 +29,7 @@ typedef struct
 {
     unsigned char ucId;
     unsigned char uacApp[LOG_MAX_APP_NAME];
-    loglevels logLevel;       
+    loglevels logLevel;
 } logtable;
 
 taskDef getLoggingTaskDefenition();

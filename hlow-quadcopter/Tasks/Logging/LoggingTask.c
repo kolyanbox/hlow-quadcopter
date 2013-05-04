@@ -137,7 +137,6 @@ unsigned char registerApp(unsigned char *uacApp, loglevels logLevel)
     pAppLogTable[ucSlotFound].logLevel = logLevel;
     
     updateIdCounter();
-    
     return pAppLogTable[ucSlotFound].ucId;
 }
 
@@ -181,10 +180,10 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
              /* Only log when loglevel is greater */
              if(pAppLogTable[i].logLevel <= logLevel)
              {
-//                 WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
-//                 WriteDebugInformation(": ",DirectDebug);
-//                 WriteDebugInformation((char *)uacLogMessage,DirectDebug);
-//                 WriteDebugInformation("\n",DirectDebug);
+                 WriteDebugInfo((char *)pAppLogTable[i].uacApp);
+                 WriteDebugInfo(": ");
+                 WriteDebugInfo(uacLogMessage);
+                 WriteDebugInfo("\n");
                  break;                            
              }                        
          }      
@@ -204,17 +203,17 @@ void cmd_printLogTable()
         Itoa((i+1), cSlotNumber, 10);
         if(pAppLogTable[i].ucId == 0)
         {
-//            WriteDebugInformation("Slot ",DirectDebug);
-//            WriteDebugInformation(cSlotNumber,DirectDebug);
-//            WriteDebugInformation(": [empty]\n\r",DirectDebug);
+            WriteDebugInfo("Slot ");
+            WriteDebugInfo(cSlotNumber);
+            WriteDebugInfo(": [empty]\n\r");
         }
         else
         {
-//            WriteDebugInformation("Slot ",DirectDebug);
-//            WriteDebugInformation(cSlotNumber,DirectDebug);
-//            WriteDebugInformation(": ",DirectDebug);
-//            WriteDebugInformation((char *)pAppLogTable[i].uacApp,DirectDebug);
-//            WriteDebugInformation("\n\r",DirectDebug);
+            WriteDebugInfo("Slot ");
+            WriteDebugInfo(cSlotNumber);
+            WriteDebugInfo(": ");
+            WriteDebugInfo((char *)pAppLogTable[i].uacApp);
+            WriteDebugInfo("\n\r");
         }      
     } 
 }

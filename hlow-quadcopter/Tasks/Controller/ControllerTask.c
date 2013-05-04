@@ -3,6 +3,7 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Interfaces/Actuators/Actuators.h>
 #include <General/util.h>
+#include <Tasks/Logging/LoggingTask.h>
 
 char commandStopController[] = {"stopcontroller"};
 char commandSetKD[] = {"setkd"};
@@ -90,7 +91,9 @@ void ControllerTask (void* pdata)
 	float integral = 0;
 	float dt = 0.05;
 
-
+	unsigned char controllerApp = 0;
+	unsigned char appName[] = {"Controller"};
+	controllerApp = registerApp(appName,LOG_DEBUG);
 	for(;;)
 	{
 		char *args[] = {"y"};
@@ -104,19 +107,7 @@ void ControllerTask (void* pdata)
 		float output = kp*error+ki*integral+kd*derivative;
 		previousError = error;
 
-//		char c[10];
-//		Ftoa(output,c,10,'f');
-//		WriteDebugInfo(c);
-//		WriteDebugInfo(" output\n\r");
-//		Ftoa(error,c,10,'f');
-//		WriteDebugInfo(c);
-//		WriteDebugInfo(" error\n\r");
-
-		//input = input-1317;
-		//input = input/14.94;
-
-		//int deviatie = input-90;
-		//int output = (deviatie*0.1);
+		char c[10];
 
 		if (output > 0)
 		{
@@ -137,15 +128,17 @@ void ControllerTask (void* pdata)
 			outF = 30;
 		}
 
-//		Itoa(outB,c,10);
-//		WriteDebugInfo(c);
-//		WriteDebugInfo(" B\n\r");
-//
-//		Itoa(outF,c,10);
-//		WriteDebugInfo(c);
-//		WriteDebugInfo(" F\n\r");
+		Itoa(outB,c,10);
+		//writeLog(controllerApp,c,LOG_DEBUG);
 
-		//Itoa(output,c,10);
+		//WriteDebugInfo(c);
+		//WriteDebugInfo(" B\n\r");
+
+		Itoa(outF,c,10);
+		//WriteDebugInfo(c);
+		//WriteDebugInfo(" F\n\r");
+
+		Itoa(input,c,10);
 		//WriteDebugInfo(c);
 		//WriteDebugInfo(" O\n\r");
 
