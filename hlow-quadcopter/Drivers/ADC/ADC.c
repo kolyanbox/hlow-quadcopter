@@ -29,6 +29,22 @@ Bool ADC_init()
 	PinCfg3.Portnum = 0;
 	PINSEL_ConfigPin(&PinCfg3);
 
+	PINSEL_CFG_Type PinCfg4;
+	PinCfg4.Funcnum = 1;
+	PinCfg4.OpenDrain = 0;
+	PinCfg4.Pinmode = 0;
+	PinCfg4.Pinnum = 26;
+	PinCfg4.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg4);
+
+	PINSEL_CFG_Type PinCfg5;
+	PinCfg5.Funcnum = 1;
+	PinCfg5.OpenDrain = 0;
+	PinCfg5.Pinmode = 0;
+	PinCfg5.Pinnum = 30;
+	PinCfg5.Portnum = 1;
+	PINSEL_ConfigPin(&PinCfg5);
+
 	ADC_Init(LPC_ADC, 10000);
 
 	return TRUE;
@@ -39,6 +55,7 @@ uint16_t getADC(int channel)
 	uint16_t adc_value;
 	uint16_t adc_value1;
 	uint16_t adc_value2;
+	uint16_t adc_value3;
 
 	// Start conversion
 	ADC_StartCmd(LPC_ADC,ADC_START_NOW);
@@ -61,6 +78,12 @@ uint16_t getADC(int channel)
 	adc_value2 = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
 	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_0,DISABLE);
 
+	ADC_IntConfig(LPC_ADC,ADC_ADINTEN3,RESET);
+	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,ENABLE);
+	while (!(ADC_ChannelGetStatus(LPC_ADC,ADC_CHANNEL_3,ADC_DATA_DONE)));
+	adc_value3 = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3);
+	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,DISABLE);
+
 	if (channel == 0)
 	{
 		return adc_value;
@@ -72,6 +95,10 @@ uint16_t getADC(int channel)
 	if (channel == 2)
 	{
 		return adc_value2;
+	}
+	if (channel == 3)
+	{
+		return adc_value3;
 	}
 	else
 	{

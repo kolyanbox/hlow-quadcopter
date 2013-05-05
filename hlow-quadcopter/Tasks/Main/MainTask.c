@@ -12,6 +12,7 @@
 #include <Tasks/Speed/SpeedTask.h>
 #include <Tasks/Motor/MotorTask.h>
 #include <Tasks/Controller/ControllerTask.h>
+#include <Tasks/Battery/BatteryTask.h>
 
 #include <General/Taskmanager/Taskmanager.h>
 
@@ -177,6 +178,12 @@ Bool initializeSensors()
 				while(1);
 			}
 			WriteDebugInfo("Angle sensor is initialized.\n\r");
+			/*Create battery task*/
+			if (createTask(getBatteryTaskDefenition()) ==FALSE)
+			{
+				WriteDebugInfo("couldn't start battery task!");
+				while(1);
+			}
 		}
 		else {
 			WriteDebugInfo("Angle sensor couldn't be initialized!\n\r");

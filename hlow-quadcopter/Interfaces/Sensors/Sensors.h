@@ -24,6 +24,7 @@ extern volatile unsigned char lastReceivedChar;
 /*This method returns TRUE if all sensors are correct initialized and FALSE if one sensor fails to initialize*/
 Bool sensorInitialization(enum SensorType sensorType);
 int getCurrentAngle(enum Axle axle);
+int getCurrentBatteryStatus();
 int getCurrentHeightInCm();
 float getRotationAroundAxle(enum Axle axle);
 long getCurrentTemperature();
