@@ -6,6 +6,8 @@
 logtable *pAppLogTable = NULL;
 unsigned char *pucIdCounter = NULL;
 
+char commandGetLoggingTable[] = {"getloggingtable"};
+
 taskDef t;
 #define LoggingStackSize 128
 OS_STK	Logging_stk[LoggingStackSize];
@@ -19,6 +21,43 @@ taskDef getLoggingTaskDefenition()
 	t.task = LoggingTask;
 	t.taskName = "Logging";
 	return t;
+}
+
+/**
+ * method only to be used by other methods in this file.
+ * This method will convert a log level to a corresponding string
+ */
+char* getString(loglevels logLevel) {
+	switch (logLevel) {
+	case LOG_ALERT:
+		return "Alert";
+		break;
+	case LOG_CRIT:
+		return "Critical";
+		break;
+	case LOG_DEBUG:
+		return "Debug";
+		break;
+	case LOG_EMERG:
+		return "Emergency";
+		break;
+	case LOG_ERR:
+		return "Error";
+		break;
+	case LOG_INFO:
+		return "Information";
+		break;
+	case LOG_NOTICE:
+		return "Notice";
+		break;
+	case LOG_WARNING:
+		return "Warning";
+		break;
+
+	default:
+		return "Loglevel unknown!";
+		break;
+	}
 }
 
 Bool LoggingTaskInitialization()
@@ -50,6 +89,8 @@ void LoggingTask (void* pdata)
 	pucIdCounter = &ucIdCounter;
 
 	LoggingTaskInitialization();
+
+	registerInterface(commandGetLoggingTable,cmd_printLogTable);
 	for (;;)
 	{
         CoTimeDelay(0,0,1,0);
@@ -180,7 +221,9 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
              /* Only log when loglevel is greater */
              if(pAppLogTable[i].logLevel <= logLevel)
              {
-                 WriteDebugInfo((char *)pAppLogTable[i].uacApp);
+            	 WriteDebugInfo(getString(logLevel));
+            	 WriteDebugInfo(": ");
+            	 WriteDebugInfo((char *)pAppLogTable[i].uacApp);
                  WriteDebugInfo(": ");
                  WriteDebugInfo(uacLogMessage);
                  WriteDebugInfo("\n");
@@ -190,31 +233,32 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
      }
 }
 
-void cmd_printLogTable()
+char * cmd_printLogTable(int argc, char *args[])
 {
+	char returnValue[(LOG_MAX_APP_NAME + 13)* LOG_APP_AMOUNT];
+	returnValue[0] = '\0';
     unsigned char i = 0;
     char cSlotNumber[2];
     
     if(pAppLogTable == NULL)
-    	return;
+    	return "ERROR: Loggingtable is NULL";
 
     for(i = 0; i < LOG_APP_AMOUNT; i++)
     {
         Itoa((i+1), cSlotNumber, 10);
+        Strcat(returnValue,"Slot ");
+        Strcat(returnValue,cSlotNumber);
+        Strcat(returnValue,": ");
         if(pAppLogTable[i].ucId == 0)
         {
-            WriteDebugInfo("Slot ");
-            WriteDebugInfo(cSlotNumber);
-            WriteDebugInfo(": [empty]\n\r");
+        	Strcat(returnValue,"[empty]");
         }
         else
         {
-            WriteDebugInfo("Slot ");
-            WriteDebugInfo(cSlotNumber);
-            WriteDebugInfo(": ");
-            WriteDebugInfo((char *)pAppLogTable[i].uacApp);
-            WriteDebugInfo("\n\r");
+        	Strcat(returnValue,(char *)pAppLogTable[i].uacApp);
         }      
+        Strcat(returnValue,"\n\r");
     } 
+    return returnValue;
 }
 
