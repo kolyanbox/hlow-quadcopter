@@ -42,6 +42,10 @@ taskDef getDebugTaskDefenition()
 }
 
 char complete[MAXAMOUNTOFINTERFACES*(MAX_COMMAND_LENGTH+1)+1];
+
+//indicate if already initialized
+Bool cliInitialized = FALSE;
+
 char * getAllCommands(int argc, char *args[])
 {
 	complete[0] = '\0';
@@ -64,7 +68,7 @@ Bool cliInitialization()
 	{
 		interfaces[i].occupiedSlot = FALSE;
 	}
-
+	cliInitialized = TRUE;
 	registerInterface(help,getAllCommands);
 
 	return TRUE;
@@ -72,7 +76,10 @@ Bool cliInitialization()
 
 Bool DebugTaskInitialization()
 {
-	cliInitialization();
+	if (!cliInitialized)
+	{
+		cliInitialization();
+	}
 	messagesSem = CoCreateSem(1,1,EVENT_SORT_TYPE_FIFO);
 	if (messagesSem == E_CREATE_FAIL)
 	{
@@ -99,6 +106,10 @@ Bool DebugTaskInitialization()
 
 int registerInterface(const char* command, void *interface)
 {
+	if (!cliInitialized)
+	{
+		cliInitialization();
+	}
 	int i = 0;
 	int prevAmmountOfInterfaces = currentAmmountOfInterfaces;
 	while (i < MAXAMOUNTOFINTERFACES)

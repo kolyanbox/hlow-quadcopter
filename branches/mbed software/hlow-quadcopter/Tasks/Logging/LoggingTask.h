@@ -38,6 +38,6 @@ Bool LoggingTaskInitialization();
 unsigned char registerApp(unsigned char *uacApp, loglevels logLevel);
 Bool deregisterApp(unsigned char ucAppId);
 void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels logLevel);
-void cmd_printLogTable();
+char * cmd_printLogTable(int argc, char *args[]);
 
 #endif
