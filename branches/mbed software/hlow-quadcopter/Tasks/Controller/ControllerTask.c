@@ -74,26 +74,15 @@ void ControllerTask (void* pdata)
 	registerInterface(commandSetKI,setki);
 	registerInterface(commandSetKP,setkp);
 
-
-	int speedF = 0;
-	int speedB = 0;
-	int speedL = 0;
-	int speedR = 0;
-
-	int prevOutput = 0;
 	int outF = 0;
 	int outB = 0;
-
-	float half = 747;
-
 
 	float previousError = 0;
 	float integral = 0;
 	float dt = 0.05;
 
-	unsigned char controllerApp = 0;
 	unsigned char appName[] = {"Controller"};
-	controllerApp = registerApp(appName,LOG_DEBUG);
+	registerApp(appName,LOG_DEBUG);
 	for(;;)
 	{
 		char *args[] = {"y"};
