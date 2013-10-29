@@ -1,0 +1,18 @@
+COX/COX_LPC1700/lpc_exti.d: ../COX/COX_LPC1700/lpc_exti.c \
+ ../COX/COX_LPC1700/lpc_lowlayer.h ../COX/COX_LPC1700/lpc_definition.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_exti.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_types.h
+
+../COX/COX_LPC1700/lpc_lowlayer.h:
+
+../COX/COX_LPC1700/lpc_definition.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_exti.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_types.h:

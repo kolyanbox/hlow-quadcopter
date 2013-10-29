@@ -1,0 +1,10 @@
+cmsis_boot/system_LPC17xx.d: ../cmsis_boot/system_LPC17xx.c \
+ ../cmsis_boot/LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h \
+ ../cmsis_boot/system_LPC17xx.h
+
+../cmsis_boot/LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h:
+
+../cmsis_boot/system_LPC17xx.h:

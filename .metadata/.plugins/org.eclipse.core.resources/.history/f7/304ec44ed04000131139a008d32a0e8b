@@ -1,0 +1,2 @@
+cmsis_boot/startup/startup_LPC17xx.d: \
+ ../cmsis_boot/startup/startup_LPC17xx.c

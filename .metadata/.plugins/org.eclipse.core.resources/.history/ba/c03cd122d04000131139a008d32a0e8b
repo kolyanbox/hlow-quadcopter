@@ -1,0 +1,19 @@
+lpc17xx_lib/source/lpc17xx_gpio.d: ../lpc17xx_lib/source/lpc17xx_gpio.c \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_gpio.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_libcfg_default.h
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_gpio.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_libcfg_default.h:

@@ -1,0 +1,11 @@
+22:09:03 **** Incremental Build of configuration Debug for project quadcopter ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size  --format=berkeley "quadcopter.elf"
+   text	   data	    bss	    dec	    hex	filename
+  63188	    576	  10168	  73932	  120cc	quadcopter.elf
+'Finished building: quadcopter.siz'
+' '
+
+22:09:05 Build Finished (took 1s.754ms)
+

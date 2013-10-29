@@ -1,0 +1,55 @@
+Tasks/Debug/DebugTask.d: ../Tasks/Debug/DebugTask.c \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Tasks/Debug/DebugTask.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/General/Taskmanager/Taskmanager.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsConfig.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Interfaces/Actuators/Actuators.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_types.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Interfaces/Sensors/Sensors.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/General/util.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_uart.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Drivers/Uart/Uart.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_pinsel.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/lpc17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/cmsis/core_cm3.h
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Tasks/Debug/DebugTask.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/General/Taskmanager/Taskmanager.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsConfig.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Interfaces/Actuators/Actuators.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\COX\COX_Peripheral/cox_types.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Interfaces/Sensors/Sensors.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/General/util.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_uart.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/Drivers/Uart/Uart.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_pinsel.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/lpc17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter/cmsis/core_cm3.h:

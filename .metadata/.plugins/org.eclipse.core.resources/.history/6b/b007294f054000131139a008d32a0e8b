@@ -1,0 +1,24 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../Tasks/Battery/BatteryTask.c 
+
+OBJS += \
+./Tasks/Battery/BatteryTask.o 
+
+C_DEPS += \
+./Tasks/Battery/BatteryTask.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Tasks/Battery/%.o: ../Tasks/Battery/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross ARM C Compiler'
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

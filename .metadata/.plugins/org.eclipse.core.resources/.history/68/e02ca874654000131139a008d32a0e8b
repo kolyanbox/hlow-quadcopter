@@ -1,0 +1,78 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+O_SRCS += \
+../hlow-quadcopter/Debug/obj/ADC.o \
+../hlow-quadcopter/Debug/obj/Actuators.o \
+../hlow-quadcopter/Debug/obj/AngleTask.o \
+../hlow-quadcopter/Debug/obj/BMP085.o \
+../hlow-quadcopter/Debug/obj/BatteryTask.o \
+../hlow-quadcopter/Debug/obj/Controller.o \
+../hlow-quadcopter/Debug/obj/ControllerTask.o \
+../hlow-quadcopter/Debug/obj/DebugTask.o \
+../hlow-quadcopter/Debug/obj/DistanceToGroundTask.o \
+../hlow-quadcopter/Debug/obj/GPIO.o \
+../hlow-quadcopter/Debug/obj/Heartbeat.o \
+../hlow-quadcopter/Debug/obj/I2C.o \
+../hlow-quadcopter/Debug/obj/LoggingTask.o \
+../hlow-quadcopter/Debug/obj/MAG3110.o \
+../hlow-quadcopter/Debug/obj/MainTask.o \
+../hlow-quadcopter/Debug/obj/MotorControllerTask.o \
+../hlow-quadcopter/Debug/obj/MotorTask.o \
+../hlow-quadcopter/Debug/obj/PWM.o \
+../hlow-quadcopter/Debug/obj/SDcard.o \
+../hlow-quadcopter/Debug/obj/Sensors.o \
+../hlow-quadcopter/Debug/obj/SpeedTask.o \
+../hlow-quadcopter/Debug/obj/Taskmanager.o \
+../hlow-quadcopter/Debug/obj/Uart.o \
+../hlow-quadcopter/Debug/obj/Ultrasonic.o \
+../hlow-quadcopter/Debug/obj/WiiMotionPlus.o \
+../hlow-quadcopter/Debug/obj/arch.o \
+../hlow-quadcopter/Debug/obj/core.o \
+../hlow-quadcopter/Debug/obj/core_cm3.o \
+../hlow-quadcopter/Debug/obj/event.o \
+../hlow-quadcopter/Debug/obj/flag.o \
+../hlow-quadcopter/Debug/obj/hook.o \
+../hlow-quadcopter/Debug/obj/kernelHeap.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_adc.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_clkpwr.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_exti.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_gpio.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_i2c.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_libcfg_default.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_mcpwm.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_nvic.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_pinsel.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_pwm.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_spi.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_timer.o \
+../hlow-quadcopter/Debug/obj/lpc17xx_uart.o \
+../hlow-quadcopter/Debug/obj/lpc_adc.o \
+../hlow-quadcopter/Debug/obj/lpc_exti.o \
+../hlow-quadcopter/Debug/obj/lpc_i2c.o \
+../hlow-quadcopter/Debug/obj/lpc_lowlayer.o \
+../hlow-quadcopter/Debug/obj/lpc_pwm.o \
+../hlow-quadcopter/Debug/obj/lpc_serial.o \
+../hlow-quadcopter/Debug/obj/main.o \
+../hlow-quadcopter/Debug/obj/mbox.o \
+../hlow-quadcopter/Debug/obj/mm.o \
+../hlow-quadcopter/Debug/obj/mutex.o \
+../hlow-quadcopter/Debug/obj/port.o \
+../hlow-quadcopter/Debug/obj/printf.o \
+../hlow-quadcopter/Debug/obj/queue.o \
+../hlow-quadcopter/Debug/obj/sem.o \
+../hlow-quadcopter/Debug/obj/serviceReq.o \
+../hlow-quadcopter/Debug/obj/startup_LPC17xx.o \
+../hlow-quadcopter/Debug/obj/syscalls.o \
+../hlow-quadcopter/Debug/obj/system_LPC17xx.o \
+../hlow-quadcopter/Debug/obj/task.o \
+../hlow-quadcopter/Debug/obj/time.o \
+../hlow-quadcopter/Debug/obj/timer.o \
+../hlow-quadcopter/Debug/obj/util.o \
+../hlow-quadcopter/Debug/obj/utility.o 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+

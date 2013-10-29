@@ -1,0 +1,52 @@
+CoOS/kernel/mutex.d: ../CoOS/kernel/mutex.c \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/coocox.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsConfig.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\portable/OsArch.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsCore.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTask.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsServiceReq.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsError.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTime.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTimer.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsKernelHeap.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsMM.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsEvent.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsMutex.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsQueue.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsFlag.h
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/coocox.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsConfig.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\portable/OsArch.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsCore.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/CoOS.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTask.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsServiceReq.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsError.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTime.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsTimer.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsKernelHeap.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsMM.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsEvent.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsMutex.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsQueue.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\CoOS\kernel/OsFlag.h:

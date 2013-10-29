@@ -1,0 +1,28 @@
+lpc17xx_lib/source/lpc17xx_i2c.d: ../lpc17xx_lib/source/lpc17xx_i2c.c \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_i2c.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_clkpwr.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/lpc17xx.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_pinsel.h \
+ D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_libcfg_default.h
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_i2c.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis/core_cm3.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/system_LPC17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc_types.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_clkpwr.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\cmsis_boot/lpc17xx.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_pinsel.h:
+
+D:\hlow-quadcopter\branches\mbed\ software\hlow-quadcopter\lpc17xx_lib\include/lpc17xx_libcfg_default.h:
