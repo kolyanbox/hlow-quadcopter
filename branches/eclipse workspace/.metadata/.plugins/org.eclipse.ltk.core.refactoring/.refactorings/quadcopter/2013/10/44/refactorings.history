@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;quadcopter/lpc17xx_lib/include/qsds&apos; to &apos;lpc17xx_adc.hh&apos;" description="Rename resource &apos;qsds&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="lpc17xx_lib/include/qsds" name="lpc17xx_adc.hh" stamp="1382988819024" updateReferences="true"/>&#x0A;&#x0A;&#x0A;</session>

@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O0 -c -DLPC1768 -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Logging -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Interfaces -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\cmsis -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\GPIO -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Speed -ID:\hlow-quadcopter\branches\mbed software -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Distancetoground -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Controller -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\lpc17xx_lib\include -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\COX\COX_Peripheral -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\MAG3110 -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\BMP085 -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\COX\COX_LPC1700 -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\Ultrasonic -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Main -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\cmsis_boot -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\Uart -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\I2C -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Debug -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\SDcard -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Motor -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Angle -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\General\Taskmanager -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\PWM -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Interfaces\Sensors -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\ADC -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Heartbeat -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Drivers\WiiMotionPlus -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Controller -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Interfaces\Actuators -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\COX -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks\Battery -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\CoOS\kernel -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\lpc17xx_lib -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\Tasks -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\CoOS -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\CoOS\portable -ID:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\General">
+      <target file="syscalls.o" lastModified="14200247475">
+         <source file="..\..\..\syscalls\syscalls.c" lastModified="138ca5c85ef"/>
+      </target>
+      <target file="util.o" lastModified="142002460a2">
+         <source file="..\..\..\General\util.c" lastModified="1399015ad44"/>
+      </target>
+      <target file="event.o" lastModified="1420024711c">
+         <source file="..\..\..\CoOS\kernel\event.c" lastModified="1397f39a340"/>
+      </target>
+      <target file="Heartbeat.o" lastModified="14200248167">
+         <source file="..\..\..\Tasks\Heartbeat\Heartbeat.c" lastModified="141f56ced81"/>
+      </target>
+      <target file="Ultrasonic.o" lastModified="142002464d7">
+         <source file="..\..\..\Drivers\Ultrasonic\Ultrasonic.c" lastModified="137748c2773"/>
+      </target>
+      <target file="SpeedTask.o" lastModified="14200245a3b">
+         <source file="..\..\..\Tasks\Speed\SpeedTask.c" lastModified="141f56e8664"/>
+      </target>
+      <target file="lpc17xx_nvic.o" lastModified="1420024791d">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_nvic.c" lastModified="137b1baadd7"/>
+      </target>
+      <target file="BMP085.o" lastModified="142002466d2">
+         <source file="..\..\..\Drivers\BMP085\BMP085.c" lastModified="1399016f921"/>
+      </target>
+      <target file="sem.o" lastModified="14200248082">
+         <source file="..\..\..\CoOS\kernel\sem.c" lastModified="1397f2ffd23"/>
+      </target>
+      <target file="queue.o" lastModified="14200247668">
+         <source file="..\..\..\CoOS\kernel\queue.c" lastModified="137b1bb4328"/>
+      </target>
+      <target file="ADC.o" lastModified="14200246978">
+         <source file="..\..\..\Drivers\ADC\ADC.c" lastModified="141f56cf176"/>
+      </target>
+      <target file="lpc_i2c.o" lastModified="14200245534">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_i2c.c" lastModified="137748c1a9e"/>
+      </target>
+      <target file="lpc17xx_uart.o" lastModified="142002463a1">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_uart.c" lastModified="137b1bb2c71"/>
+      </target>
+      <target file="MotorControllerTask.o" lastModified="14200246235">
+         <source file="..\..\..\Controller\MotorControllerTask.c" lastModified="137748c167e"/>
+      </target>
+      <target file="SDcard.o" lastModified="1420024789c">
+         <source file="..\..\..\Drivers\SDcard\SDcard.c" lastModified="137d2c68ae9"/>
+      </target>
+      <target file="AngleTask.o" lastModified="14200246c3c">
+         <source file="..\..\..\Tasks\Angle\AngleTask.c" lastModified="141f56e869c"/>
+      </target>
+      <target file="MainTask.o" lastModified="14200245710">
+         <source file="..\..\..\Tasks\Main\MainTask.c" lastModified="141f56e868e"/>
+      </target>
+      <target file="arch.o" lastModified="14200247a1a">
+         <source file="..\..\..\CoOS\portable\arch.c" lastModified="137b1bb4363"/>
+      </target>
+      <target file="hook.o" lastModified="142002481d5">
+         <source file="..\..\..\CoOS\kernel\hook.c" lastModified="137b1d63b2c"/>
+      </target>
+      <target file="mutex.o" lastModified="14200247768">
+         <source file="..\..\..\CoOS\kernel\mutex.c" lastModified="137b1bb42cf"/>
+      </target>
+      <target file="DebugTask.o" lastModified="14200246a1d">
+         <source file="..\..\..\Tasks\Debug\DebugTask.c" lastModified="141f56e86b1"/>
+      </target>
+      <target file="Controller.o" lastModified="142002473d0">
+         <source file="..\..\..\Controller\Controller.c" lastModified="137748c166c"/>
+      </target>
+      <target file="MAG3110.o" lastModified="14200248015">
+         <source file="..\..\..\Drivers\MAG3110\MAG3110.c" lastModified="139a29517d8"/>
+      </target>
+      <target file="lpc17xx_clkpwr.o" lastModified="14200245db0">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_clkpwr.c" lastModified="137b1baa917"/>
+      </target>
+      <target file="lpc17xx_pinsel.o" lastModified="1420024723b">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_pinsel.c" lastModified="137b1bab745"/>
+      </target>
+      <target file="serviceReq.o" lastModified="142002465e0">
+         <source file="..\..\..\CoOS\kernel\serviceReq.c" lastModified="137b1bb4337"/>
+      </target>
+      <target file="GPIO.o" lastModified="14200246901">
+         <source file="..\..\..\Drivers\GPIO\GPIO.c" lastModified="137748c28e7"/>
+      </target>
+      <target file="WiiMotionPlus.o" lastModified="14200247d0c">
+         <source file="..\..\..\Drivers\WiiMotionPlus\WiiMotionPlus.c" lastModified="141f56e8620"/>
+      </target>
+      <target file="lpc_lowlayer.o" lastModified="142002479a3">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_lowlayer.c" lastModified="137748c1ac0"/>
+      </target>
+      <target file="lpc_pwm.o" lastModified="14200246131">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_pwm.c" lastModified="137748c1a04"/>
+      </target>
+      <target file="lpc17xx_adc.o" lastModified="14200246574">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_adc.c" lastModified="137b1bb9c30"/>
+      </target>
+      <target file="LoggingTask.o" lastModified="14200245f5d">
+         <source file="..\..\..\Tasks\Logging\LoggingTask.c" lastModified="141f56cefc7"/>
+      </target>
+      <target file="Uart.o" lastModified="14200245b92">
+         <source file="..\..\..\Drivers\Uart\Uart.c" lastModified="141f56e8633"/>
+      </target>
+      <target file="MotorTask.o" lastModified="1420024546f">
+         <source file="..\..\..\Tasks\Motor\MotorTask.c" lastModified="141f56e867e"/>
+      </target>
+      <target file="Actuators.o" lastModified="142002455f7">
+         <source file="..\..\..\Interfaces\Actuators\Actuators.c" lastModified="141f56ced0d"/>
+      </target>
+      <target file="port.o" lastModified="142002476e7">
+         <source file="..\..\..\CoOS\portable\GCC\port.c" lastModified="137b1bb436b"/>
+      </target>
+      <target file="I2C.o" lastModified="14200246d36">
+         <source file="..\..\..\Drivers\I2C\I2C.c" lastModified="1387d158d50"/>
+      </target>
+      <target file="utility.o" lastModified="14200245e8f">
+         <source file="..\..\..\CoOS\kernel\utility.c" lastModified="137b1bb4357"/>
+      </target>
+      <target file="lpc_serial.o" lastModified="14200246788">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_serial.c" lastModified="137748c1ad5"/>
+      </target>
+      <target file="core_cm3.o" lastModified="14200245cb4">
+         <source file="..\..\..\cmsis\core_cm3.c" lastModified="137b1ba8e74"/>
+      </target>
+      <target file="core.o" lastModified="14200245c23">
+         <source file="..\..\..\CoOS\kernel\core.c" lastModified="1397ef103b5"/>
+      </target>
+      <target file="kernelHeap.o" lastModified="142002459c0">
+         <source file="..\..\..\CoOS\kernel\kernelHeap.c" lastModified="137b1bb42b5"/>
+      </target>
+      <target file="lpc_exti.o" lastModified="142002480fc">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_exti.c" lastModified="137748c1a5a"/>
+      </target>
+      <target file="system_LPC17xx.o" lastModified="142002461a0">
+         <source file="..\..\..\cmsis_boot\system_LPC17xx.c" lastModified="137b1baa2b0"/>
+      </target>
+      <target file="PWM.o" lastModified="14200248242">
+         <source file="..\..\..\Drivers\PWM\PWM.c" lastModified="137748c27a7"/>
+      </target>
+      <target file="timer.o" lastModified="14200245d38">
+         <source file="..\..\..\CoOS\kernel\timer.c" lastModified="137b1bb4350"/>
+      </target>
+      <target file="lpc17xx_i2c.o" lastModified="14200247538">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_i2c.c" lastModified="137c62ec79b"/>
+      </target>
+      <target file="lpc17xx_spi.o" lastModified="14200247352">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_spi.c" lastModified="137d1d1f35b"/>
+      </target>
+      <target file="lpc17xx_exti.o" lastModified="142002472a6">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_exti.c" lastModified="137b1bb3db0"/>
+      </target>
+      <target file="printf.o" lastModified="14200246ad8">
+         <source file="..\..\..\stdio\printf.c" lastModified="137b1ba8168"/>
+      </target>
+      <target file="DistanceToGroundTask.o" lastModified="14200247b3c">
+         <source file="..\..\..\Tasks\Distancetoground\DistanceToGroundTask.c" lastModified="141f56e864c"/>
+      </target>
+      <target file="ControllerTask.o" lastModified="142002457f5">
+         <source file="..\..\..\Tasks\Controller\ControllerTask.c" lastModified="141f56cee51"/>
+      </target>
+      <target file="lpc17xx_gpio.o" lastModified="14200246b87">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_gpio.c" lastModified="137b1bab339"/>
+      </target>
+      <target file="lpc17xx_timer.o" lastModified="14200245af8">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_timer.c" lastModified="137b1bb26de"/>
+      </target>
+      <target file="flag.o" lastModified="1420024780a">
+         <source file="..\..\..\CoOS\kernel\flag.c" lastModified="137b1bb42a7"/>
+      </target>
+      <target file="lpc17xx_mcpwm.o" lastModified="14200247ac0">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_mcpwm.c" lastModified="137b1baeca4"/>
+      </target>
+      <target file="startup_LPC17xx.o" lastModified="14200246fbf">
+         <source file="..\..\..\cmsis_boot\startup\startup_LPC17xx.c" lastModified="138ca5ca84f"/>
+      </target>
+      <target file="Sensors.o" lastModified="14200246e98">
+         <source file="..\..\..\Interfaces\Sensors\Sensors.c" lastModified="141f56ced60"/>
+      </target>
+      <target file="Taskmanager.o" lastModified="1420024689a">
+         <source file="..\..\..\General\Taskmanager\Taskmanager.c" lastModified="141f56e860a"/>
+      </target>
+      <target file="main.o" lastModified="142002467ec">
+         <source file="..\..\..\main.c" lastModified="138a12b24bc"/>
+      </target>
+      <target file="lpc_adc.o" lastModified="142002471ca">
+         <source file="..\..\..\COX\COX_LPC1700\lpc_adc.c" lastModified="137748c1a30"/>
+      </target>
+      <target file="lpc17xx_libcfg_default.o" lastModified="14200247024">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_libcfg_default.c" lastModified="137b1ba9276"/>
+      </target>
+      <target file="mbox.o" lastModified="14200246cb9">
+         <source file="..\..\..\CoOS\kernel\mbox.c" lastModified="137b1bb42bc"/>
+      </target>
+      <target file="mm.o" lastModified="14200246f58">
+         <source file="..\..\..\CoOS\kernel\mm.c" lastModified="137b1bb42c4"/>
+      </target>
+      <target file="task.o" lastModified="14200246436">
+         <source file="..\..\..\CoOS\kernel\task.c" lastModified="138ca889e66"/>
+      </target>
+      <target file="BatteryTask.o" lastModified="142002462c3">
+         <source file="..\..\..\Tasks\Battery\BatteryTask.c" lastModified="141f56cf06d"/>
+      </target>
+      <target file="lpc17xx_pwm.o" lastModified="14200247f8e">
+         <source file="..\..\..\lpc17xx_lib\source\lpc17xx_pwm.c" lastModified="137b1bae6f8"/>
+      </target>
+      <target file="time.o" lastModified="14200247095">
+         <source file="..\..\..\CoOS\kernel\time.c" lastModified="137b1bb4348"/>
+      </target>
+   </processor>
+</history>

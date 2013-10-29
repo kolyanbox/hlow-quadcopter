@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project version="2G - 1.7.5" name="hlow-quadcopter">
+  <Target name="hlow-quadcopter" isCurrent="1">
+    <Device manufacturerId="7" manufacturerName="NXP" chipId="165" chipName="LPC1768" boardId="" boardName=""/>
+    <BuildOption>
+      <Compile>
+        <Option name="OptimizationLevel" value="0"/>
+        <Option name="UseFPU" value="0"/>
+        <Option name="UserEditCompiler" value=""/>
+        <Includepaths>
+          <Includepath path="."/>
+        </Includepaths>
+        <DefinedSymbols>
+          <Define name="LPC1768"/>
+        </DefinedSymbols>
+      </Compile>
+      <Link useDefault="0">
+        <Option name="DiscardUnusedSection" value="0"/>
+        <Option name="UserEditLinkder" value=""/>
+        <Option name="UseMemoryLayout" value="1"/>
+        <Option name="DiscardUnusedSections" value="1"/>
+        <Option name="Library" value="0"/>
+        <LinkedLibraries/>
+        <MemoryAreas debugInFlashNotRAM="1">
+          <Memory name="IROM1" type="ReadOnly" size="0x00080000" startValue="0x00000000"/>
+          <Memory name="IRAM1" type="ReadWrite" size="0x00008000" startValue="0x10000000"/>
+          <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
+          <Memory name="IRAM2" type="ReadWrite" size="0x00008000" startValue="0x2007C000"/>
+        </MemoryAreas>
+        <LocateLinkFile path="c:/coocox/coide/configuration/programdata/hlow-quadcopter/arm-gcc-link.ld" type="0"/>
+      </Link>
+      <Output>
+        <Option name="OutputFileType" value="0"/>
+        <Option name="Path" value="D:/hlow-quadcopter/branches/mbed software/hlow-quadcopter/"/>
+        <Option name="Name" value="hlow-quadcopter"/>
+        <Option name="HEX" value="1"/>
+        <Option name="BIN" value="1"/>
+      </Output>
+      <User>
+        <UserRun name="Run#1" type="Before" checked="0" value=""/>
+        <UserRun name="Run#1" type="After" checked="0" value=""/>
+      </User>
+    </BuildOption>
+    <DebugOption>
+      <Option name="org.coocox.codebugger.gdbjtag.core.adapter" value="ColinkEx"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.debugMode" value="SWD"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.clockDiv" value="1M"/>
+      <Option name="org.coocox.codebugger.gdbjtag.corerunToMain" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkgdbserver" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.userDefineGDBScript" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.targetEndianess" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jlinkResetMode" value="Type 0: Normal"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.resetMode" value="SYSRESETREQ"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifSemihost" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ifCacheRom" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.ipAddress" value="127.0.0.1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.portNumber" value="2009"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.autoDownload" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="C:/CooCox/CoIDE/flash/LPC17xx_512.elf"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jflashtool" value=""/>
+      <Option name="org.coocox.codebugger.gdbjtag.coredebugInRam" value="0"/>
+      <Option name="org.coocox.codebugger.gdbjtag.core.jflashscript" value=""/>
+    </DebugOption>
+    <ExcludeFile>
+      <File name="ultrasonicsensor.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/ultrasonicsensor.c" type="1"/>
+      <File name="ultrasonicsensor.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/ultrasonicsensor.h" type="1"/>
+      <File name="i2cold.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/i2cold.c" type="1"/>
+      <File name="i2cold.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/i2cold.h" type="1"/>
+      <File name="sensorsold.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/system/sensorsold.c" type="1"/>
+      <File name="sensorsold.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/system/sensorsold.h" type="1"/>
+      <File name="motor.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/motor.c" type="1"/>
+      <File name="motor.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/motor.h" type="1"/>
+      <File name="barometric.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/barometric.c" type="1"/>
+      <File name="barometric.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/barometric.h" type="1"/>
+      <File name="gyroscope.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/gyroscope.c" type="1"/>
+      <File name="gyroscope.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/driver/gyroscope.h" type="1"/>
+      <File name="init.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/system/init.c" type="1"/>
+      <File name="init.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/system/init.h" type="1"/>
+      <File name="startup.c" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/control/startup.c" type="1"/>
+      <File name="startup.h" path="../../../../my documents/hlow-quadcopter/branches/mbed software/hlow-quadcopter/control/startup.h" type="1"/>
+    </ExcludeFile>
+  </Target>
+  <Components path="./">
+    <Component id="30" name="C Library" path="" type="2"/>
+    <Component id="31" name="Retarget printf" path="" type="2"/>
+    <Component id="50" name="CMSIS core" path="" type="2"/>
+    <Component id="51" name="CooCox OS" path="" type="2"/>
+    <Component id="253" name="CMSIS_boot" path="" type="2"/>
+    <Component id="254" name="Common_Header" path="" type="2"/>
+    <Component id="255" name="CLKPWR" path="" type="2"/>
+    <Component id="256" name="NVIC" path="" type="2"/>
+    <Component id="257" name="GPIO" path="" type="2"/>
+    <Component id="258" name="PINSEL" path="" type="2"/>
+    <Component id="261" name="SPI" path="" type="2"/>
+    <Component id="263" name="I2C" path="" type="2"/>
+    <Component id="266" name="PWM" path="" type="2"/>
+    <Component id="267" name="MCPWM" path="" type="2"/>
+    <Component id="270" name="ADC" path="" type="2"/>
+    <Component id="273" name="TIMER" path="" type="2"/>
+    <Component id="275" name="UART" path="" type="2"/>
+    <Component id="277" name="EXTI" path="" type="2"/>
+  </Components>
+  <Files>
+    <File name="Tasks/Heartbeat/Heartbeat.c" path="Tasks/Heartbeat/Heartbeat.c" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_serial.h" path="COX/COX_LPC1700/lpc_serial.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_rtc.h" path="COX/COX_Peripheral/cox_rtc.h" type="1"/>
+    <File name="General/util.c" path="General/util.c" type="1"/>
+    <File name="General/Taskmanager/Taskmanager.c" path="General/Taskmanager/Taskmanager.c" type="1"/>
+    <File name="Drivers/PWM/PWM.c" path="Drivers/PWM/PWM.c" type="1"/>
+    <File name="COX" path="" type="2"/>
+    <File name="Tasks/Debug/DebugTask.c" path="Tasks/Debug/DebugTask.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_exti.h" path="COX/COX_Peripheral/cox_exti.h" type="1"/>
+    <File name="Tasks/Main/MainTask.c" path="Tasks/Main/MainTask.c" type="1"/>
+    <File name="CoOS/kernel/OsServiceReq.h" path="CoOS/kernel/OsServiceReq.h" type="1"/>
+    <File name="Tasks" path="" type="2"/>
+    <File name="Drivers/Uart" path="" type="2"/>
+    <File name="Tasks/Logging/LoggingTask.c" path="Tasks/Logging/LoggingTask.c" type="1"/>
+    <File name="Tasks/Battery/BatteryTask.h" path="Tasks/Battery/BatteryTask.h" type="1"/>
+    <File name="CoOS/portable/GCC" path="" type="2"/>
+    <File name="syscalls/syscalls.c" path="syscalls/syscalls.c" type="1"/>
+    <File name="CoOS/kernel/task.c" path="CoOS/kernel/task.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_nvic.c" path="lpc17xx_lib/source/lpc17xx_nvic.c" type="1"/>
+    <File name="Tasks/Speed/SpeedTask.c" path="Tasks/Speed/SpeedTask.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_pinsel.c" path="lpc17xx_lib/source/lpc17xx_pinsel.c" type="1"/>
+    <File name="CoOS/portable/GCC/port.c" path="CoOS/portable/GCC/port.c" type="1"/>
+    <File name="Tasks/Heartbeat/Heartbeat.h" path="Tasks/Heartbeat/Heartbeat.h" type="1"/>
+    <File name="General/util.h" path="General/util.h" type="1"/>
+    <File name="Tasks/Distancetoground" path="" type="2"/>
+    <File name="lpc17xx_lib/include/lpc17xx_exti.h" path="lpc17xx_lib/include/lpc17xx_exti.h" type="1"/>
+    <File name="CoOS/kernel/OsKernelHeap.h" path="CoOS/kernel/OsKernelHeap.h" type="1"/>
+    <File name="cmsis_boot/startup/startup_LPC17xx.c" path="cmsis_boot/startup/startup_LPC17xx.c" type="1"/>
+    <File name="General/Taskmanager/Taskmanager.h" path="General/Taskmanager/Taskmanager.h" type="1"/>
+    <File name="CoOS/kernel/OsTime.h" path="CoOS/kernel/OsTime.h" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_gpio.c" path="lpc17xx_lib/source/lpc17xx_gpio.c" type="1"/>
+    <File name="CoOS/kernel" path="" type="2"/>
+    <File name="Drivers/MAG3110/MAG3110.c" path="Drivers/MAG3110/MAG3110.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_i2c_slave.h" path="COX/COX_Peripheral/cox_i2c_slave.h" type="1"/>
+    <File name="Drivers/PWM/PWM.h" path="Drivers/PWM/PWM.h" type="1"/>
+    <File name="CoOS/kernel/time.c" path="CoOS/kernel/time.c" type="1"/>
+    <File name="Drivers/Ultrasonic/Ultrasonic.c" path="Drivers/Ultrasonic/Ultrasonic.c" type="1"/>
+    <File name="stdio/printf.c" path="stdio/printf.c" type="1"/>
+    <File name="Interfaces" path="" type="2"/>
+    <File name="CoOS/portable/OsArch.h" path="CoOS/portable/OsArch.h" type="1"/>
+    <File name="General/Taskmanager" path="" type="2"/>
+    <File name="CoOS/kernel/OsCore.h" path="CoOS/kernel/OsCore.h" type="1"/>
+    <File name="Drivers/GPIO" path="" type="2"/>
+    <File name="CoOS/kernel/sem.c" path="CoOS/kernel/sem.c" type="1"/>
+    <File name="Drivers/PWM" path="" type="2"/>
+    <File name="CoOS/kernel/CoOS.h" path="CoOS/kernel/CoOS.h" type="1"/>
+    <File name="CoOS/kernel/OsQueue.h" path="CoOS/kernel/OsQueue.h" type="1"/>
+    <File name="Tasks/Battery/BatteryTask.c" path="Tasks/Battery/BatteryTask.c" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_pwm.h" path="COX/COX_LPC1700/lpc_pwm.h" type="1"/>
+    <File name="Tasks/Controller/ControllerTask.c" path="Tasks/Controller/ControllerTask.c" type="1"/>
+    <File name="Drivers/I2C" path="" type="2"/>
+    <File name="lpc17xx_lib/include/lpc17xx_mcpwm.h" path="lpc17xx_lib/include/lpc17xx_mcpwm.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_pinsel.h" path="lpc17xx_lib/include/lpc17xx_pinsel.h" type="1"/>
+    <File name="Drivers/BMP085" path="" type="2"/>
+    <File name="stdio" path="" type="2"/>
+    <File name="Drivers/WiiMotionPlus" path="" type="2"/>
+    <File name="COX/COX_LPC1700/lpc_adc.h" path="COX/COX_LPC1700/lpc_adc.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_nvic.h" path="lpc17xx_lib/include/lpc17xx_nvic.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_libcfg_default.h" path="lpc17xx_lib/include/lpc17xx_libcfg_default.h" type="1"/>
+    <File name="CoOS/kernel/mutex.c" path="CoOS/kernel/mutex.c" type="1"/>
+    <File name="Drivers/Ultrasonic/Ultrasonic.h" path="Drivers/Ultrasonic/Ultrasonic.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_spi.h" path="lpc17xx_lib/include/lpc17xx_spi.h" type="1"/>
+    <File name="Tasks/Debug/DebugTask.h" path="Tasks/Debug/DebugTask.h" type="1"/>
+    <File name="Drivers/MAG3110/MAG3110.h" path="Drivers/MAG3110/MAG3110.h" type="1"/>
+    <File name="Tasks/Motor" path="" type="2"/>
+    <File name="Tasks/Distancetoground/DistanceToGroundTask.c" path="Tasks/Distancetoground/DistanceToGroundTask.c" type="1"/>
+    <File name="cmsis_boot/system_LPC17xx.c" path="cmsis_boot/system_LPC17xx.c" type="1"/>
+    <File name="Controller" path="" type="2"/>
+    <File name="COX/COX_Peripheral/cox_adc.h" path="COX/COX_Peripheral/cox_adc.h" type="1"/>
+    <File name="COX/COX_Peripheral" path="" type="2"/>
+    <File name="CoOS/kernel/utility.h" path="CoOS/kernel/utility.h" type="1"/>
+    <File name="CoOS/kernel/flag.c" path="CoOS/kernel/flag.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_serial.h" path="COX/COX_Peripheral/cox_serial.h" type="1"/>
+    <File name="CoOS/kernel/mm.c" path="CoOS/kernel/mm.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_timer.c" path="lpc17xx_lib/source/lpc17xx_timer.c" type="1"/>
+    <File name="CoOS/kernel/OsError.h" path="CoOS/kernel/OsError.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_spi.h" path="COX/COX_Peripheral/cox_spi.h" type="1"/>
+    <File name="cmsis_boot/LPC17xx.h" path="cmsis_boot/LPC17xx.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_timer.h" path="lpc17xx_lib/include/lpc17xx_timer.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_i2c.h" path="lpc17xx_lib/include/lpc17xx_i2c.h" type="1"/>
+    <File name="cmsis" path="" type="2"/>
+    <File name="Tasks/Battery" path="" type="2"/>
+    <File name="CoOS/kernel/kernelHeap.c" path="CoOS/kernel/kernelHeap.c" type="1"/>
+    <File name="Drivers/Ultrasonic" path="" type="2"/>
+    <File name="cmsis_boot/system_LPC17xx.h" path="cmsis_boot/system_LPC17xx.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_adc.c" path="COX/COX_LPC1700/lpc_adc.c" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_pwm.h" path="lpc17xx_lib/include/lpc17xx_pwm.h" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_mcpwm.c" path="lpc17xx_lib/source/lpc17xx_mcpwm.c" type="1"/>
+    <File name="lpc17xx_lib/include" path="" type="2"/>
+    <File name="lpc17xx_lib/source/lpc17xx_i2c.c" path="lpc17xx_lib/source/lpc17xx_i2c.c" type="1"/>
+    <File name="Drivers/WiiMotionPlus/WiiMotionPlus.h" path="Drivers/WiiMotionPlus/WiiMotionPlus.h" type="1"/>
+    <File name="CoOS/kernel/serviceReq.c" path="CoOS/kernel/serviceReq.c" type="1"/>
+    <File name="Drivers/SDcard/SDcard.c" path="Drivers/SDcard/SDcard.c" type="1"/>
+    <File name="Drivers/GPIO/GPIO.c" path="Drivers/GPIO/GPIO.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_uart.c" path="lpc17xx_lib/source/lpc17xx_uart.c" type="1"/>
+    <File name="CoOS/kernel/coocox.h" path="CoOS/kernel/coocox.h" type="1"/>
+    <File name="main.c" path="main.c" type="1"/>
+    <File name="CoOS/kernel/utility.c" path="CoOS/kernel/utility.c" type="1"/>
+    <File name="CoOS/kernel/OsConfig.h" path="CoOS/kernel/OsConfig.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_pio.h" path="COX/COX_Peripheral/cox_pio.h" type="1"/>
+    <File name="Tasks/Distancetoground/DistanceToGroundTask.h" path="Tasks/Distancetoground/DistanceToGroundTask.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_pwm.h" path="COX/COX_Peripheral/cox_pwm.h" type="1"/>
+    <File name="Interfaces/Sensors/Sensors.c" path="Interfaces/Sensors/Sensors.c" type="1"/>
+    <File name="Drivers/Uart/Uart.c" path="Drivers/Uart/Uart.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_libcfg_default.c" path="lpc17xx_lib/source/lpc17xx_libcfg_default.c" type="1"/>
+    <File name="CoOS/kernel/queue.c" path="CoOS/kernel/queue.c" type="1"/>
+    <File name="cmsis_boot" path="" type="2"/>
+    <File name="Tasks/Motor/MotorTask.h" path="Tasks/Motor/MotorTask.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_lowlayer.h" path="COX/COX_LPC1700/lpc_lowlayer.h" type="1"/>
+    <File name="Drivers" path="" type="2"/>
+    <File name="lpc17xx_lib/include/lpc17xx_adc.h" path="lpc17xx_lib/include/lpc17xx_adc.h" type="1"/>
+    <File name="cmsis_boot/startup" path="" type="2"/>
+    <File name="Drivers/SDcard/SDcard.h" path="Drivers/SDcard/SDcard.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_i2c.h" path="COX/COX_LPC1700/lpc_i2c.h" type="1"/>
+    <File name="CoOS/kernel/OsTask.h" path="CoOS/kernel/OsTask.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_exti.c" path="COX/COX_LPC1700/lpc_exti.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_adc.c" path="lpc17xx_lib/source/lpc17xx_adc.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_dac.h" path="COX/COX_Peripheral/cox_dac.h" type="1"/>
+    <File name="Drivers/SDcard" path="" type="2"/>
+    <File name="lpc17xx_lib" path="" type="2"/>
+    <File name="Drivers/BMP085/BMP085.c" path="Drivers/BMP085/BMP085.c" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_definition.h" path="COX/COX_LPC1700/lpc_definition.h" type="1"/>
+    <File name="Drivers/ADC" path="" type="2"/>
+    <File name="Interfaces/Sensors/Sensors.h" path="Interfaces/Sensors/Sensors.h" type="1"/>
+    <File name="CoOS/kernel/timer.c" path="CoOS/kernel/timer.c" type="1"/>
+    <File name="Drivers/ADC/ADC.c" path="Drivers/ADC/ADC.c" type="1"/>
+    <File name="Tasks/Speed" path="" type="2"/>
+    <File name="cmsis/core_cm3.c" path="cmsis/core_cm3.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_tick.h" path="COX/COX_Peripheral/cox_tick.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_pwm.c" path="COX/COX_LPC1700/lpc_pwm.c" type="1"/>
+    <File name="Tasks/Heartbeat" path="" type="2"/>
+    <File name="CoOS/kernel/OsFlag.h" path="CoOS/kernel/OsFlag.h" type="1"/>
+    <File name="lpc17xx_lib/source" path="" type="2"/>
+    <File name="Drivers/GPIO/GPIO.h" path="Drivers/GPIO/GPIO.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_usb.h" path="COX/COX_Peripheral/cox_usb.h" type="1"/>
+    <File name="Drivers/MAG3110" path="" type="2"/>
+    <File name="Drivers/Uart/Uart.h" path="Drivers/Uart/Uart.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_exti.h" path="COX/COX_LPC1700/lpc_exti.h" type="1"/>
+    <File name="COX/COX_LPC1700/lpc_i2c.c" path="COX/COX_LPC1700/lpc_i2c.c" type="1"/>
+    <File name="COX/COX_Peripheral/cox_i2c.h" path="COX/COX_Peripheral/cox_i2c.h" type="1"/>
+    <File name="Tasks/Angle/AngleTask.h" path="Tasks/Angle/AngleTask.h" type="1"/>
+    <File name="Drivers/WiiMotionPlus/WiiMotionPlus.c" path="Drivers/WiiMotionPlus/WiiMotionPlus.c" type="1"/>
+    <File name="Tasks/Main" path="" type="2"/>
+    <File name="Tasks/Controller/ControllerTask.h" path="Tasks/Controller/ControllerTask.h" type="1"/>
+    <File name="Interfaces/Sensors" path="" type="2"/>
+    <File name="lpc17xx_lib/include/lpc17xx_clkpwr.h" path="lpc17xx_lib/include/lpc17xx_clkpwr.h" type="1"/>
+    <File name="Controller/Controller.c" path="Controller/Controller.c" type="1"/>
+    <File name="CoOS/kernel/OsMutex.h" path="CoOS/kernel/OsMutex.h" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_pwm.c" path="lpc17xx_lib/source/lpc17xx_pwm.c" type="1"/>
+    <File name="CoOS/kernel/OsTimer.h" path="CoOS/kernel/OsTimer.h" type="1"/>
+    <File name="General" path="" type="2"/>
+    <File name="CoOS/kernel/OsEvent.h" path="CoOS/kernel/OsEvent.h" type="1"/>
+    <File name="Interfaces/Actuators/Actuators.h" path="Interfaces/Actuators/Actuators.h" type="1"/>
+    <File name="CoOS/portable/arch.c" path="CoOS/portable/arch.c" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_uart.h" path="lpc17xx_lib/include/lpc17xx_uart.h" type="1"/>
+    <File name="Drivers/I2C/I2C.c" path="Drivers/I2C/I2C.c" type="1"/>
+    <File name="cmsis/core_cm3.h" path="cmsis/core_cm3.h" type="1"/>
+    <File name="Tasks/Motor/MotorTask.c" path="Tasks/Motor/MotorTask.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_clkpwr.c" path="lpc17xx_lib/source/lpc17xx_clkpwr.c" type="1"/>
+    <File name="CoOS/kernel/event.c" path="CoOS/kernel/event.c" type="1"/>
+    <File name="Tasks/Logging" path="" type="2"/>
+    <File name="Tasks/Logging/LoggingTask.h" path="Tasks/Logging/LoggingTask.h" type="1"/>
+    <File name="lpc17xx_lib/include/lpc17xx_gpio.h" path="lpc17xx_lib/include/lpc17xx_gpio.h" type="1"/>
+    <File name="Controller/Controller.h" path="Controller/Controller.h" type="1"/>
+    <File name="Tasks/Debug" path="" type="2"/>
+    <File name="Drivers/ADC/ADC.h" path="Drivers/ADC/ADC.h" type="1"/>
+    <File name="Controller/MotorControllerTask.h" path="Controller/MotorControllerTask.h" type="1"/>
+    <File name="COX/COX_LPC1700" path="" type="2"/>
+    <File name="Drivers/BMP085/BMP085.h" path="Drivers/BMP085/BMP085.h" type="1"/>
+    <File name="CoOS/kernel/mbox.c" path="CoOS/kernel/mbox.c" type="1"/>
+    <File name="CoOS/kernel/core.c" path="CoOS/kernel/core.c" type="1"/>
+    <File name="CoOS" path="" type="2"/>
+    <File name="Interfaces/Actuators/Actuators.c" path="Interfaces/Actuators/Actuators.c" type="1"/>
+    <File name="Tasks/Angle" path="" type="2"/>
+    <File name="Tasks/Angle/AngleTask.c" path="Tasks/Angle/AngleTask.c" type="1"/>
+    <File name="syscalls" path="" type="2"/>
+    <File name="COX/COX_LPC1700/lpc_lowlayer.c" path="COX/COX_LPC1700/lpc_lowlayer.c" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_spi.c" path="lpc17xx_lib/source/lpc17xx_spi.c" type="1"/>
+    <File name="CoOS/portable" path="" type="2"/>
+    <File name="Drivers/I2C/I2C.h" path="Drivers/I2C/I2C.h" type="1"/>
+    <File name="Tasks/Speed/SpeedTask.h" path="Tasks/Speed/SpeedTask.h" type="1"/>
+    <File name="CoOS/kernel/OsMM.h" path="CoOS/kernel/OsMM.h" type="1"/>
+    <File name="Interfaces/Actuators" path="" type="2"/>
+    <File name="CoOS/kernel/hook.c" path="CoOS/kernel/hook.c" type="1"/>
+    <File name="Tasks/Main/MainTask.h" path="Tasks/Main/MainTask.h" type="1"/>
+    <File name="Controller/MotorControllerTask.c" path="Controller/MotorControllerTask.c" type="1"/>
+    <File name="Tasks/Controller" path="" type="2"/>
+    <File name="COX/COX_LPC1700/lpc_serial.c" path="COX/COX_LPC1700/lpc_serial.c" type="1"/>
+    <File name="lpc17xx_lib/include/lpc_types.h" path="lpc17xx_lib/include/lpc_types.h" type="1"/>
+    <File name="COX/COX_Peripheral/cox_types.h" path="COX/COX_Peripheral/cox_types.h" type="1"/>
+    <File name="lpc17xx_lib/source/lpc17xx_exti.c" path="lpc17xx_lib/source/lpc17xx_exti.c" type="1"/>
+  </Files>
+</Project>

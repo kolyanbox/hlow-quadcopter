@@ -1,0 +1,6 @@
+19:51:33 **** Incremental Build of configuration Build (GNU) for project hlow quadcopter ****
+make all 
+make: *** No rule to make target 'all'.  Stop.
+
+19:51:34 Build Finished (took 494ms)
+

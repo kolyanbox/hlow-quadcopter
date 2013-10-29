@@ -1,0 +1,60 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../lpc17xx_lib/source/lpc17xx_adc.c \
+../lpc17xx_lib/source/lpc17xx_clkpwr.c \
+../lpc17xx_lib/source/lpc17xx_exti.c \
+../lpc17xx_lib/source/lpc17xx_gpio.c \
+../lpc17xx_lib/source/lpc17xx_i2c.c \
+../lpc17xx_lib/source/lpc17xx_libcfg_default.c \
+../lpc17xx_lib/source/lpc17xx_mcpwm.c \
+../lpc17xx_lib/source/lpc17xx_nvic.c \
+../lpc17xx_lib/source/lpc17xx_pinsel.c \
+../lpc17xx_lib/source/lpc17xx_pwm.c \
+../lpc17xx_lib/source/lpc17xx_spi.c \
+../lpc17xx_lib/source/lpc17xx_timer.c \
+../lpc17xx_lib/source/lpc17xx_uart.c 
+
+OBJS += \
+./lpc17xx_lib/source/lpc17xx_adc.o \
+./lpc17xx_lib/source/lpc17xx_clkpwr.o \
+./lpc17xx_lib/source/lpc17xx_exti.o \
+./lpc17xx_lib/source/lpc17xx_gpio.o \
+./lpc17xx_lib/source/lpc17xx_i2c.o \
+./lpc17xx_lib/source/lpc17xx_libcfg_default.o \
+./lpc17xx_lib/source/lpc17xx_mcpwm.o \
+./lpc17xx_lib/source/lpc17xx_nvic.o \
+./lpc17xx_lib/source/lpc17xx_pinsel.o \
+./lpc17xx_lib/source/lpc17xx_pwm.o \
+./lpc17xx_lib/source/lpc17xx_spi.o \
+./lpc17xx_lib/source/lpc17xx_timer.o \
+./lpc17xx_lib/source/lpc17xx_uart.o 
+
+C_DEPS += \
+./lpc17xx_lib/source/lpc17xx_adc.d \
+./lpc17xx_lib/source/lpc17xx_clkpwr.d \
+./lpc17xx_lib/source/lpc17xx_exti.d \
+./lpc17xx_lib/source/lpc17xx_gpio.d \
+./lpc17xx_lib/source/lpc17xx_i2c.d \
+./lpc17xx_lib/source/lpc17xx_libcfg_default.d \
+./lpc17xx_lib/source/lpc17xx_mcpwm.d \
+./lpc17xx_lib/source/lpc17xx_nvic.d \
+./lpc17xx_lib/source/lpc17xx_pinsel.d \
+./lpc17xx_lib/source/lpc17xx_pwm.d \
+./lpc17xx_lib/source/lpc17xx_spi.d \
+./lpc17xx_lib/source/lpc17xx_timer.d \
+./lpc17xx_lib/source/lpc17xx_uart.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+lpc17xx_lib/source/%.o: ../lpc17xx_lib/source/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross ARM C Compiler'
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\lpc17xx_lib\include" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\cmsis" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\cmsis_boot" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\CoOS\kernel" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\COX\COX_Peripheral" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\COX\COX_LPC1700" -I"D:\hlow-quadcopter\branches\mbed software\hlow-quadcopter\CoOS\portable" -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

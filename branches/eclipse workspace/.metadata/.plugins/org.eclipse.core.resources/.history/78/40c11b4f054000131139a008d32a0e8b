@@ -1,0 +1,24 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../Drivers/Ultrasonic/Ultrasonic.c 
+
+OBJS += \
+./Drivers/Ultrasonic/Ultrasonic.o 
+
+C_DEPS += \
+./Drivers/Ultrasonic/Ultrasonic.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+Drivers/Ultrasonic/%.o: ../Drivers/Ultrasonic/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross ARM C Compiler'
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
