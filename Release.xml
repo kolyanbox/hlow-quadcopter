@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="Assembly Source File">
+
+</language>
+<language name="C Source File">
+<includepath workspace_path="true">/quadcopter</includepath>
+<includepath workspace_path="true">/quadcopter/cmsis</includepath>
+<includepath workspace_path="true">/quadcopter/cmsis_boot</includepath>
+<includepath workspace_path="true">/quadcopter/lpc17xx_lib/include</includepath>
+<includepath workspace_path="true">/quadcopter/CoOS/kernel</includepath>
+<includepath workspace_path="true">/quadcopter/CoOS/portable</includepath>
+<includepath workspace_path="true">/quadcopter/COX/COX_LPC1700</includepath>
+<includepath workspace_path="true">/quadcopter/COX/COX_Peripheral</includepath>
+
+</language>
+<language name="C++ Source File">
+
+</language>
+<language name="Object File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="Assembly Source File">
+
+</language>
+<language name="C Source File">
+
+</language>
+<language name="C++ Source File">
+
+</language>
+<language name="Object File">
+
+</language>
+</section>
+</cdtprojectproperties>
