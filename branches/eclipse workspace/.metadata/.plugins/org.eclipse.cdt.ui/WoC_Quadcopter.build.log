@@ -1,9 +1,11 @@
-20:07:23 **** Incremental Build of configuration Debug for project WoC_Quadcopter ****
- all 
-Cannot run program "": Launching failed
+17:36:12 **** Build of configuration Debug for project WoC_Quadcopter ****
+make all 
+Building file: ../lpc17xx_lib/source/lpc17xx_adc.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -MMD -MP -MF"lpc17xx_lib/source/lpc17xx_adc.d" -MT"lpc17xx_lib/source/lpc17xx_adc.d" -c -o "lpc17xx_lib/source/lpc17xx_adc.o" "../lpc17xx_lib/source/lpc17xx_adc.c"
+../lpc17xx_lib/source/lpc17xx_adc.c:26:25: fatal error: lpc17xx_adc.h: No such file or directory
+compilation terminated.
+make: *** [lpc17xx_lib/source/lpc17xx_adc.o] Error 1
 
-Error: Program "" not found in PATH
-PATH=[C:\Program Files (x86)\GNU Tools ARM Embedded\4.7 2013q3\bin;C:/Program Files (x86)/Java/jre7/bin/client;C:/Program Files (x86)/Java/jre7/bin;C:/Program Files (x86)/Java/jre7/lib/i386;C:\Program Files (x86)\Java\jdk1.7.0_04;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\x64\;C:\Program Files\Symantec\Symantec Endpoint Encryption Clients\;C:\CooCox\CoIDE\gcc\bin;C:\Program Files\doxygen\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\sbt\;C:\MinGW\bin;C:\Program Files (x86)\CodeSourcery\Sourcery G++ Lite\bin;D:\hlowquadcoptereclipse\eclipse]
-
-20:07:23 Build Finished (took 551ms)
+17:36:18 Build Finished (took 5s.830ms)
 
