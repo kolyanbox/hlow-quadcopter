@@ -1,0 +1,14 @@
+#Environment setup
+
+= Introduction =
+
+This wiki describes how to set up the environment.
+
+
+= Details =
+
+When developing on a windows system:
+- Download mingw from: http://www.mingw.org/category/wiki/download
+- Set the path variable in you system variabled to the following folder: C:\MinGW\msys\1.0\bin\
+- download and install the arm toolchain on: https://launchpad.net/gcc-arm-embedded/+download
+
