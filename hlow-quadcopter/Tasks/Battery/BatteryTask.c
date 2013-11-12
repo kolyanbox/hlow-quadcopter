@@ -50,7 +50,7 @@ void BatteryTask (void* pdata)
 
 	for(;;)
 	{
-		battery = getCurrentBatteryStatus();
+//		battery = getCurrentBatteryStatus();
 		CoTimeDelay(0,0,0,50);
 	}
 }
