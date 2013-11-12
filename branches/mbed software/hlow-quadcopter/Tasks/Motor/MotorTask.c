@@ -78,10 +78,10 @@ void MotorTask (void* pdata)
 
 	for(;;)
 	{
-		setSpeedBack(speedMotorBack);
-		setSpeedFront(speedMotorFront);
-		setSpeedLeft(speedMotorLeft);
-		setSpeedRight(speedMotorRight);
+//		setSpeedBack(speedMotorBack);
+//		setSpeedFront(speedMotorFront);
+//		setSpeedLeft(speedMotorLeft);
+//		setSpeedRight(speedMotorRight);
 		CoTimeDelay(0,0,0,500);
 	}
 }

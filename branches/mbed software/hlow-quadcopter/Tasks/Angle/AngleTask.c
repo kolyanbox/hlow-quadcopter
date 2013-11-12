@@ -66,7 +66,12 @@ void AngleTask (void* pdata)
 	semAngleX = CoCreateSem(0,1,EVENT_SORT_TYPE_FIFO);
 
 	uint16_t value = 0;
-
+	uint16_t movingAveragey[10];
+	int i = 0;
+	for (i = 0; i < 9; i++) {
+		movingAveragey[i] = 0;
+	}
+	i = 0;
 	//register angle app in cli
 	registerInterface(commandGetAngle,getAngle);
 
@@ -76,7 +81,24 @@ void AngleTask (void* pdata)
 		Itoa(value, Anglex, 10);
 
 		value = (getCurrentAngle(Y) - 1094) / 10.90556;
+		movingAveragey[i] = value;
+		i++;
+		if (i> 9)
+		{
+			i=0;
+		}
+		int j = 0;
+		int tempVal = 0;
+		for(j=0;j<9;j++)
+		{
+			tempVal+= movingAveragey[j];
+		}
+		value = tempVal/10;
+
 		Itoa(value, Angley, 10);
+
+
+
 
 		value = getCurrentAngle(Z);
 		Itoa(value, Anglez, 10);
