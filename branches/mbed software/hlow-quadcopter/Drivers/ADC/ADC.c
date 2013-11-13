@@ -50,12 +50,23 @@ Bool ADC_init()
 	return TRUE;
 }
 
+uint16_t getADC3()
+{
+	uint16_t adc_value;
+	ADC_IntConfig(LPC_ADC,ADC_ADINTEN3,RESET);
+	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,ENABLE);
+	while (!(ADC_ChannelGetStatus(LPC_ADC,ADC_CHANNEL_3,ADC_DATA_DONE)));
+	adc_value = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3);
+	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,DISABLE);
+	return adc_value;
+}
+
 uint16_t getADC(int channel)
 {
 	uint16_t adc_value;
 	uint16_t adc_value1;
 	uint16_t adc_value2;
-	uint16_t adc_value3;
+
 
 	// Start conversion
 	ADC_StartCmd(LPC_ADC,ADC_START_NOW);
@@ -78,12 +89,6 @@ uint16_t getADC(int channel)
 	adc_value2 = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
 	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_0,DISABLE);
 
-	ADC_IntConfig(LPC_ADC,ADC_ADINTEN3,RESET);
-	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,ENABLE);
-	while (!(ADC_ChannelGetStatus(LPC_ADC,ADC_CHANNEL_3,ADC_DATA_DONE)));
-	adc_value3 = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3);
-	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_3,DISABLE);
-
 	if (channel == 0)
 	{
 		return adc_value;
@@ -95,10 +100,6 @@ uint16_t getADC(int channel)
 	if (channel == 2)
 	{
 		return adc_value2;
-	}
-	if (channel == 3)
-	{
-		return adc_value3;
 	}
 	else
 	{
