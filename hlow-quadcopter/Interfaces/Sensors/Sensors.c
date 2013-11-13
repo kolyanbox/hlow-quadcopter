@@ -198,7 +198,7 @@ int getCurrentAngle(enum Axle axle)
 
 int getCurrentBatteryStatus()
 {
-	return getADC(3);
+	return getADC3();
 }
 
 int getCurrentHeightInCm()
