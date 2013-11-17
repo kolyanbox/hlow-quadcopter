@@ -206,13 +206,18 @@ int getCurrentHeightInCm()
 	return getDistanceToGround();
 }
 
-float getRotationAroundAxle(enum Axle axle)
+float* getRotationAroundAxle()
 {
 	CoEnterMutexSection(I2CMutex);
 	gyroscope_get();
-	float f = gyroscope_get_value(axle);
+	float *f = gyroscope_get_value();
+
+	float fcopy[3];
+	fcopy[0] = f[0];
+	fcopy[1] = f[1];
+	fcopy[2] = f[2];
 	CoLeaveMutexSection(I2CMutex);
-	return f;
+	return fcopy;
 }
 
 //Only use this method in startup sequence
