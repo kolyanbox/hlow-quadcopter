@@ -6,9 +6,7 @@
 char commandSpeed[] = {"getspeed"};
 char wrongCommandSpeed[] = {"Not a valid command!\ncommand should have value x, y or z."};
 
-float Speedx;
-float Speedy;
-float Speedz;
+float speed[3];
 char retVal[15];
 #define SpeedStackSize 128
 OS_STK	Speed_stk[SpeedStackSize];
@@ -35,17 +33,17 @@ char * printInfoSpeed(int argc, char *args[])
 	char z[] = {"z"};
 	if (Strcmp(args[0],x) == 0)
 	{
-		Ftoa(Speedx, retVal,5,'f');
+		Ftoa(speed[X], retVal,5,'f');
 		return retVal;
 	}
 	else if (Strcmp(args[0],y) == 0)
 	{
-		Ftoa(Speedy, retVal,5,'f');
+		Ftoa(speed[Y], retVal,5,'f');
 		return retVal;
 	}
 	else if (Strcmp(args[0],z) == 0)
 	{
-		Ftoa(Speedz, retVal,5,'f');
+		Ftoa(speed[Z], retVal,5,'f');
 		return retVal;
 	}
 	return wrongCommandSpeed;
@@ -58,9 +56,26 @@ void SpeedTask (void* pdata)
 
 	for(;;)
 	{
-		Speedx = getRotationAroundAxle(X);
-		Speedy = getRotationAroundAxle(Y);
-		Speedz = getRotationAroundAxle(Z);
-		CoTimeDelay(0,0,0,10);
+		float *f = getRotationAroundAxle();
+
+		speed[X] = f[X];
+		speed[Y] = f[Y];
+		speed[Z] = f[Z];
+
+		char speedChar[5];
+		Ftoa(speed[X],speedChar,1,'f');
+		WriteDebugInfo(speedChar);
+		WriteDebugInfo(",");
+
+		Ftoa(speed[Y],speedChar,1,'f');
+		WriteDebugInfo(speedChar);
+		WriteDebugInfo(",");
+
+		Ftoa(speed[Z],speedChar,1,'f');
+		WriteDebugInfo(speedChar);
+		WriteDebugInfo("\r\n");
+
+
+		CoTimeDelay(0,0,0,50);
 	}
 }

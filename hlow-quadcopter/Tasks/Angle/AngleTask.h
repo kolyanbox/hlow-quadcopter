@@ -8,6 +8,8 @@
 #include <Interfaces/Sensors/Sensors.h>
 #include <General/Taskmanager/Taskmanager.h>
 
+#include <General/Filter/Filter.h>
+
 taskDef getAngleTaskDefenition();
 void AngleTask (void* pdata);
 char * getAngle(int argc, char *args[]);

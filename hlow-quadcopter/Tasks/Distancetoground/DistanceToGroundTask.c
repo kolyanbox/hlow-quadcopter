@@ -72,6 +72,6 @@ void DistanceToGroundTask (void* pdata)
 		Ftoa(distanceToGround,distanceToGroundVal,5,'f');
 		Ftoa(distanceToGroundSeaLevel,distanceToGroundSeaLevelVal,5,'f');
 
-		CoTimeDelay(0,0,0,50);
+		CoTimeDelay(0,0,1,0);
 	}
 }

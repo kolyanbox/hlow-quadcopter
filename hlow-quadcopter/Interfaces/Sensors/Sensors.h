@@ -26,7 +26,7 @@ Bool sensorInitialization(enum SensorType sensorType);
 int getCurrentAngle(enum Axle axle);
 int getCurrentBatteryStatus();
 int getCurrentHeightInCm();
-float getRotationAroundAxle(enum Axle axle);
+float* getRotationAroundAxle();
 long getCurrentTemperature();
 long getCurrentPressure();
 float calculateCurrentPressureAtSeaLevel(float currentAltitude);
