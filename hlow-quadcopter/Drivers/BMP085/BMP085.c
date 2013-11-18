@@ -71,13 +71,6 @@ Bool writeDataBmp085(uint8_t addres, uint8_t transmitData)
 {
 	uint8_t BMP085_TxBuffer[2] = {addres, transmitData};
 
-	uint8_t rxBuffer[4];
-		rxBuffer[0] = 0;
-		rxBuffer[1] = 0;
-		rxBuffer[2] = 0;
-		rxBuffer[3] = 0;
-
-
 	/* Transmit -------------------------------------------------------- */
 	/* Start I2C slave device first */
 	transferMCfg.sl_addr7bit = 0b1110111;
@@ -104,18 +97,10 @@ void callbackGetUt()
 
 long getUtBMP085(uint8_t transmitMessage)
 {
-	long i = 0;
-	while(i<100000)
-	{
-		i++;
-	}
+	CoTimeDelay(0,0,0,5);
 	writeDataBmp085(0xF4, 0x2E);
 	//wait 4.5ms
-	i = 0;
-	while(i<1000000)
-	{
-		i++;
-	}
+	CoTimeDelay(0,0,0,5);
 
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };
 
@@ -174,11 +159,7 @@ long getUpBMP085(uint8_t transmitMessage)
 	uint8_t transmitData = 0x34;
 	transmitData += oss<<6;
 	writeDataBmp085(0xF4, transmitData);
-	long i = 0;
-	while(i<1000000)
-	{
-		i++;
-	}
+	CoTimeDelay(0,0,0,5);
 
 	oss1 = oss;
 	uint8_t BMP085_TxBuffer[1] = { transmitMessage };

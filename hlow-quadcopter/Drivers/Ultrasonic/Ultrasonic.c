@@ -52,8 +52,8 @@ Bool initializeUltrasonicSensor(void)
 	/* Start timer 0 */
 	TIM_Cmd(LPC_TIM0, DISABLE);
 
-	CoPostSem(distanceSem);
 	return TRUE;
+	CoPostSem(distanceSem);
 }
 
 int EXTINT_eint0 (void)

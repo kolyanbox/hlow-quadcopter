@@ -89,20 +89,6 @@ void SpeedTask (void* pdata)
 			i=0;
 		}
 
-		char speedChar[5];
-		Ftoa(speed[X],speedChar,1,'f');
-		WriteDebugInfo(speedChar);
-		WriteDebugInfo(",");
-
-		Ftoa(speed[Y],speedChar,1,'f');
-		WriteDebugInfo(speedChar);
-		WriteDebugInfo(",");
-
-		Ftoa(speed[Z],speedChar,1,'f');
-		WriteDebugInfo(speedChar);
-		WriteDebugInfo("\r\n");
-
-
 		CoTimeDelay(0,0,0,50);
 	}
 }

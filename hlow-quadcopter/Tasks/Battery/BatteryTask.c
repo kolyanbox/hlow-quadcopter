@@ -21,12 +21,15 @@ taskDef getBatteryTaskDefenition()
 	return t;
 }
 
+char returnValue[200];
 char * getBattery(int argc, char *args[])
 {
+	returnValue[0] = 0;
+
 	//3936 = 100% = 4,17V
 	char c[10];
 	Itoa(battery, c, 10);
-	char returnValue[200] = {"Current value: "};
+	Strcat(returnValue, "Current value: ");
 	Strcat(returnValue, c);
 
 	Strcat(returnValue, "\n\rPercent: ");
