@@ -125,36 +125,38 @@ void callback() {
 	data[2] -= 8000;
 	data[2] /= 13.768;
 
+	if (!rxBuffer[3] & 0x01) {
+		return;
+	}
+
 	//detect if we ever went into fast mode
-	Bool fastdiscard = !(rxBuffer[3] & 0x02 && rxBuffer[4] & 0x02
-			&& rxBuffer[3] & 0x01);
+	Bool fastdiscard = !((rxBuffer[3] & 0x02) && (rxBuffer[4] & 0x02));
 	if (fastdiscard) {
-//		if (CoPendSem(wiiMotionPlusSensorSem, 10) == E_OK) {
-			gyrodata[0] = data[0]*2000/440;
-			gyrodata[1] = data[1]*2000/440;
-			gyrodata[2] = data[2]*2000/440;
-//			CoPostSem(wiiMotionPlusSensorSem);
-//		}
+		if (CoPendSem(wiiMotionPlusSensorSem, 10) == E_OK) {
+			gyrodata[0] = data[0] * 2000 / 440;
+			gyrodata[1] = data[1] * 2000 / 440;
+			gyrodata[2] = data[2] * 2000 / 440;
+			CoPostSem(wiiMotionPlusSensorSem);
+		}
 	} else {
-//		if (CoPendSem(wiiMotionPlusSensorSem, 10) == E_OK) {
+
+		if (CoPendSem(wiiMotionPlusSensorSem, 10) == E_OK) {
+
 			gyrodata[0] = data[0];
 			gyrodata[1] = data[1];
 			gyrodata[2] = data[2];
-//			CoPostSem(wiiMotionPlusSensorSem);
-//		}
+			CoPostSem(wiiMotionPlusSensorSem);
+		}
 	}
 }
 
+float data[3];
 float* gyroscope_get_value() {
-	float data[3];
+
 	if (CoPendSem(wiiMotionPlusSensorSem, 10) == E_OK) {
 		data[0] = gyrodata[0];
 		data[1] = gyrodata[1];
 		data[2] = gyrodata[2];
-//		char c[5];
-//		Ftoa(data[0],c,1,'f');
-//		WriteDebugInfo(c);
-//		WriteDebugInfo("<<");
 		CoPostSem(wiiMotionPlusSensorSem);
 	}
 	return data;

@@ -9,6 +9,7 @@ char wrongCommandSpeed[] = {"Not a valid command!\ncommand should have value x, 
 float speed[3];
 char retVal[15];
 #define SpeedStackSize 128
+#define FILTERARGUMENTS 3
 OS_STK	Speed_stk[SpeedStackSize];
 
 taskDef t;
@@ -54,6 +55,19 @@ void SpeedTask (void* pdata)
 	//register angle app in cli
 	registerInterface(commandSpeed,printInfoSpeed);
 
+	float dataX[FILTERARGUMENTS];
+	float dataY[FILTERARGUMENTS];
+	float dataZ[FILTERARGUMENTS];
+
+	int i;
+	for(i=0;i<FILTERARGUMENTS-1;i++)
+	{
+		dataX[i]=0;
+		dataY[i]=0;
+		dataZ[i]=0;
+	}
+	i=0;
+
 	for(;;)
 	{
 		float *f = getRotationAroundAxle();
@@ -61,6 +75,19 @@ void SpeedTask (void* pdata)
 		speed[X] = f[X];
 		speed[Y] = f[Y];
 		speed[Z] = f[Z];
+
+		dataX[i] = speed[X];
+		dataY[i] = speed[Y];
+		dataZ[i] = speed[Z];
+
+		speed[X] = lowPassFilter(dataX,FILTERARGUMENTS);
+		speed[Y] = lowPassFilter(dataY,FILTERARGUMENTS);
+		speed[Z] = lowPassFilter(dataZ,FILTERARGUMENTS);
+		i++;
+		if (i == FILTERARGUMENTS)
+		{
+			i=0;
+		}
 
 		char speedChar[5];
 		Ftoa(speed[X],speedChar,1,'f');
