@@ -233,9 +233,10 @@ void writeLog(unsigned char ucAppId, unsigned char *uacLogMessage, loglevels log
      }
 }
 
+char returnValue[(LOG_MAX_APP_NAME + 13)* LOG_APP_AMOUNT];
 char * cmd_printLogTable(int argc, char *args[])
 {
-	char returnValue[(LOG_MAX_APP_NAME + 13)* LOG_APP_AMOUNT];
+
 	returnValue[0] = '\0';
     unsigned char i = 0;
     char cSlotNumber[2];
