@@ -1,9 +1,6 @@
 the quadcopter will only recognise unsigned chars )numbers from 0 -255. baudrate is 9600.
 No parity bit will be send and only 1 stop bit.
 
-msb lsb
-11111111
-
 When sending messages to the quadcopter it atleast has the common message. every message will end with a 0x0a and/ or 0x0d (\n\r)
 
 
@@ -29,7 +26,7 @@ message types:
 Sending commands:
 || 0000 || sensor initialisation ||
 || 0001 || kill task ||
-|| 0010 ||  ||
+|| 0010 || get running tasks  information ||
 || 0011 ||  ||
 || 0100 ||  ||
 || 0101 ||  ||
@@ -42,7 +39,7 @@ Sending commands:
 || 1100 ||  ||
 || 1101 ||  ||
 || 1110 ||  ||
-|| 1111 || immergancy stop ||
+|| 1111 || emergency stop ||
 
 Requesting telemetry data:
 || 0000 || distance to ground ||
@@ -60,4 +57,8 @@ Requesting telemetry data:
 || 1100 ||  ||
 || 1101 ||  ||
 || 1110 ||  ||
-|| 1111 || immergancy stop ||
+|| 1111 || emergency stop ||
+
+message examples:
+|| 1 || 0001 || 11 || 1 || 111111 || 00 ||
+|| send a command || kill a task || first part of payload (11) || message is extended || second part of payload (111111) || message don't have any more bytes ||
