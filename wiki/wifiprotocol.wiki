@@ -24,7 +24,7 @@ Extended message:
 
 message types:
 Sending commands:
-|| 0000 || sensor initialisation ||
+|| 0000 || initialisation ||
 || 0001 || kill task ||
 || 0010 || get running tasks  information ||
 || 0011 ||  ||
@@ -62,3 +62,9 @@ Requesting telemetry data:
 message examples:
 || 1 || 0001 || 11 || 1 || 111111 || 00 ||
 || send a command || kill a task || first part of payload (11) || message is extended || second part of payload (111111) || message don't have any more bytes ||
+
+Payload:
+|| command || payload || description ||
+|| initialisation || 11111111 || When a bit is 1 it means that the sensor should be initialised. 0 means that is shouldn't be initialised. bit 1 (msb): initialise distance to ground sensor, bit 2: initialise speed sendor, bit 3: initialise angle sensor, bit 4: initialise compass, bit 5: initialise gps bit 6: start motor at startup, bit 7/8 when 00 start motors for 1 second when 01 start motors for 5 seconds when 10 start motor for 10 seconds when 11 start motors for 15 seconds || 
+|| kill task || 11111111 || kills the task which has the given id ||
+|| get running tasks information || xx || No payload required ||
