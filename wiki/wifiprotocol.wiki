@@ -68,3 +68,13 @@ Payload:
 || initialisation || 11111111 || When a bit is 1 it means that the sensor should be initialised. 0 means that is shouldn't be initialised. bit 1 (msb): initialise distance to ground sensor, bit 2: initialise speed sendor, bit 3: initialise angle sensor, bit 4: initialise compass, bit 5: initialise gps bit 6: start motor at startup, bit 7/8 when 00 start motors for 1 second when 01 start motors for 5 seconds when 10 start motor for 10 seconds when 11 start motors for 15 seconds || 
 || kill task || 11111111 || kills the task which has the given id ||
 || get running tasks information || xx || No payload required ||
+|| emergency stop || xx || No payload required ||
+
+|| request telemetry || payload || description ||
+|| distance to ground || 11 || 00 means that the distance from take off point to the current height will be requested. 01 means that the current height to the ground will be returned ||
+|| battery status || xx || no payload required ||
+|| angle || 11 || when 00 request angle of axle x, when 01 request angle of axle y, when 10 request angle axle z ||
+|| speed 11 || when 00 request speed of axle x, when 01 request speed of axle y, when 10 request speed axle z ||
+|| gps position || xx || request gps position. No payload required ||
+|| compass || when 00 request compass value of axle x, when 01 request compass value of axle y, when 10 request compass value axle z ||
+|| emergency stop || xx || No payload required ||
