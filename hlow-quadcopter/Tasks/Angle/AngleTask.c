@@ -14,7 +14,7 @@ char Anglex[5];
 char Angley[5];
 char Anglez[5];
 
-#define MOVINGAVERAGESAMPLES 15
+#define MOVINGAVERAGESAMPLES 8
 
 #define AngleStackSize 128
 OS_STK Angle_stk[AngleStackSize];

@@ -120,9 +120,9 @@ int getDistanceToGround(void)
 {
 	startMeasureDistanceToGround();
 	int distanceToSend = -1;
-	//if (CoPendSem(distanceSem,1) == E_OK){
+	if (CoPendSem(distanceSem,1) == E_OK){
 		distanceToSend = distance;
-	//	CoPostSem(distanceSem);
-	//}
+		CoPostSem(distanceSem);
+	}
 	return distanceToSend;
 }

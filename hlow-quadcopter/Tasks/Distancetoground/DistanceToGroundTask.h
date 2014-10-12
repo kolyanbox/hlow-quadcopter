@@ -7,6 +7,7 @@
 #include <Tasks/Debug/DebugTask.h>
 #include <Interfaces/Sensors/Sensors.h>
 #include <General/Taskmanager/Taskmanager.h>
+#include <General/Filter/Filter.h>
 
 taskDef getDistanceTaskDefenition();
 

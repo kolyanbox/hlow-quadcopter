@@ -87,7 +87,7 @@ void ControllerTask(void* pdata) {
 		float error = setpoint - input;
 		integral = integral + error * dt;
 		float derivative = (error - previousError) / dt;
-		float output = kp * error; //+ki*integral+kd*derivative;
+		float output = kp * error +ki*integral+kd*derivative;
 		previousError = error;
 
 		char c[10];
